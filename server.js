@@ -3,21 +3,23 @@ const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
 
+
+// Bun 会自动嵌入整个 docs 目录下所有文件（包括 assets/ 里的 js、css、图片等）
+import "./docs/index.html";
+
 const app = express();
 
-// 1. 跨平台自动打开浏览器函数
 function openUrl(url) {
     const start = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start ""' : 'xdg-open';
     exec(`${start} "${url}"`);
 }
 
-// 2. 获取局域网 IP
 function getLocalIp() {
     const interfaces = os.networkInterfaces();
     for (let devName in interfaces) {
-        let iface = interfaces[devName];
+        const iface = interfaces[devName];
         for (let i = 0; i < iface.length; i++) {
-            let alias = iface[i];
+            const alias = iface[i];
             if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
                 return alias.address;
             }
@@ -26,28 +28,39 @@ function getLocalIp() {
     return 'localhost';
 }
 
-// 3. 核心：静态资源拦截器（实现单文件嵌入的关键）
-app.get('/:path*', async (req, res) => {
-    // 处理请求路径，默认为 index.html
-    let reqPath = req.path === '/' ? '/index.html' : req.path;
+// 静态资源服务（现在能正常工作了！）
+app.use(async (req, res, next) => {
+    let requestedPath = req.path;
 
-    // 这里的路径必须在构建时能找到对应的 docs 目录
-    // Bun 编译时会自动将 Bun.file 引用的静态资源打包进去
-    const filePath = path.join(__dirname, "docs", reqPath);
+    // 根路径处理
+    if (requestedPath === '/' || requestedPath === '') {
+        requestedPath = '/index.html';
+    }
+
+    const filePath = "./docs" + requestedPath;
     const file = Bun.file(filePath);
+    const exists = await file.exists();
 
-    if (await file.exists()) {
-        res.type(file.type);
-        res.send(Buffer.from(await file.arrayBuffer()));
+    if (exists) {
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        // 设置正确的 Content-Type
+        const type = file.type || 'application/octet-stream';
+        res.setHeader('Content-Type', type);
+
+        res.send(buffer);
     } else {
-        // Vue History 模式支持：找不到的文件指向 index.html
-        const indexFile = Bun.file(path.join(__dirname, "docs", "index.html"));
-        res.type('text/html');
-        res.send(Buffer.from(await indexFile.arrayBuffer()));
+        // SPA fallback
+        const indexFile = Bun.file("./docs/index.html");
+        const arrayBuffer = await indexFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        res.setHeader('Content-Type', 'text/html');
+        res.send(buffer);
     }
 });
 
-// 4. 启动服务器（随机端口）
 const server = app.listen(0, '0.0.0.0', () => {
     const { port } = server.address();
     const url = `http://localhost:${port}`;

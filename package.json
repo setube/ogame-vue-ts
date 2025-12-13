@@ -6,12 +6,13 @@
   "author": "setube",
   "private": true,
   "version": "1.1.0",
-  "buildDate": "2025/12/13 11:11:17",
+  "buildDate": "2025/12/13 14:49:22",
   "type": "module",
   "scripts": {
     "dev": "vite --port 25121",
     "build": "vue-tsc -b && vite build && node update-build-date.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-pkg:windows": "bun build ./server.js --compile --minify --outfile ogame.exe"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
