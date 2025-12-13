@@ -1,7 +1,7 @@
 const express = require('express');
-const path = require('path');
-const open = require('open'); // 需要安装: npm install open express
-const os = require('os');
+const path = require('node:path');
+const open = require('open');
+const os = require('node:os');
 
 const app = express();
 const HOST = '0.0.0.0';
