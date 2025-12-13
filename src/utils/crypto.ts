@@ -5,8 +5,7 @@ import pkg from '../../package.json'
 export const encryptData = (data: any): string => {
   try {
     const jsonStr = JSON.stringify(data)
-    const encrypted = CryptoJS.AES.encrypt(jsonStr, pkg.name).toString()
-    return encrypted
+    return CryptoJS.AES.encrypt(jsonStr, pkg.name).toString()
   } catch (error) {
     console.error(error)
   }

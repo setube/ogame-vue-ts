@@ -6,12 +6,13 @@
   "author": "setube",
   "private": true,
   "version": "1.1.0",
-  "buildDate": "2025/12/13 11:11:17",
+  "buildDate": "2025/12/13 14:49:22",
   "type": "module",
   "scripts": {
     "dev": "vite --port 25121",
     "build": "vue-tsc -b && vite build && node update-build-date.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-pkg:windows": "bun build ./server.js --compile --embed --minify --outfile ogame.exe"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
@@ -45,7 +46,10 @@
   "pnpm": {
     "overrides": {
       "vite": "npm:rolldown-vite@7.2.5"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "vue-demi"
+    ]
   },
   "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

@@ -37,7 +37,7 @@ OGame Vue TS 是一款受经典 OGame 游戏启发的单机版、基于浏览器
 
 - **前端框架:** [Vue 3](https://vuejs.org/) + Composition API (`<script setup>` 语法)
 - **开发语言:** [TypeScript](https://www.typescriptlang.org/) (启用严格类型检查)
-- **构建工具:** [Vite](https://vitejs.dev/) (自定义 Rolldown-Vite 7.2.5)
+- **构建工具:** [Vite](https://vitejs.dev/) (自定义 Rolldown-Vite 7.2.5)、[Golang](https://golang.org/)(构建多平台兼容的二进制可执行文件)
 - **状态管理:** [Pinia](https://pinia.vuejs.org/) + 持久化插件
 - **路由管理:** [Vue Router 4](https://router.vuejs.org/)
 - **UI 组件:** [shadcn-vue](https://www.shadcn-vue.com/) (New York 风格)
@@ -47,6 +47,17 @@ OGame Vue TS 是一款受经典 OGame 游戏启发的单机版、基于浏览器
 - **国际化:** 自定义 i18n 实现
 
 ## 快速开始
+
+### 下载构建版本
+[Windows](https://github.com/coolxitech/ogame-vue-ts/releases/latest/download/ogame-windows-amd64.exe)
+
+[Linux amd64](https://github.com/coolxitech/ogame-vue-ts/releases/latest/download/ogame-linux-amd64)
+
+[Linux arm64](https://github.com/coolxitech/ogame-vue-ts/releases/latest/download/ogame-linux-arm64)
+
+[MacOS Intel](https://github.com/coolxitech/ogame-vue-ts/releases/latest/download/ogame-macos-amd64)
+
+[MacOS](https://github.com/coolxitech/ogame-vue-ts/releases/latest/download/ogame-macos-arm64)
 
 ### 环境要求
 

@@ -1,0 +1,121 @@
+name: 构建多平台可执行程序
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build for ${{ matrix.os }} (${{ matrix.goarch }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          # Windows x64
+          - os: windows-latest
+            executable: ogame-windows-amd64.exe
+            goos: windows
+            goarch: amd64
+          # Linux x64
+          - os: ubuntu-latest
+            executable: ogame-linux-amd64
+            goos: linux
+            goarch: amd64
+          # Linux ARM64 (如树莓派、高性能 ARM 服务器)
+          - os: ubuntu-latest
+            executable: ogame-linux-arm64
+            goos: linux
+            goarch: arm64
+          # macOS Apple Silicon (M1/M2/M3 芯片)
+          - os: macos-latest
+            executable: ogame-macos-arm64
+            goos: darwin
+            goarch: arm64
+          # macOS Intel
+          - os: macos-latest
+            executable: ogame-macos-amd64
+            goos: darwin
+            goarch: amd64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1. 设置 Bun 环境构建 Vue 前端
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      # 2. 设置 Go 环境
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      # 3. 获取版本号
+      - name: Get version
+        id: get_version
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Install Dependencies
+        run: bun install
+
+      # 4. 执行前端打包，生成 docs 目录
+      - name: Build Vue Frontend
+        run: bun run build
+
+      # 5. Go 交叉编译
+      - name: Compile Single Executable
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        shell: bash # 强制指定使用 bash，解决 Windows 下的语法错误
+        run: |
+          # 初始化 go.mod (如果不存在)
+          if [ ! -f go.mod ]; then
+            go mod init ogame-app
+          fi
+          
+          # 整理依赖（确保编译环境干净）
+          go mod tidy
+          
+          # 编译命令，保留控制台
+          go build -ldflags="-s -w" -o ${{ matrix.executable }} main.go
+
+      # 6. 上传构建产物
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.executable }}
+          path: ${{ matrix.executable }}
+
+    outputs:
+      app_version: ${{ steps.get_version.outputs.VERSION }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.build.outputs.app_version }}
+          name: Release ${{ needs.build.outputs.app_version }}
+          files: |
+            ogame-windows-amd64.exe/ogame-windows-amd64.exe
+            ogame-linux-amd64/ogame-linux-amd64
+            ogame-linux-arm64/ogame-linux-arm64
+            ogame-macos-arm64/ogame-macos-arm64
+            ogame-macos-amd64/ogame-macos-amd64
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

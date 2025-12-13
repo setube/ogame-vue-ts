@@ -1,105 +1,59 @@
-name: 自动化创建Docker镜像
+name: Docker 多架构构建并发布
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]          # 打 tag 时也触发
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-  build-amd64:
+  build-and-push:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
-      - name: 检查代码
-        uses: actions/checkout@v2
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # QEMU 用于支持多架构构建（必须）
+      - name: 设置 QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # Buildx 是目前官方唯一推荐的多架构构建方式
+      - name: 设置 Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 登录 GHCR（始终执行）
       - name: 登录 GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 登录 Docker Hub（只在用户名存在时执行）
       - name: 登录 Docker Hub
-        uses: docker/login-action@v2
+        if: vars.DOCKERHUB_USERNAME != ''  # 只检查 vars，忽略 secrets
+        uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: 构建并推送 amd64 Docker镜像
-        uses: docker/build-push-action@v3
+      # 真正一键构建 + 推送多架构镜像（amd64 + arm64）
+      - name: 构建并推送多架构镜像
+        uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:amd64
-            ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:amd64
-
-  build-arm64:
-    runs-on: ubuntu-22.04-arm
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: 检查代码
-        uses: actions/checkout@v2
-
-      - name: 登录 GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
-
-      - name: 登录 Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: 构建并推送 arm64 Docker镜像
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/arm64
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:arm64
-            ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:arm64
-
-  create-manifest:
-    needs: [build-amd64, build-arm64]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: 登录 GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
-
-      - name: 登录 Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: 创建并推送多架构清单
-        run: |
-          # GitHub Container Registry
-          docker manifest create ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:latest \
-            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:amd64 \
-            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:arm64
-          docker manifest push ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:latest
-
-          # Docker Hub
-          docker manifest create ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:latest \
-            ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:amd64 \
-            ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:arm64
-          docker manifest push ${{ secrets.DOCKERHUB_USERNAME }}/ogame-vue-ts:latest
+            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:latest
+            ghcr.io/${{ github.repository_owner }}/ogame-vue-ts:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME != '' && format('docker.io/{0}/ogame-vue-ts:latest', vars.DOCKERHUB_USERNAME) || '' }}
+            ${{ vars.DOCKERHUB_USERNAME != '' && format('docker.io/{0}/ogame-vue-ts:{1}', vars.DOCKERHUB_USERNAME, github.sha) || '' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
