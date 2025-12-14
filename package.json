@@ -9,7 +9,7 @@
   },
   "private": true,
   "version": "1.1.0",
-  "buildDate": "2025/12/14 13:13:07",
+  "buildDate": "2025/12/14 15:57:43",
   "main": "dist-electron/main.js",
   "type": "module",
   "scripts": {
@@ -79,11 +79,17 @@
       "artifactName": "${productName}-Setup.${ext}"
     },
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "artifactName": "${productName}-mac.${ext}"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "artifactName": "${productName}-linux.${ext}"
     }
   }
