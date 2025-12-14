@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  # 1. 构建 Go 服务端 (包含前端静态资源)
+  # 1. 构建 Go 服务端
   build-server:
     name: Build Server (${{ matrix.goos }}-${{ matrix.goarch }})
     runs-on: ubuntu-latest
@@ -22,47 +22,37 @@ jobs:
           - goos: linux
             goarch: arm64
             executable: ogame-server-linux-arm64
-
     steps:
       - uses: actions/checkout@v4
-
-      # 安装 pnpm
       - uses: pnpm/action-setup@v3
         with:
           version: 8
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.21'
-
-      # 构建服务端前先构建前端
-      - name: Install Frontend Dependencies
-        run: pnpm install
-
-      - name: Build Frontend (for Go Embed)
-        run: pnpm run build
-
+      - name: Install & Build Frontend
+        run: |
+          pnpm install
+          pnpm run build
       - name: Compile Go Server
         shell: bash
         run: |
           [ -f go.mod ] || go mod init ogame-app
           go mod tidy
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -ldflags="-s -w" -o ${{ matrix.executable }} main.go
-
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
         with:
           name: server-${{ matrix.goos }}-${{ matrix.goarch }}
           path: ${{ matrix.executable }}
 
-  # 2. 构建 Electron 客户端 (输出到 pkg)
+  # 2. 构建 Electron 客户端
   build-electron:
     name: Build Electron (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
@@ -76,43 +66,28 @@ jobs:
             platform: mac
           - os: ubuntu-latest
             platform: linux
-
     steps:
       - uses: actions/checkout@v4
-
-      # 安装 pnpm
       - uses: pnpm/action-setup@v3
         with:
           version: 8
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
-      - name: Install Dependencies
-        run: pnpm install
-
-      - name: Build Frontend (for Electron)
-        run: pnpm run build
-
-      - name: Build Electron App
-        # 注意: pnpm 传参不需要额外的 --
-        run: pnpm run build:electron --${{ matrix.platform }}
+      - name: Install & Build Electron
+        run: |
+          pnpm install
+          pnpm run build
+          pnpm run build:electron --${{ matrix.platform }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload Electron Artifact
         uses: actions/upload-artifact@v4
         with:
           name: electron-${{ matrix.platform }}
-          path: |
-            pkg/*.exe
-            pkg/*.dmg
-            pkg/*.AppImage
-            pkg/*.zip
-            pkg/*.deb
+          path: pkg/
 
   # 3. 发布 Release
   release:
@@ -121,6 +96,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      # 必须先检出代码，否则 release 步骤里没有 package.json 可供读取版本号
+      - uses: actions/checkout@v4
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -130,7 +108,8 @@ jobs:
         id: get_version
         shell: bash
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          # 确保在项目根目录下执行
+          VERSION=$(node -e "console.log(require('./package.json').version)")
           echo "VERSION=v$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
@@ -138,6 +117,7 @@ jobs:
         with:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
           name: Release ${{ steps.get_version.outputs.VERSION }}
+          # 收集所有下载回来的产物
           files: ./release-assets/**/*
           generate_release_notes: true
         env:
