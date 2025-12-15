@@ -38,7 +38,14 @@
           >
             {{ SHIPS[shipType].name }}
           </CardTitle>
-          <CardDescription class="text-xs sm:text-sm">{{ SHIPS[shipType].description }}</CardDescription>
+          <CardDescription class="text-xs sm:text-sm">
+            <GameIcon 
+                type="ship"
+                :id="shipType"
+                class="hover:scale-105 transition-transform duration-200 w-30 h-30"
+              />
+            {{ SHIPS[shipType].description }}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div class="space-y-3 sm:space-y-4">
@@ -165,6 +172,7 @@
   import * as shipValidation from '@/logic/shipValidation'
   import * as publicLogic from '@/logic/publicLogic'
   import * as fleetStorageLogic from '@/logic/fleetStorageLogic'
+  import GameIcon from '@/components/ui/GameIcon.vue'
 
   const gameStore = useGameStore()
   const detailDialog = useDetailDialogStore()

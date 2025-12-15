@@ -47,11 +47,19 @@
               </Badge>
             </div>
           </div>
-          <CardDescription class="text-xs sm:text-sm">{{ BUILDINGS[buildingType].description }}</CardDescription>
+          <CardDescription class="text-xs sm:text-sm">
+            <GameIcon 
+                type="building"
+                :id="buildingType"
+                class="hover:scale-105 transition-transform duration-200 w-30 h-30"
+              />
+            {{ BUILDINGS[buildingType].description }}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div class="space-y-3">
             <div class="text-xs sm:text-sm space-y-1.5 sm:space-y-2">
+              
               <p class="text-muted-foreground mb-1 sm:mb-2">{{ t('buildingsView.upgradeCost') }}:</p>
               <div class="space-y-1 sm:space-y-1.5">
                 <div
@@ -185,6 +193,7 @@
   import * as buildingValidation from '@/logic/buildingValidation'
   import * as publicLogic from '@/logic/publicLogic'
   import * as officerLogic from '@/logic/officerLogic'
+  import GameIcon from '@/components/ui/GameIcon.vue'
 
   const gameStore = useGameStore()
   const detailDialog = useDetailDialogStore()

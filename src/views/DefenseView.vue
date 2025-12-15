@@ -45,7 +45,14 @@
               </Badge>
             </div>
           </div>
-          <CardDescription class="text-xs sm:text-sm">{{ DEFENSES[defenseType].description }}</CardDescription>
+          <CardDescription class="text-xs sm:text-sm">
+            <GameIcon 
+                type="defense"
+                :id="defenseType"
+                class="hover:scale-105 transition-transform duration-200 w-30 h-30"
+              />
+            {{ DEFENSES[defenseType].description }}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div class="space-y-3 sm:space-y-4">
@@ -180,6 +187,7 @@
   import * as publicLogic from '@/logic/publicLogic'
   import * as shipValidation from '@/logic/shipValidation'
   import * as shipLogic from '@/logic/shipLogic'
+  import GameIcon from '@/components/ui/GameIcon.vue'
 
   const gameStore = useGameStore()
   const detailDialog = useDetailDialogStore()

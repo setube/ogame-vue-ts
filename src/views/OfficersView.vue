@@ -16,7 +16,14 @@
               </Badge>
             </div>
           </div>
-          <CardDescription class="text-xs sm:text-sm">{{ OFFICERS[officerType].description }}</CardDescription>
+          <CardDescription class="text-xs sm:text-sm">
+            <GameIcon 
+                type="officer"
+                :id="officerType"
+                class="hover:scale-105 transition-transform duration-200 w-30 h-30"
+              />
+            {{ OFFICERS[officerType].description }}
+          </CardDescription>
         </CardHeader>
         <CardContent class="space-y-4">
           <!-- 状态信息 -->
@@ -178,6 +185,7 @@
   import * as resourceLogic from '@/logic/resourceLogic'
   import { useI18n } from '@/composables/useI18n'
   import { useGameConfig } from '@/composables/useGameConfig'
+  import GameIcon from '@/components/ui/GameIcon.vue'
 
   const { t } = useI18n()
   const { OFFICERS } = useGameConfig()

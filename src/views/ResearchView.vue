@@ -22,7 +22,14 @@
               </Badge>
             </div>
           </div>
-          <CardDescription class="text-xs sm:text-sm">{{ TECHNOLOGIES[techType].description }}</CardDescription>
+          <CardDescription class="text-xs sm:text-sm">
+            <GameIcon 
+                type="technology"
+                :id="techType"
+                class="hover:scale-105 transition-transform duration-200 w-30 h-30"
+              />
+            {{ TECHNOLOGIES[techType].description }}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div class="space-y-2.5 sm:space-y-3">
@@ -104,6 +111,7 @@
   import * as publicLogic from '@/logic/publicLogic'
   import * as researchLogic from '@/logic/researchLogic'
   import * as researchValidation from '@/logic/researchValidation'
+  import GameIcon from '@/components/ui/GameIcon.vue'
 
   const gameStore = useGameStore()
   const detailDialog = useDetailDialogStore()

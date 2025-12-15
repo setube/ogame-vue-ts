@@ -47,6 +47,7 @@ export interface BuildingConfig {
   id: BuildingType
   name: string
   description: string
+  image: string
   baseCost: Resources
   baseTime: number // 基础建造时间(秒)
   costMultiplier: number // 升级成本倍数
@@ -94,6 +95,7 @@ export interface TechnologyConfig {
   id: TechnologyType
   name: string
   description: string
+  image: string
   baseCost: Resources
   baseTime: number
   costMultiplier: number
@@ -131,6 +133,7 @@ export interface DefenseConfig {
   id: DefenseType
   name: string
   description: string
+  image: string
   cost: Resources
   buildTime: number
   attack: number
@@ -165,6 +168,7 @@ export interface ShipConfig {
   id: ShipType
   name: string
   description: string
+  image: string
   cost: Resources
   buildTime: number
   cargoCapacity: number
