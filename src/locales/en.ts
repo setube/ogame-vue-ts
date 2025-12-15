@@ -331,6 +331,9 @@ export default {
   overview: {
     title: 'Planet Overview',
     resourceOverview: 'Resources',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: 'Fleet',
     currentShips: 'Ships on this planet',
     productionSources: 'Production Sources',

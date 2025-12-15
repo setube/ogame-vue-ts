@@ -344,6 +344,9 @@ export default {
   overview: {
     title: '惑星概要',
     resourceOverview: '資源概要',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: '艦隊',
     currentShips: '現在の惑星の艦船数',
     productionSources: '生産源',

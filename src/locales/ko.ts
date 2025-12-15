@@ -328,6 +328,9 @@ export default {
   overview: {
     title: '행성 개요',
     resourceOverview: '자원 개요',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: '함대',
     currentShips: '현재 행성의 함선 수',
     productionSources: '생산 소스',

@@ -329,6 +329,9 @@ export default {
   overview: {
     title: 'Обзор планеты',
     resourceOverview: 'Ресурсы',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: 'Флот',
     currentShips: 'Корабли на этой планете',
     productionSources: 'Источники производства',

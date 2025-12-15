@@ -330,6 +330,9 @@ export default {
   overview: {
     title: '星球总览',
     resourceOverview: '资源概览',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: '舰队',
     currentShips: '当前星球的舰船数量',
     productionSources: '资源获取来源',

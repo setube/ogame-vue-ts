@@ -29,9 +29,9 @@
       <CardContent>
         <Tabs default-value="overview" class="w-full">
           <TabsList class="grid w-full grid-cols-3">
-            <TabsTrigger value="overview">概览</TabsTrigger>
-            <TabsTrigger value="production">产量详情</TabsTrigger>
-            <TabsTrigger value="consumption">消耗详情</TabsTrigger>
+            <TabsTrigger value="overview">{{ t('overview.Overview') }}<!--概览--></TabsTrigger>
+            <TabsTrigger value="production">{{ t('overview.Production') }}<!--产量详情--></TabsTrigger>
+            <TabsTrigger value="consumption">{{ t('overview.Consumption') }}<!--消耗详情--></TabsTrigger>
           </TabsList>
 
           <!-- 概览标签页 -->

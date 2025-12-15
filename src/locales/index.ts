@@ -1,19 +1,21 @@
 import zhCN from './zh-CN'
 import zhTW from './zh-TW'
 import en from './en'
+import es from './es'
 import de from './de'
 import ru from './ru'
 import ko from './ko'
 import ja from './ja'
 
-export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'de' | 'ru' | 'ko' | 'ja'
+export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'es' | 'de' | 'ru' | 'ko' | 'ja'
 
-export const locales = { 'zh-CN': zhCN, 'zh-TW': zhTW, en, de, ru, ko, ja }
+export const locales = { 'zh-CN': zhCN, 'zh-TW': zhTW, en, es, de, ru, ko, ja }
 
 export const localeNames: Record<Locale, string> = {
   'zh-CN': '简体中文',
   'zh-TW': '繁體中文',
   en: 'English',
+  es: 'Español',
   de: 'Deutsch',
   ru: 'Русский',
   ko: '한국어',
@@ -40,6 +42,8 @@ export const detectBrowserLocale = (): Locale => {
     return 'ko'
   } else if (lang.startsWith('en')) {
     return 'en'
+  } else if (lang.startsWith('es')) {
+    return 'es'
   } else if (lang.startsWith('de')) {
     return 'de'
   } else if (lang.startsWith('ru')) {

@@ -330,6 +330,9 @@ export default {
   overview: {
     title: '星球總覽',
     resourceOverview: '資源概覽',
+    Overview: 'Overview',
+    Production: 'Production details',
+    Consumption: 'Consumption details',
     fleetInfo: '艦隊資訊',
     currentShips: '當前星球的艦船數量',
     productionSources: '生產來源',
