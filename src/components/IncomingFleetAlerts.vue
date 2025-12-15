@@ -8,7 +8,7 @@
       >
         <!-- 警告图标和信息 -->
         <div class="flex items-center gap-2 flex-1 min-w-0">
-          <AlertTriangle class="h-5 w-5 text-destructive flex-shrink-0 animate-pulse" />
+          <AlertTriangle class="h-5 w-5 text-destructive shrink-0 animate-pulse" />
           <div class="flex-1 min-w-0">
             <p class="text-sm font-semibold text-destructive truncate">
               <template v-if="alert.missionType === 'spy'">
@@ -29,7 +29,7 @@
         </div>
 
         <!-- 倒计时 -->
-        <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="flex items-center gap-2 shrink-0">
           <div class="text-right">
             <p class="text-xs font-mono text-destructive">
               {{ formatTimeRemaining(alert.arrivalTime) }}

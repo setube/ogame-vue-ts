@@ -193,7 +193,7 @@
             :key="report.id"
             class="flex items-start gap-3 p-3 rounded-lg border bg-card hover:bg-accent/50 transition-colors"
           >
-            <div class="flex-shrink-0 mt-0.5">
+            <div class="shrink-0 mt-0.5">
               <component :is="getEventIcon(report.eventType)" class="h-5 w-5" :class="getEventIconColor(report.reputationChange)" />
             </div>
             <div class="flex-1 min-w-0">

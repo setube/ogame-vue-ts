@@ -68,7 +68,7 @@
           <div class="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
             <div class="flex items-center gap-2 flex-1 sm:flex-initial">
               <Button @click="decreaseSpeed" variant="outline" size="sm" :disabled="gameStore.gameSpeed <= 0.5">-</Button>
-              <span class="min-w-[60px] text-center font-medium">{{ gameStore.gameSpeed || 1 }}x</span>
+              <span class="min-w-15 text-center font-medium">{{ gameStore.gameSpeed || 1 }}x</span>
               <Button @click="increaseSpeed" variant="outline" size="sm" :disabled="gameStore.gameSpeed >= 10">+</Button>
             </div>
             <Button @click="resetSpeed" variant="ghost" size="sm">{{ t('settings.reset') }}</Button>

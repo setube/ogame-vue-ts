@@ -4,8 +4,8 @@
     v-bind="delegatedProps"
     :class="
       cn(
-        'bg-muted text-muted-foreground inline-flex w-fit items-center justify-center rounded-lg p-[3px]',
-        tabCount && tabCount > 3 ? (tabCount > 6 ? 'h-[85px] sm:h-9' : 'h-[65px] sm:h-9') : 'h-9',
+        'bg-muted text-muted-foreground inline-flex w-fit items-center justify-center rounded-lg p-0.75',
+        tabCount && tabCount > 3 ? (tabCount > 6 ? 'h-21.25 sm:h-9' : 'h-16.25 sm:h-9') : 'h-9',
         props.class
       )
     "

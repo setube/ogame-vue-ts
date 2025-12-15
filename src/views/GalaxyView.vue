@@ -86,7 +86,7 @@
                     size="sm"
                   >
                     <div class="flex items-start gap-2 w-full min-w-0">
-                      <Globe class="h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <Globe class="h-4 w-4 shrink-0 mt-0.5" />
                       <div class="flex-1 min-w-0">
                         <div class="flex items-center gap-1.5 mb-0.5">
                           <span class="truncate font-medium text-sm">{{ p.name }}</span>
@@ -134,7 +134,7 @@
                     size="sm"
                   >
                     <div class="flex items-start gap-2 w-full min-w-0">
-                      <Globe class="h-4 w-4 flex-shrink-0 mt-0.5" />
+                      <Globe class="h-4 w-4 shrink-0 mt-0.5" />
                       <div class="flex-1 min-w-0">
                         <div class="truncate font-medium text-sm mb-0.5">{{ p.name }}</div>
                         <div class="text-[11px] text-muted-foreground">
@@ -197,7 +197,7 @@
               <!-- 第一行：位置编号 + 星球信息（名称、坐标、状态、残骸） -->
               <div class="flex items-start gap-2 w-full">
                 <!-- 位置编号 -->
-                <div class="w-8 text-center flex-shrink-0">
+                <div class="w-8 text-center shrink-0">
                   <Badge variant="outline" class="text-xs">{{ slot.position }}</Badge>
                 </div>
                 <!-- 星球信息 -->
@@ -206,13 +206,13 @@
                     <!-- 第一行：名称、坐标、状态、残骸 -->
                     <div class="flex items-center gap-1.5 min-w-0 flex-wrap">
                       <h3 class="font-semibold text-sm truncate">{{ slot.planet.name }}</h3>
-                      <span class="text-xs text-muted-foreground whitespace-nowrap flex-shrink-0">
+                      <span class="text-xs text-muted-foreground whitespace-nowrap shrink-0">
                         [{{ slot.planet.position.galaxy }}:{{ slot.planet.position.system }}:{{ slot.planet.position.position }}]
                       </span>
-                      <Badge v-if="isMyPlanet(slot.planet)" variant="default" class="text-xs flex-shrink-0">
+                      <Badge v-if="isMyPlanet(slot.planet)" variant="default" class="text-xs shrink-0">
                         {{ t('galaxyView.mine') }}
                       </Badge>
-                      <Badge v-else :variant="getRelationBadgeVariant(slot.planet)" class="text-xs flex-shrink-0">
+                      <Badge v-else :variant="getRelationBadgeVariant(slot.planet)" class="text-xs shrink-0">
                         {{ getRelationStatusText(slot.planet) }}
                       </Badge>
                       <Popover v-if="getDebrisFieldAt(currentGalaxy, currentSystem, slot.position)">
@@ -380,7 +380,7 @@
             <!-- PC端布局：位置编号 + 星球信息（水平） -->
             <div class="hidden sm:flex items-center gap-4 flex-1 min-w-0">
               <!-- 位置编号 -->
-              <div class="w-12 text-center flex-shrink-0">
+              <div class="w-12 text-center shrink-0">
                 <Badge variant="outline" class="text-sm">{{ slot.position }}</Badge>
               </div>
 
@@ -481,7 +481,7 @@
             </div>
 
             <!-- 操作按钮 (PC端) -->
-            <div class="hidden sm:flex gap-1 sm:gap-2 flex-shrink-0">
+            <div class="hidden sm:flex gap-1 sm:gap-2 shrink-0">
               <TooltipProvider :delay-duration="300">
                 <Tooltip v-if="slot.planet && !isMyPlanet(slot.planet)">
                   <TooltipTrigger as-child>

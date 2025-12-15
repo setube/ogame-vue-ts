@@ -1,7 +1,7 @@
 <template>
   <Dialog :open="open" @update:open="$emit('update:open', $event)">
     <DialogScrollContent class="max-w-2xl max-h-[80vh] flex flex-col">
-      <DialogHeader class="flex-shrink-0">
+      <DialogHeader class="shrink-0">
         <DialogTitle>{{ t('settings.newVersionAvailable', { version: versionInfo?.version || '' }) }}</DialogTitle>
         <DialogDescription>{{ t('settings.updateAvailable') }}</DialogDescription>
       </DialogHeader>
@@ -10,7 +10,7 @@
         <div class="prose prose-sm dark:prose-invert max-w-none" v-html="renderedMarkdown"></div>
       </div>
 
-      <DialogFooter class="flex gap-2 flex-shrink-0 mt-4">
+      <DialogFooter class="flex gap-2 shrink-0 mt-4">
         <Button variant="outline" @click="$emit('update:open', false)">
           {{ t('common.cancel') }}
         </Button>

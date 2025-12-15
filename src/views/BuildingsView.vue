@@ -81,11 +81,11 @@
 
             <div class="text-xs sm:text-sm space-y-0.5 sm:space-y-1">
               <div class="flex items-center gap-1.5 text-muted-foreground">
-                <Clock :size="14" class="flex-shrink-0" />
+                <Clock :size="14" class="shrink-0" />
                 <span>{{ formatTime(getBuildingTime(buildingType, getBuildingLevel(buildingType) + 1)) }}</span>
               </div>
               <div class="flex items-center gap-1.5 text-muted-foreground">
-                <Grid3x3 :size="14" class="flex-shrink-0" />
+                <Grid3x3 :size="14" class="shrink-0" />
                 <span>{{ BUILDINGS[buildingType].spaceUsage }}</span>
               </div>
             </div>
