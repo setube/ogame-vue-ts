@@ -255,7 +255,7 @@ export const BUILDINGS: Record<BuildingType, BuildingConfig> = {
     baseCost: { metal: 0, crystal: 50000, deuterium: 100000, darkMatter: 0, energy: 0 },
     baseTime: 60,
     costMultiplier: 2,
-    spaceUsage: 5,
+    spaceUsage: 0,
     planetOnly: true,
     requirements: {
       [BuildingType.ResearchLab]: 10,
