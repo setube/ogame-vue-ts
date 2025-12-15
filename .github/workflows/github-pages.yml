@@ -1,23 +1,41 @@
-name: 部署到GitHub Pages
+name: Deploy Vue Project
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # 如果你的主分支叫 master，请改为 master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 代码检出
+      - name: 检出代码
         uses: actions/checkout@v6
 
-      - name: 构建前端页面
-        run: |
-          npm install -g pnpm && pnpm install
-          pnpm run build
-
-      - name: 推送到 Github
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: 安装 Nodejs
+        uses: actions/setup-node@v6
         with:
-          folder: docs
-          branch: gh-pages
+          node-version: 20 # 建议使用 LTS 版本
+          cache: 'npm'
+
+      - name: 安装 pnpm
+        run: npm install -g pnpm && pnpm install
+
+      - name: 构建前端项目
+        run: pnpm install && pnpm run build
+
+      # 关键步骤：告诉 GitHub Actions 跳过 Jekyll 检查
+      - name: 配置 Github Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传构建版
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './docs'
+
+      - name: 部署到 GitHub Pages
+        uses: actions/deploy-pages@v4
