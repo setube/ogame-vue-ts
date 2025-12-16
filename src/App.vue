@@ -1339,11 +1339,11 @@
     return resourceLogic.calculateResourceCapacity(planet.value, bonuses.storageCapacityBonus)
   })
 
-  // 电力消耗
-  const energyConsumption = computed(() => {
-    if (!planet.value) return 0
-    return resourceLogic.calculateEnergyConsumption(planet.value)
-  })
+	  // 电力消耗
+	  const energyConsumption = computed(() => {
+	    if (!planet.value) return 0
+	    return resourceLogic.calculateEnergyConsumption(planet.value) * (gameStore.gameSpeed || 1)
+	  })
 
   // 净电力（产量 - 消耗）
   const netEnergy = computed(() => {

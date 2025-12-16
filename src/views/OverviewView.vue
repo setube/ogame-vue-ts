@@ -217,7 +217,7 @@
   // 能量消耗
   const energyConsumption = computed(() => {
     if (!planet.value) return 0
-    return resourceLogic.calculateEnergyConsumption(planet.value)
+    return resourceLogic.calculateEnergyConsumption(planet.value) * (gameStore.gameSpeed || 1)
   })
 
   // 资源产量详细breakdown
