@@ -201,6 +201,7 @@
   import { Badge } from '@/components/ui/badge'
   import ResourceIcon from '@/components/ResourceIcon.vue'
   import { formatNumber, getResourceColor } from '@/utils/format'
+  import { scaleNumber } from '@/utils/speed'
   import type { Planet } from '@/types/game'
   import * as publicLogic from '@/logic/publicLogic'
   import * as resourceLogic from '@/logic/resourceLogic'
@@ -210,26 +211,26 @@
   const { SHIPS } = useGameConfig()
   const planet = computed(() => gameStore.currentPlanet)
   const production = computed(() =>
-    planet.value ? publicLogic.getResourceProduction(planet.value, gameStore.player.officers, gameStore.gameSpeed || 1) : null
+    planet.value ? publicLogic.getResourceProduction(planet.value, gameStore.player.officers, gameStore.gameSpeed) : null
   )
   const capacity = computed(() => (planet.value ? publicLogic.getResourceCapacity(planet.value, gameStore.player.officers) : null))
 
   // 能量消耗
   const energyConsumption = computed(() => {
     if (!planet.value) return 0
-    return resourceLogic.calculateEnergyConsumption(planet.value) * (gameStore.gameSpeed || 1)
+    return scaleNumber(resourceLogic.calculateEnergyConsumption(planet.value), gameStore.gameSpeed)
   })
 
   // 资源产量详细breakdown
   const productionBreakdown = computed(() => {
     if (!planet.value) return null
-    return resourceLogic.calculateProductionBreakdown(planet.value, gameStore.player.officers, Date.now(), gameStore.gameSpeed || 1)
+    return resourceLogic.calculateProductionBreakdown(planet.value, gameStore.player.officers, Date.now(), gameStore.gameSpeed)
   })
 
   // 资源消耗详细breakdown
   const consumptionBreakdown = computed(() => {
     if (!planet.value) return null
-    return resourceLogic.calculateConsumptionBreakdown(planet.value, gameStore.gameSpeed || 1)
+    return resourceLogic.calculateConsumptionBreakdown(planet.value, gameStore.gameSpeed)
   })
 
   // 资源类型配置

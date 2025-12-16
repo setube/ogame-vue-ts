@@ -456,6 +456,7 @@
   import type { BuildQueueItem, FleetMission, NPC, IncomingFleetAlert, MissileAttack } from '@/types/game'
   import type { VersionInfo } from '@/utils/versionCheck'
   import { formatNumber, formatTime, getResourceColor } from '@/utils/format'
+  import { getGameLoopIntervalMs, scaleNumber, scaleResources } from '@/utils/speed'
   import {
     Moon,
     Sun,
@@ -539,7 +540,7 @@
       // 计算离线收益（直接同步计算）
       const bonuses = officerLogic.calculateActiveBonuses(gameStore.player.officers, now)
       gameStore.player.planets.forEach(planet => {
-        resourceLogic.updatePlanetResources(planet, now, bonuses)
+        resourceLogic.updatePlanetResources(planet, now, bonuses, gameStore.gameSpeed)
       })
 
       // 只在没有NPC星球时才生成（首次加载已有玩家数据时）
@@ -574,7 +575,7 @@
     // 检查军官过期
     gameLogic.checkOfficersExpiration(gameStore.player.officers, now)
     // 处理游戏更新（建造队列、研究队列等）
-    const result = gameLogic.processGameUpdate(gameStore.player, now, gameStore.gameSpeed || 1)
+    const result = gameLogic.processGameUpdate(gameStore.player, now, gameStore.gameSpeed)
     gameStore.player.researchQueue = result.updatedResearchQueue
     // 处理舰队任务
     gameStore.player.fleetMissions.forEach(mission => {
@@ -1187,7 +1188,7 @@
       clearInterval(gameLoop)
     }
     // 根据游戏速度计算间隔时间
-    const interval = 1000 / (gameStore.gameSpeed || 1)
+    const interval = getGameLoopIntervalMs(gameStore.gameSpeed)
     // 启动新的游戏循环
     gameLoop = setInterval(() => {
       updateGame()
@@ -1322,14 +1323,7 @@
       darkMatterProductionBonus: bonuses.darkMatterProductionBonus,
       energyProductionBonus: bonuses.energyProductionBonus
     })
-    const speed = gameStore.gameSpeed || 1
-    return {
-      metal: base.metal * speed,
-      crystal: base.crystal * speed,
-      deuterium: base.deuterium * speed,
-      darkMatter: base.darkMatter * speed,
-      energy: base.energy * speed
-    }
+    return scaleResources(base, gameStore.gameSpeed)
   })
 
   const capacity = computed(() => {
@@ -1342,7 +1336,7 @@
 	  // 电力消耗
 	  const energyConsumption = computed(() => {
 	    if (!planet.value) return 0
-	    return resourceLogic.calculateEnergyConsumption(planet.value) * (gameStore.gameSpeed || 1)
+	    return scaleNumber(resourceLogic.calculateEnergyConsumption(planet.value), gameStore.gameSpeed)
 	  })
 
   // 净电力（产量 - 消耗）

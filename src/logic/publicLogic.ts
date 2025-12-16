@@ -8,6 +8,7 @@ import type { Planet, Resources, Officer, BuildingConfig, TechnologyConfig } fro
 import { OfficerType } from '@/types/game'
 import * as officerLogic from '@/logic/officerLogic'
 import * as resourceLogic from '@/logic/resourceLogic'
+import { scaleResources } from '@/utils/speed'
 
 /**
  * 获取特定等级的升级条件
@@ -98,14 +99,7 @@ export const getResourceProduction = (planet: Planet, officers: Record<OfficerTy
   const bonuses = officerLogic.calculateActiveBonuses(officers, Date.now())
   // 根据建筑等级和军官加成计算资源产量
   const base = resourceLogic.calculateResourceProduction(planet, bonuses)
-  const speed = resourceSpeed || 1
-  return {
-    metal: base.metal * speed,
-    crystal: base.crystal * speed,
-    deuterium: base.deuterium * speed,
-    darkMatter: base.darkMatter * speed,
-    energy: base.energy * speed
-  }
+  return scaleResources(base, resourceSpeed)
 }
 
 /**

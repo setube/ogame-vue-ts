@@ -118,7 +118,7 @@ export const updatePlanetResources = (
   },
   resourceSpeed: number = 1
 ): void => {
-  const timeDiff = ((now - planet.lastUpdate) / 1000) * (resourceSpeed || 1) // 转换为秒并应用资源速度倍率
+  const timeDiff = ((now - planet.lastUpdate) / 1000) * resourceSpeed // 转换为秒并应用资源速度倍率
 
   // 计算能量消耗（每小时）
   const energyConsumption = calculateEnergyConsumption(planet)
@@ -433,7 +433,7 @@ export const calculateProductionBreakdown = (
 
   const energyFinal = energyBase * (1 + totalEnergyBonus / 100)
 
-  const speed = resourceSpeed || 1
+  const speed = resourceSpeed
 
   const scaleBonuses = (bonuses: ProductionBonus[]) =>
     bonuses.map(bonus => ({
@@ -499,7 +499,7 @@ export const calculateConsumptionBreakdown = (planet: Planet, resourceSpeed: num
   const crystalConsumption = crystalMineLevel * 10 * Math.pow(1.1, crystalMineLevel)
   const deuteriumConsumption = deuteriumSynthesizerLevel * 15 * Math.pow(1.1, deuteriumSynthesizerLevel)
 
-  const speed = resourceSpeed || 1
+  const speed = resourceSpeed
 
   return {
     metalMine: {
