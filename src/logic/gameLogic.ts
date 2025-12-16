@@ -100,7 +100,8 @@ export const generatePositionKey = (galaxy: number, system: number, position: nu
  */
 export const processGameUpdate = (
   player: Player,
-  now: number
+  now: number,
+  resourceSpeed: number = 1
 ): {
   updatedResearchQueue: BuildQueueItem[]
 } => {
@@ -114,7 +115,7 @@ export const processGameUpdate = (
 
   // 更新所有星球资源（直接同步计算，避免 Worker 通信开销）
   player.planets.forEach(planet => {
-    resourceLogic.updatePlanetResources(planet, now, bonuses)
+    resourceLogic.updatePlanetResources(planet, now, bonuses, resourceSpeed)
   })
 
   // 更新所有星球其他状态

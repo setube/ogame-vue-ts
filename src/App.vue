@@ -574,7 +574,7 @@
     // 检查军官过期
     gameLogic.checkOfficersExpiration(gameStore.player.officers, now)
     // 处理游戏更新（建造队列、研究队列等）
-    const result = gameLogic.processGameUpdate(gameStore.player, now)
+    const result = gameLogic.processGameUpdate(gameStore.player, now, gameStore.gameSpeed || 1)
     gameStore.player.researchQueue = result.updatedResearchQueue
     // 处理舰队任务
     gameStore.player.fleetMissions.forEach(mission => {
@@ -1317,11 +1317,19 @@
     if (!planet.value) return null
     const now = Date.now()
     const bonuses = officerLogic.calculateActiveBonuses(gameStore.player.officers, now)
-    return resourceLogic.calculateResourceProduction(planet.value, {
+    const base = resourceLogic.calculateResourceProduction(planet.value, {
       resourceProductionBonus: bonuses.resourceProductionBonus,
       darkMatterProductionBonus: bonuses.darkMatterProductionBonus,
       energyProductionBonus: bonuses.energyProductionBonus
     })
+    const speed = gameStore.gameSpeed || 1
+    return {
+      metal: base.metal * speed,
+      crystal: base.crystal * speed,
+      deuterium: base.deuterium * speed,
+      darkMatter: base.darkMatter * speed,
+      energy: base.energy * speed
+    }
   })
 
   const capacity = computed(() => {

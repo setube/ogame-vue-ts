@@ -93,11 +93,19 @@ export const checkRequirements = (
  * @param officers 玩家的军官对象
  * @returns 每小时各类资源的产量
  */
-export const getResourceProduction = (planet: Planet, officers: Record<OfficerType, Officer>): Resources => {
+export const getResourceProduction = (planet: Planet, officers: Record<OfficerType, Officer>, resourceSpeed: number = 1): Resources => {
   // 计算当前激活的军官加成
   const bonuses = officerLogic.calculateActiveBonuses(officers, Date.now())
   // 根据建筑等级和军官加成计算资源产量
-  return resourceLogic.calculateResourceProduction(planet, bonuses)
+  const base = resourceLogic.calculateResourceProduction(planet, bonuses)
+  const speed = resourceSpeed || 1
+  return {
+    metal: base.metal * speed,
+    crystal: base.crystal * speed,
+    deuterium: base.deuterium * speed,
+    darkMatter: base.darkMatter * speed,
+    energy: base.energy * speed
+  }
 }
 
 /**

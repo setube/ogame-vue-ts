@@ -209,7 +209,9 @@
   const { t } = useI18n()
   const { SHIPS } = useGameConfig()
   const planet = computed(() => gameStore.currentPlanet)
-  const production = computed(() => (planet.value ? publicLogic.getResourceProduction(planet.value, gameStore.player.officers) : null))
+  const production = computed(() =>
+    planet.value ? publicLogic.getResourceProduction(planet.value, gameStore.player.officers, gameStore.gameSpeed || 1) : null
+  )
   const capacity = computed(() => (planet.value ? publicLogic.getResourceCapacity(planet.value, gameStore.player.officers) : null))
 
   // 能量消耗
@@ -221,13 +223,13 @@
   // 资源产量详细breakdown
   const productionBreakdown = computed(() => {
     if (!planet.value) return null
-    return resourceLogic.calculateProductionBreakdown(planet.value, gameStore.player.officers, Date.now())
+    return resourceLogic.calculateProductionBreakdown(planet.value, gameStore.player.officers, Date.now(), gameStore.gameSpeed || 1)
   })
 
   // 资源消耗详细breakdown
   const consumptionBreakdown = computed(() => {
     if (!planet.value) return null
-    return resourceLogic.calculateConsumptionBreakdown(planet.value)
+    return resourceLogic.calculateConsumptionBreakdown(planet.value, gameStore.gameSpeed || 1)
   })
 
   // 资源类型配置
