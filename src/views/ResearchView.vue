@@ -230,39 +230,6 @@
     return items
   }
 
-  // 获取前置条件显示（简化版，用于卡片内显示）
-  const getRequirementsDisplay = (techType: TechnologyType): Array<{ name: string; level: number; met: boolean }> => {
-    if (!planet.value) return []
-
-    const config = TECHNOLOGIES.value[techType]
-    const currentLevel = getTechLevel(techType)
-    const targetLevel = currentLevel + 1
-
-    // 获取目标等级的所有前置条件（包括等级门槛）
-    const requirements = publicLogic.getLevelRequirements(config, targetLevel)
-
-    if (!requirements || Object.keys(requirements).length === 0) return []
-
-    const items: Array<{ name: string; level: number; met: boolean }> = []
-    for (const [key, requiredLevel] of Object.entries(requirements)) {
-      // 检查是否为建筑类型
-      if (Object.values(BuildingType).includes(key as BuildingType)) {
-        const bt = key as BuildingType
-        const currentLevel = planet.value.buildings[bt] || 0
-        const name = BUILDINGS.value[bt]?.name || bt
-        items.push({ name, level: requiredLevel, met: currentLevel >= requiredLevel })
-      }
-      // 检查是否为科技类型
-      else if (Object.values(TechnologyType).includes(key as TechnologyType)) {
-        const tt = key as TechnologyType
-        const currentLevel = gameStore.player.technologies[tt] || 0
-        const name = TECHNOLOGIES.value[tt]?.name || tt
-        items.push({ name, level: requiredLevel, met: currentLevel >= requiredLevel })
-      }
-    }
-    return items
-  }
-
   // 研究科技
   const handleResearch = (techType: TechnologyType) => {
     // 检查前置条件

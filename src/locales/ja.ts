@@ -430,7 +430,6 @@ export default {
     shield: 'シールド',
     armor: '装甲',
     buildTime: '建設時間',
-    build: '',
     seconds: '秒',
     unitCost: 'ユニットコスト',
     buildQuantity: '建造数',

@@ -430,7 +430,6 @@ export default {
     shield: '실드',
     armor: '장갑',
     buildTime: '건설 시간',
-    build: '',
     seconds: '초',
     unitCost: '단위 비용',
     buildQuantity: '건조 수량',

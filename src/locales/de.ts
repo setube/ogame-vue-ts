@@ -431,7 +431,6 @@ export default {
     shield: 'Schild',
     armor: 'Panzerung',
     buildTime: 'Bauzeit',
-    build: '',
     seconds: 's',
     unitCost: 'Stückkosten',
     buildQuantity: 'Baumenge',
