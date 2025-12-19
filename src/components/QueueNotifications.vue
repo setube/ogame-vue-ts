@@ -19,13 +19,9 @@
 
       <Tabs v-model="activeTab" class="w-full">
         <TabsList class="w-full grid grid-cols-5 h-9 rounded-none border-b bg-transparent">
-          <TabsTrigger v-for="tab in tabConfig" :key="tab.value" :value="tab.value" class="text-xs px-1 data-[state=active]:bg-muted flex items-center justify-center whitespace-nowrap truncate">
-            <span class="truncate">{{ t(`queue.tabs.${tab.value}`) }}</span>
-            <Badge
-              v-if="tab.items.length > 0"
-              variant="secondary"
-              class="ml-1 h-4 px-1 text-[10px] shrink-0"
-            >
+          <TabsTrigger v-for="tab in tabConfig" :key="tab.value" :value="tab.value" class="text-xs px-1 data-[state=active]:bg-muted">
+            {{ t(`queue.tabs.${tab.value}`) }}
+            <Badge v-if="tab.items.length > 0" variant="secondary" class="ml-1 h-4 px-1 text-[10px]">
               {{ tab.items.length }}
             </Badge>
           </TabsTrigger>
@@ -43,7 +39,7 @@
               <div v-for="item in tab.items" :key="item.id" class="space-y-1.5">
                 <div class="flex items-center justify-between text-xs sm:text-sm gap-2">
                   <div class="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
-                    <div class="h-2 w-2 rounded-full animate-pulse shrink-0" :class="getStatusDotClass(item)" />
+                    <div class="h-2 w-2 rounded-full animate-pulse flex-shrink-0" :class="getStatusDotClass(item)" />
                     <span class="font-medium truncate">{{ getItemName(item) }}</span>
                     <span class="text-muted-foreground text-[10px] sm:text-xs">
                       {{
@@ -55,7 +51,7 @@
                       }}
                     </span>
                   </div>
-                  <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                  <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     <span class="text-muted-foreground text-[10px] sm:text-xs whitespace-nowrap">
                       {{ formatTime(getRemainingTime(item)) }}
                     </span>
