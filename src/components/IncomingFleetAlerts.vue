@@ -3,7 +3,7 @@
     <div class="px-4 sm:px-6 py-2 flex items-center justify-between gap-3">
       <!-- 警告图标和汇总信息 -->
       <div class="flex items-center gap-2 flex-1 min-w-0">
-        <AlertTriangle class="h-5 w-5 text-destructive flex-shrink-0 animate-pulse" />
+        <AlertTriangle class="h-5 w-5 text-destructive shrink-0 animate-pulse" />
         <div class="flex-1 min-w-0">
           <p class="text-sm font-semibold text-destructive">
             {{ getAlertSummary() }}
@@ -15,7 +15,7 @@
       </div>
 
       <!-- 查看按钮 -->
-      <Button @click="openAlertPanel" variant="outline" size="sm" class="flex-shrink-0">
+      <Button @click="openAlertPanel" variant="outline" size="sm" class="shrink-0">
         {{ t('common.view') }}
       </Button>
     </div>

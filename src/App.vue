@@ -28,7 +28,7 @@
                   class="w-full justify-between h-auto px-3 py-2.5 border-2 hover:bg-accent hover:border-primary transition-colors"
                 >
                   <div class="flex items-start gap-2.5 flex-1 min-w-0">
-                    <Globe class="h-5 w-5 flex-shrink-0 mt-0.5 text-primary" />
+                    <Globe class="h-5 w-5 shrink-0 mt-0.5 text-primary" />
                     <div class="flex-1 min-w-0 text-left">
                       <div class="text-[10px] text-muted-foreground uppercase tracking-wider mb-0.5">
                         {{ t('planet.currentPlanet') }}
@@ -44,7 +44,7 @@
                       </div>
                     </div>
                   </div>
-                  <ChevronsUpDown class="h-4 w-4 flex-shrink-0 text-muted-foreground ml-2" />
+                  <ChevronsUpDown class="h-4 w-4 shrink-0 text-muted-foreground ml-2" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent class="w-72 p-0" side="bottom" align="start">
@@ -61,14 +61,14 @@
                         size="sm"
                       >
                         <div class="flex items-start gap-2 w-full min-w-0">
-                          <Globe class="h-4 w-4 flex-shrink-0 mt-0.5" :class="p.id === planet.id ? 'text-primary' : ''" />
+                          <Globe class="h-4 w-4 shrink-0 mt-0.5" :class="p.id === planet.id ? 'text-primary' : ''" />
                           <div class="flex-1 min-w-0 text-left">
                             <div class="flex items-center gap-1.5 mb-0.5">
                               <span class="truncate font-medium text-sm">{{ p.name }}</span>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                class="h-2 w-2 p-0 flex-shrink-0"
+                                class="h-2 w-2 p-0 shrink-0"
                                 @click.stop="openRenameDialog(p.id, p.name)"
                                 :title="t('planet.renamePlanet')"
                               >
@@ -205,7 +205,7 @@
         <header
           v-if="planet"
           class="fixed top-0 right-0 left-0 z-40 bg-card border-b px-4 sm:px-6 py-3 shadow-md"
-          :class="sidebarOpen ? 'lg:left-[var(--sidebar-width)]' : 'lg:left-[var(--sidebar-width-icon)]'"
+          :class="sidebarOpen ? 'lg:left-(--sidebar-width)' : 'lg:left-(--sidebar-width-icon)'"
         >
           <div class="flex flex-col gap-3">
             <!-- 第一行：菜单、资源预览、状态 -->
@@ -225,7 +225,7 @@
                   <div
                     v-for="resourceType in resourceTypes"
                     :key="resourceType.key"
-                    class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0"
+                    class="flex items-center gap-1.5 sm:gap-2 shrink-0"
                   >
                     <ResourceIcon :type="resourceType.key" size="md" />
                     <div class="min-w-0">
@@ -260,7 +260,7 @@
               </div>
 
               <!-- 右侧：展开按钮（仅移动端） -->
-              <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0 justify-end">
+              <div class="flex items-center gap-2 sm:gap-3 shrink-0 justify-end">
                 <!-- 移动端展开按钮 -->
                 <Button @click="resourceBarExpanded = !resourceBarExpanded" variant="ghost" size="sm" class="lg:hidden h-8 w-8 p-0">
                   <ChevronDown v-if="!resourceBarExpanded" class="h-4 w-4" />
@@ -283,7 +283,7 @@
           <div
             v-if="planet && resourceBarExpanded"
             class="fixed top-[60px] right-0 left-0 z-30 bg-card border-b px-4 py-3 shadow-md lg:hidden"
-            :class="sidebarOpen ? 'lg:left-[var(--sidebar-width)]' : 'lg:left-[var(--sidebar-width-icon)]'"
+            :class="sidebarOpen ? 'lg:left-(--sidebar-width)' : 'lg:left-(--sidebar-width-icon)'"
           >
             <div class="grid grid-cols-2 gap-3">
               <div v-for="resourceType in resourceTypes" :key="resourceType.key" class="bg-muted/50 rounded-lg p-2.5">

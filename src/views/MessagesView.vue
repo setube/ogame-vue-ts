@@ -62,14 +62,14 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Sword class="h-4 w-4 flex-shrink-0" />
+                <Sword class="h-4 w-4 shrink-0" />
                 <CardTitle class="text-base sm:text-lg">{{ t('messagesView.battleReport') }}</CardTitle>
                 <Badge v-if="!report.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
                 <Badge :variant="getBattleResultVariant(report)" class="text-xs">
                   {{ getBattleResultText(report) }}
                 </Badge>
               </div>
-              <Button @click.stop="deleteBattleReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteBattleReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>
@@ -99,12 +99,12 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Eye class="h-4 w-4 flex-shrink-0" />
+                <Eye class="h-4 w-4 shrink-0" />
                 <CardTitle class="text-base sm:text-lg">{{ t('messagesView.spyReport') }}</CardTitle>
                 <Badge v-if="!report.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
                 <Badge variant="outline" class="text-xs">{{ report.targetPlanetId }}</Badge>
               </div>
-              <Button @click.stop="deleteSpyReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteSpyReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>
@@ -124,14 +124,14 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <AlertTriangle class="h-4 w-4 flex-shrink-0 text-destructive" />
+                <AlertTriangle class="h-4 w-4 shrink-0 text-destructive" />
                 <CardTitle class="text-base sm:text-lg">{{ t('messagesView.spiedNotification') }}</CardTitle>
                 <Badge v-if="!notification.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
                 <Badge :variant="notification.detectionSuccess ? 'destructive' : 'secondary'" class="text-xs">
                   {{ notification.detectionSuccess ? t('messagesView.detected') : t('messagesView.undetected') }}
                 </Badge>
               </div>
-              <Button @click.stop="deleteSpiedNotification(notification.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteSpiedNotification(notification.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>
@@ -168,7 +168,7 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Recycle class="h-4 w-4 flex-shrink-0 text-blue-500" />
+                <Recycle class="h-4 w-4 shrink-0 text-blue-500" />
                 <CardTitle class="text-base sm:text-lg">{{ t('messagesView.npcRecycleActivity') }}</CardTitle>
                 <Badge v-if="!notification.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
               </div>
@@ -176,7 +176,7 @@
                 @click.stop="deleteNPCActivityNotification(notification.id)"
                 variant="ghost"
                 size="icon"
-                class="h-8 w-8 flex-shrink-0"
+                class="h-8 w-8 shrink-0"
               >
                 <X class="h-4 w-4" />
               </Button>
@@ -202,11 +202,11 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Gift class="h-4 w-4 flex-shrink-0 text-green-600" />
+                <Gift class="h-4 w-4 shrink-0 text-green-600" />
                 <CardTitle class="text-base sm:text-lg">{{ t('messagesView.giftFrom').replace('{npcName}', gift.fromNpcName) }}</CardTitle>
                 <Badge v-if="!gift.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
               </div>
-              <Button @click.stop="deleteGiftNotification(gift.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteGiftNotification(gift.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>
@@ -252,13 +252,13 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Ban class="h-4 w-4 flex-shrink-0 text-red-600" />
+                <Ban class="h-4 w-4 shrink-0 text-red-600" />
                 <CardTitle class="text-base sm:text-lg">
                   {{ t('messagesView.giftRejectedBy').replace('{npcName}', rejection.npcName) }}
                 </CardTitle>
                 <Badge v-if="!rejection.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
               </div>
-              <Button @click.stop="deleteGiftRejectedNotification(rejection.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteGiftRejectedNotification(rejection.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>
@@ -306,14 +306,14 @@
           <CardHeader class="pb-3">
             <div class="flex justify-between items-center gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <Package class="h-4 w-4 flex-shrink-0" />
+                <Package class="h-4 w-4 shrink-0" />
                 <CardTitle class="text-base sm:text-lg">{{ getMissionTypeName(report.missionType) }}</CardTitle>
                 <Badge v-if="!report.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
                 <Badge :variant="report.success ? 'default' : 'destructive'" class="text-xs">
                   {{ report.success ? t('messagesView.success') : t('messagesView.failed') }}
                 </Badge>
               </div>
-              <Button @click.stop="deleteMissionReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 flex-shrink-0">
+              <Button @click.stop="deleteMissionReport(report.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
               </Button>
             </div>

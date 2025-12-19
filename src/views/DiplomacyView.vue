@@ -6,7 +6,7 @@
         <p class="text-sm text-muted-foreground mt-1">{{ t('diplomacy.description') }}</p>
       </div>
       <!-- 视图切换和诊断按钮 -->
-      <div class="flex items-center gap-2 flex-shrink-0">
+      <div class="flex items-center gap-2 shrink-0">
         <!-- 视图模式切换 -->
         <div class="flex items-center border rounded-md">
           <Button

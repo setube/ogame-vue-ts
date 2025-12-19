@@ -5,14 +5,14 @@
       <button
         v-if="currentPage > 1"
         @click="emit('update:page', currentPage - 1)"
-        class="h-10 w-10 rounded-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border shadow-lg flex items-center justify-center hover:bg-accent transition-colors"
+        class="h-10 w-10 rounded-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border shadow-lg flex items-center justify-center hover:bg-accent transition-colors"
       >
         <ChevronLeft class="h-5 w-5" />
       </button>
 
       <!-- 页码 - 椭圆形胶囊 -->
       <div
-        class="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border rounded-full py-2 px-3 shadow-lg flex items-center gap-1"
+        class="bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border rounded-full py-2 px-3 shadow-lg flex items-center gap-1"
       >
         <button
           v-for="pageNum in pageNumbers"
@@ -29,7 +29,7 @@
       <button
         v-if="currentPage < totalPages"
         @click="emit('update:page', currentPage + 1)"
-        class="h-10 w-10 rounded-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border shadow-lg flex items-center justify-center hover:bg-accent transition-colors"
+        class="h-10 w-10 rounded-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border shadow-lg flex items-center justify-center hover:bg-accent transition-colors"
       >
         <ChevronRight class="h-5 w-5" />
       </button>

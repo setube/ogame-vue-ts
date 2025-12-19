@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="cn('relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]', props.class)"
+    :class="cn('relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,#262626_0%,#000_100%)]', props.class)"
     @mousemove="handleMouseMove"
   >
     <motion.div :style="{ x: springX, y: springY }">

@@ -36,14 +36,14 @@
           >
             <div class="flex items-center gap-3">
               <!-- 左侧：任务图标 -->
-              <div class="flex-shrink-0">
+              <div class="shrink-0">
                 <component :is="getMissionIcon(alert.missionType)" class="h-5 w-5" :class="getMissionIconColor(alert.missionType)" />
               </div>
               <!-- 中间：主要信息 -->
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2">
                   <span class="font-medium text-sm truncate">{{ alert.npcName }}</span>
-                  <Badge :variant="getMissionBadgeVariant(alert.missionType)" class="text-xs flex-shrink-0">
+                  <Badge :variant="getMissionBadgeVariant(alert.missionType)" class="text-xs shrink-0">
                     {{ getMissionTypeText(alert.missionType) }}
                   </Badge>
                 </div>
@@ -52,13 +52,13 @@
                 </p>
               </div>
               <!-- 右侧：倒计时 -->
-              <div class="flex-shrink-0 text-right">
+              <div class="shrink-0 text-right">
                 <span class="text-sm font-bold block" :class="getRemainingTimeColor(alert)">
                   {{ formatRemainingTime(alert) }}
                 </span>
               </div>
               <!-- 未读标记 -->
-              <span v-if="!alert.read" class="h-2 w-2 rounded-full bg-destructive flex-shrink-0 animate-pulse" />
+              <span v-if="!alert.read" class="h-2 w-2 rounded-full bg-destructive shrink-0 animate-pulse" />
             </div>
           </div>
         </div>
