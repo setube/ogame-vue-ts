@@ -5,10 +5,22 @@ import de from './de'
 import ru from './ru'
 import ko from './ko'
 import ja from './ja'
+import es from './es'
+import esLA from './es-LA'
 
-export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'de' | 'ru' | 'ko' | 'ja'
+export type Locale = 'zh-CN' | 'zh-TW' | 'en' | 'de' | 'ru' | 'ko' | 'ja' | 'es' | 'es-LA'
 
-export const locales = { 'zh-CN': zhCN, 'zh-TW': zhTW, en, de, ru, ko, ja }
+export const locales = {
+  en,
+  'zh-CN': zhCN,
+  'zh-TW': zhTW,
+  de,
+  ru,
+  ko,
+  ja,
+  es,
+  'es-LA': esLA
+}
 
 export const localeNames: Record<Locale, string> = {
   'zh-CN': '简体中文',
@@ -17,7 +29,9 @@ export const localeNames: Record<Locale, string> = {
   de: 'Deutsch',
   ru: 'Русский',
   ko: '한국어',
-  ja: '日本語'
+  ja: '日本語',
+  es: 'Español',
+  'es-LA': 'Español (Latino)'
 }
 
 /**
@@ -44,6 +58,17 @@ export const detectBrowserLocale = (): Locale => {
     return 'de'
   } else if (lang.startsWith('ru')) {
     return 'ru'
+  } else if (lang.startsWith('es')) {
+    // Check for Latin American regions (Mexico, Argentina, Colombia, Chile, etc.)
+    const latamRegions = [
+      'ar', 'bo', 'cl', 'co', 'cr', 'do', 'ec', 'sv', 'gt',
+      'hn', 'mx', 'ni', 'pa', 'py', 'pe', 'pr', 'uy', 've', '419'
+    ]
+
+    if (latamRegions.some(region => lang.includes(region))) {
+      return 'es-LA'
+    }
+    return 'es'
   }
 
   // 默认返回简体中文
