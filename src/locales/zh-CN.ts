@@ -384,6 +384,7 @@ export default {
     title: '建筑',
     spaceUsage: '占用空间',
     upgradeCost: '升级消耗',
+    build: '建造',
     upgrade: '升级',
     maxLevelReached: '等级已满',
     requirementsNotMet: '条件不足',

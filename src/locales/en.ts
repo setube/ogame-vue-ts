@@ -382,6 +382,7 @@ export default {
     title: 'Buildings',
     spaceUsage: 'Space Usage',
     upgradeCost: 'Upgrade Cost',
+    build: 'Build',
     upgrade: 'Upgrade',
     maxLevelReached: 'Max Level Reached',
     requirementsNotMet: 'Requirements Not Met',

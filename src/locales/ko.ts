@@ -388,6 +388,7 @@ export default {
     title: '건물',
     spaceUsage: '공간 사용',
     upgradeCost: '업그레이드 비용',
+    build: '건설',
     upgrade: '업그레이드',
     maxLevelReached: '최대 레벨 도달',
     requirementsNotMet: '요구 사항 미충족',

@@ -392,8 +392,10 @@ export default {
     tabConsumption: 'Verbrauchsdetails'
   },
   buildingsView: {
+    title: 'Gebäude',
     spaceUsage: 'Platzbedarf',
     upgradeCost: 'Ausbaukosten',
+    build: 'Bauen',
     upgrade: 'Ausbauen',
     maxLevelReached: 'Maximale Stufe erreicht',
     requirementsNotMet: 'Anforderungen nicht erfüllt',

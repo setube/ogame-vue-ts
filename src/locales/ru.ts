@@ -402,6 +402,7 @@ export default {
     spaceUsage: 'Использование полей',
     level: 'Уровень',
     upgradeCost: 'Стоимость улучшения',
+    build: 'Построить',
     upgrade: 'Улучшить',
     maxLevelReached: 'Достигнут максимальный уровень',
     requirementsNotMet: 'Требования не выполнены',
