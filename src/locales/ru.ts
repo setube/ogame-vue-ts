@@ -11,29 +11,12 @@ export default {
   common: {
     confirm: 'Подтвердить',
     cancel: 'Отмена',
-    delete: 'Удалить',
-    edit: 'Редактировать',
     save: 'Сохранить',
     close: 'Закрыть',
-    back: 'Назад',
-    next: 'Далее',
-    gotIt: '',
-    previous: 'Предыдущий',
-    submit: 'Отправить',
-    reset: 'Сбросить',
-    search: 'Поиск',
-    filter: 'Фильтр',
-    loading: 'Загрузка...',
-    noData: 'Нет данных',
-    error: 'Ошибка',
+    gotIt: 'Понятно',
     success: 'Успешно',
-    warning: 'Предупреждение',
-    info: 'Информация',
     resourceType: 'Тип ресурса',
     playerName: 'Командир',
-    timeHour: 'ч',
-    timeMinute: 'мин',
-    timeSecond: 'сек',
     featureLocked: 'Функция заблокирована',
     unlockRequired: 'Требуется здание',
     requiredBuilding: 'Необходимое здание',
@@ -41,7 +24,6 @@ export default {
     goToBuildings: 'К зданиям',
     locked: 'Заблокировано',
     viewRequirements: 'Просмотр требований',
-    requirements: 'Требования',
     requirementsNotMet: 'Требования не выполнены',
     current: 'Текущий',
     level: 'Уровень',
@@ -51,7 +33,8 @@ export default {
     viewDetails: 'Подробнее',
     exitConfirmTitle: 'Выйти из игры',
     exitConfirmMessage: 'Вы уверены, что хотите выйти? Прогресс сохраняется автоматически.',
-    points: 'Очки'
+    points: 'Очки',
+    retry: 'Повторить'
   },
   errors: {
     requirementsNotMet: 'Требования не выполнены',
@@ -88,13 +71,13 @@ export default {
     galaxy: 'Галактика',
     diplomacy: 'Дипломатия',
     achievements: 'Достижения',
+    campaign: 'Кампания',
     ranking: 'Рейтинг',
     messages: 'Сообщения',
     settings: 'Настройки',
     gm: 'GM'
   },
   sidebar: {
-    language: 'Язык',
     lightMode: 'Светлая тема',
     darkMode: 'Тёмная тема',
     collapse: 'Свернуть',
@@ -119,9 +102,6 @@ export default {
   },
   energy: {
     lowWarning: 'Дефицит энергии! Производство ресурсов остановлено!',
-    severeWarning: 'Дефицит энергии! Производство ресурсов остановлено!',
-    criticalWarning: 'Дефицит энергии! Производство ресурсов остановлено!',
-    noProduction: 'Дефицит энергии! Производство ресурсов остановлено!',
     deficitDetail: 'Дефицит энергии: {deficit}, постройте больше электростанций',
     buildSolarPlant: 'Построить электростанцию'
   },
@@ -132,27 +112,20 @@ export default {
     lowResources: 'Почти истощено: {resources}'
   },
   planet: {
-    planet: 'Планета',
     moon: 'Луна',
-    colony: 'Колония',
     position: 'Позиция',
-    coordinates: 'Координаты',
     switchToMoon: 'На луну',
     backToPlanet: 'Вернуться на планету',
     switchPlanet: 'Переключить планету',
     currentPlanet: 'Текущая планета',
-    fields: 'Поля',
     temperature: 'Температура',
     homePlanet: 'Родная планета',
     planetPrefix: 'Планета',
-    moonSuffix: 'я луна',
     colonyPrefix: 'Колония',
     renamePlanet: 'Переименовать планету',
     renamePlanetTitle: 'Переименовать планету',
-    newPlanetName: 'Новое название',
     planetNamePlaceholder: 'Введите новое название планеты',
-    rename: 'Переименовать',
-    renameSuccess: 'Планета переименована в {name}'
+    rename: 'Переименовать'
   },
   player: {
     points: 'Всего очков'
@@ -179,8 +152,10 @@ export default {
     sensorPhalanx: 'Сенсорная фаланга',
     jumpGate: 'Прыжковые ворота',
     planetDestroyerFactory: 'Фабрика разрушителей планет',
+    geoResearchStation: 'Геологическая станция',
+    deepDrillingFacility: 'Глубинная буровая установка',
     buildTime: 'Время строительства',
-    build: '',
+    build: 'Построить',
     production: 'Производство',
     consumption: 'Потребление',
     totalCost: 'Общая стоимость',
@@ -194,7 +169,6 @@ export default {
     buildQueueBonus: 'Очередь строительства',
     spaceBonus: 'Бонус пространства',
     buildSpeedBonus: 'Бонус скорости строительства',
-    researchSpeedBonus: 'Бонус скорости исследования',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
     missileCapacity: 'Missile Capacity',
@@ -228,7 +202,10 @@ export default {
     lunarBase: 'Увеличивает доступное пространство на луне, +30 пространства за уровень',
     sensorPhalanx: 'Обнаруживает активность флота в окружающих системах',
     jumpGate: 'Мгновенно переносит флоты на другие луны',
-    planetDestroyerFactory: 'Производит абсолютное оружие, способное уничтожать планеты'
+    planetDestroyerFactory: 'Производит абсолютное оружие, способное уничтожать планеты',
+    geoResearchStation:
+      'Исследует геологическую структуру и повышает скорость восстановления рудных месторождений. +50% скорости восстановления за уровень',
+    deepDrillingFacility: ''
   },
   ships: {
     lightFighter: 'Лёгкий истребитель',
@@ -292,9 +269,6 @@ export default {
   },
   research: {
     researchTime: 'Время исследования',
-    totalCost: 'Общая стоимость',
-    totalPoints: 'Общие очки',
-    levelRange: 'Диапазон уровней',
     capacity: 'Capacity/Effect',
     storageCapacity: 'Capacity',
     energyProduction: 'Energy Production',
@@ -302,7 +276,15 @@ export default {
     buildQueue: 'Build Queue',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
-    missileCapacity: 'Missile Capacity'
+    missileCapacity: 'Missile Capacity',
+    attackBonus: 'Бонус атаки',
+    shieldBonus: 'Бонус щита',
+    armorBonus: 'Бонус брони',
+    spyLevel: 'Уровень шпионажа',
+    researchQueueBonus: 'Очередь исследований',
+    colonySlots: 'Слоты колоний',
+    forAllPlanets: '(Глобально)',
+    speedBonus: 'Бонус скорости'
   },
   technologies: {
     energyTechnology: 'Энергетическая технология',
@@ -322,7 +304,8 @@ export default {
     hyperspaceDrive: 'Гиперпространственный двигатель',
     darkMatterTechnology: 'Технология тёмной материи',
     terraformingTechnology: 'Технология терраформирования',
-    planetDestructionTech: 'Технология уничтожения планет'
+    planetDestructionTech: 'Технология уничтожения планет',
+    miningTechnology: ''
   },
   technologyDescriptions: {
     energyTechnology: 'Улучшает энергоэффективность',
@@ -344,7 +327,8 @@ export default {
     darkMatterTechnology: 'Исследование свойств и применения тёмной материи',
     terraformingTechnology:
       'Исследование технологии терраформирования планет, увеличивает доступное пространство всех планет на 30 за уровень',
-    planetDestructionTech: 'Исследование ужасающей технологии уничтожения целых планет'
+    planetDestructionTech: 'Исследование ужасающей технологии уничтожения целых планет',
+    miningTechnology: ''
   },
   officers: {
     commander: 'Командир',
@@ -379,7 +363,7 @@ export default {
     cancelResearch: 'Отменить исследование',
     confirmCancel: 'Вы уверены, что хотите отменить? 50% ресурсов будет возвращено.',
     level: 'Уровень',
-    gmModeActivated: '',
+    gmModeActivated: 'Режим GM активирован! Проверьте меню навигации.',
     upgradeToLevel: 'Улучшить до уровня',
     tabs: {
       all: 'Все',
@@ -395,17 +379,17 @@ export default {
     resourcesReady: 'Готово',
     waitingResources: 'Ожидание',
     waitingQueueFull: 'Очередь ожидания заполнена',
-    movedToQueue: 'Задача перемещена в очередь'
+    movedToQueue: 'Задача перемещена в очередь',
+    buildQueueBonus: 'Очередь строительства',
+    spaceBonus: 'Бонус пространства',
+    researchQueueBonus: 'Очередь исследований',
+    quantity: 'Количество'
   },
   overview: {
     title: 'Обзор планеты',
     resourceOverview: 'Ресурсы',
     fleetInfo: 'Флот',
     currentShips: 'Корабли на этой планете',
-    productionSources: 'Источники производства',
-    productionSourcesDesc: 'Подробная информация о производстве ресурсов и бонусах',
-    consumptionSources: 'Источники потребления',
-    consumptionSourcesDesc: 'Детали потребления энергии зданиями',
     totalProduction: 'Общее производство',
     totalConsumption: 'Общее потребление',
     noConsumption: 'Нет потребления энергии',
@@ -415,13 +399,9 @@ export default {
   },
   buildingsView: {
     title: 'Здания',
-    usedSpace: 'Использовано полей',
     spaceUsage: 'Использование полей',
     level: 'Уровень',
-    gmModeActivated: '',
     upgradeCost: 'Стоимость улучшения',
-    buildTime: 'Время строительства',
-    build: 'Построить',
     upgrade: 'Улучшить',
     maxLevelReached: 'Достигнут максимальный уровень',
     requirementsNotMet: 'Требования не выполнены',
@@ -431,8 +411,7 @@ export default {
     demolishRefund: 'Возврат от сноса',
     demolishFailed: 'Снос не удался',
     demolishFailedMessage: 'Невозможно снести это здание. Проверьте, не заполнена ли очередь строительства или уровень здания не равен 0.',
-    confirmDemolish: 'Подтвердить снос',
-    confirmDemolishMessage: 'Вы уверены, что хотите снести следующее здание?'
+    confirmDemolish: 'Подтвердить снос'
   },
   researchView: {
     title: 'Исследования',
@@ -444,27 +423,13 @@ export default {
       'Пожалуйста, проверьте, достаточно ли у вас ресурсов, выполнены ли предварительные условия или нет других исследовательских задач.'
   },
   shipyard: {
-    attack: 'Атака',
-    missileAttack: 'Ракетная атака',
-    shield: 'Щит',
-    armor: 'Броня',
     speed: 'Скорость',
     cargoCapacity: 'Грузоподъёмность',
-    fuelConsumption: 'Расход топлива',
-    buildCost: 'Стоимость постройки',
-    buildTime: 'Время строительства',
-    build: '',
-    perUnit: 'За единицу',
-    batchCalculator: 'Калькулятор партий',
-    quantity: 'Количество',
-    totalCost: 'Общая стоимость',
-    totalTime: 'Общее время'
+    fuelConsumption: 'Расход топлива'
   },
   shipyardView: {
     title: 'Верфь',
     fleetStorage: 'Хранилище флота',
-    owned: 'В наличии',
-    attack: 'Атака',
     missileAttack: 'Ракетная атака',
     shield: 'Щит',
     speed: 'Скорость',
@@ -485,7 +450,7 @@ export default {
     armor: 'Броня',
     buildCost: 'Стоимость постройки',
     buildTime: 'Время строительства',
-    build: '',
+    build: 'Построить',
     perUnit: 'За единицу',
     batchCalculator: 'Калькулятор партий',
     quantity: 'Количество',
@@ -539,6 +504,7 @@ export default {
     missionInfo: 'Информация о миссии',
     fuelConsumption: 'Расход топлива',
     flightTime: 'Время полета',
+    outOfRange: 'Вне зоны досягаемости',
     attackMission: 'Атака',
     transport: 'Транспорт',
     colonize: 'Колонизация',
@@ -580,11 +546,12 @@ export default {
     arrivalTime: 'Время прибытия',
     returnTime: 'Время возврата',
     recallFleet: 'Отозвать флот',
-    abortMission: '',
-    abortMissionTitle: '',
-    abortMissionWarning: '',
-    abortMissionSuccess: '',
-    abortMissionSuccessMessage: '',
+    abortMission: 'Прервать миссию',
+    abortMissionTitle: 'Подтверждение прерывания миссии',
+    abortMissionWarning:
+      'ВНИМАНИЕ: Прерывание этой миссии приведёт к необратимой потере {ships} кораблей и {resources} ресурсов!\n\nЭто действие необратимо, флот и ресурсы не вернутся.',
+    abortMissionSuccess: 'Миссия прервана',
+    abortMissionSuccessMessage: 'Миссия была прервана, флот и ресурсы потеряны.',
     sendFailed: 'Отправка не удалась',
     sendFailedMessage: 'Пожалуйста, проверьте количество флота, наличие топлива или ограничения грузоподъёмности.',
     recallFailed: 'Отзыв не удался',
@@ -639,7 +606,8 @@ export default {
     jumpGateSuccess: 'Переброска через ворота успешна',
     jumpGateSuccessMessage: 'Флот мгновенно переброшен к {target}',
     jumpGateFailed: 'Переброска через ворота не удалась',
-    jumpGateFailedMessage: 'Проверьте состояние ворот и конфигурацию флота'
+    jumpGateFailedMessage: 'Проверьте состояние ворот и конфигурацию флота',
+    destroy: 'Уничтожение'
   },
   officersView: {
     title: 'Офицеры',
@@ -653,7 +621,6 @@ export default {
     benefitsBonus: 'Бонусы',
     resourceProduction: 'Производство ресурсов',
     darkMatterProduction: 'Производство тёмной материи',
-    energyProduction: 'Производство энергии',
     buildingSpeed: 'Скорость строительства',
     researchSpeed: 'Скорость исследований',
     fleetSpeed: 'Скорость флота',
@@ -682,14 +649,11 @@ export default {
     selectGalaxy: 'Выбрать галактику',
     system: 'Система',
     selectSystem: 'Выбрать систему',
-    view: 'Показать',
-    myPlanet: 'Моя планета',
     myPlanets: 'Просмотр моих систем',
     npcPlanets: 'Планеты NPC',
     selectPlanetToView: 'Выберите планету для просмотра её системы',
     totalPositions: 'Всего 10 позиций планет',
     mine: 'Моя',
-    hostile: 'Враждебная',
     emptySlot: 'Пусто - можно колонизировать',
     scout: 'Разведка',
     attack: 'Атака',
@@ -716,7 +680,9 @@ export default {
     systems: 'систем',
     distance: 'Расстояние',
     flightTime: 'Время полета',
+    outOfRange: 'Вне зоны досягаемости',
     launchMissile: 'Запустить',
+    missileLaunched: 'Ракета запущена',
     cancel: 'Отмена',
     colonizePlanetMessage:
       'Вы уверены, что хотите колонизировать позицию [{coordinates}]?\n\nПерейдите на страницу флота, чтобы отправить колонизационный корабль.',
@@ -729,19 +695,33 @@ export default {
       'Вы уверены, что хотите отправить ресурсы в подарок планете [{coordinates}]?\n\nПерейдите на страницу флота, чтобы выбрать транспортные корабли и загрузить ресурсы.',
     npcPlanetName: 'Планета {name}',
     intercepted: 'Перехвачено',
-    defenseLosses: 'Потери обороны'
+    defenseLosses: 'Потери обороны',
+    phalanxScan: 'Сканирование сенсором',
+    phalanxScanTitle: 'Сканирование сенсорной решёткой',
+    phalanxScanDescription: 'Сканировать активность флота планеты [{coordinates}]',
+    phalanxNoMoon: 'Требуется луна с сенсорной решёткой для сканирования',
+    phalanxCost: 'Стоимость сканирования',
+    phalanxNoFleets: 'Активность флота не обнаружена',
+    phalanxFleetDetected: 'Обнаружено флотов: {count}',
+    phalanxOrigin: 'Отправление',
+    phalanxDestination: 'Назначение',
+    phalanxArrival: 'Время прибытия',
+    phalanxReturn: 'Время возвращения',
+    phalanxStatusOutbound: 'В пути',
+    phalanxStatusReturning: 'Возвращается',
+    phalanxInsufficientDeuterium: 'Недостаточно дейтерия'
   },
   messagesView: {
     title: 'Сообщения',
     battles: 'Битвы',
     spy: 'Разведка',
     npc: 'NPC',
-    diplomacy: '',
+    diplomacy: 'Дипломатия',
     battleReports: 'Отчёты о боях',
     spyReports: 'Отчёты разведки',
     noBattleReports: 'Нет отчётов о боях',
     noSpyReports: 'Нет отчётов разведки',
-    noDiplomaticReports: '',
+    noDiplomaticReports: 'Нет дипломатических отчётов',
     battleReport: 'Отчёт о бое',
     spyReport: 'Отчёт разведки',
     victory: 'Победа',
@@ -762,6 +742,8 @@ export default {
     defense: 'Оборона',
     buildings: 'Здания',
     unread: 'Непрочитано',
+    pending: 'Ожидает',
+    invalidData: 'Недействительные данные',
     targetPlanet: 'Целевая планета',
     attackerRemaining: 'Осталось у нападающего',
     defenderRemaining: 'Осталось у защитника',
@@ -814,36 +796,36 @@ export default {
       polite_decline: 'Вежливо отказались'
     },
     // Spied notification dialog
-    spiedNotificationDetails: '',
-    spyDetected: '',
-    detectionResult: '',
-    detectionSuccess: '',
-    spiedNotificationMessage: '',
-    spiedNotificationTip: '',
-    viewInGalaxy: '',
+    spiedNotificationDetails: 'Детали уведомления о шпионаже',
+    spyDetected: 'Шпион обнаружен',
+    detectionResult: 'Результат обнаружения',
+    detectionSuccess: 'Вы обнаружили вражеского шпиона!',
+    spiedNotificationMessage: '{npc} попытался шпионить за вашей планетой {planet}',
+    spiedNotificationTip: 'Рассмотрите возможность усиления обороны или контратаки, если этот NPC враждебен',
+    viewInGalaxy: 'Показать в галактике',
     // Mission report dialog
-    missionReportDetails: '',
-    missionSuccess: '',
-    missionFailed: '',
-    origin: '',
-    destination: '',
-    missionDetails: '',
-    transportedResources: '',
-    recycledResources: '',
-    remainingDebris: '',
-    newPlanet: '',
+    missionReportDetails: 'Детали отчёта о миссии',
+    missionSuccess: 'Успех',
+    missionFailed: 'Неудача',
+    origin: 'Происхождение',
+    destination: 'Назначение',
+    missionDetails: 'Детали миссии',
+    transportedResources: 'Перевезённые ресурсы',
+    recycledResources: 'Переработанные ресурсы',
+    remainingDebris: 'Оставшиеся обломки',
+    newPlanet: 'Новая планета',
     // NPC activity dialog
-    npcActivityDetails: '',
+    npcActivityDetails: 'Детали активности NPC',
     activityType: {
-      recycle: ''
+      recycle: 'Переработка обломков'
     },
-    activityLocation: '',
-    position: '',
-    nearPlanet: '',
-    activityDescription: '',
-    npcActivityMessage: '',
-    arrivalTime: '',
-    npcActivityTip: '',
+    activityLocation: 'Местоположение активности',
+    position: 'Позиция',
+    nearPlanet: 'Возле планеты',
+    activityDescription: 'Описание активности',
+    npcActivityMessage: '{npc} {activity} в {position}',
+    arrivalTime: 'Время прибытия',
+    npcActivityTip: 'NPC могут собирать обломки после боёв. Вы можете попытаться прибыть на место первым, чтобы конкурировать за ресурсы',
     clearMessages: 'Очистить сообщения',
     clearMessageTypes: 'Выберите типы сообщений для очистки',
     clearBattleReports: 'Боевые отчёты',
@@ -853,7 +835,11 @@ export default {
     clearNPCActivity: 'Активность NPC',
     clearGiftNotifications: 'Уведомления о подарках',
     clearGiftRejected: 'Отклонённые подарки',
-    clearNow: 'Очистить сейчас'
+    clearTradeOffers: 'Торговые предложения',
+    clearIntelReports: 'Разведывательные отчёты',
+    clearJointAttackInvites: 'Приглашения на совместную атаку',
+    clearNow: 'Очистить сейчас',
+    clearSuccess: 'Сообщения очищены'
   },
   missionReports: {
     transportSuccess: 'Миссия транспортировки успешно завершена',
@@ -980,7 +966,6 @@ export default {
     viewUpdate: 'Просмотреть обновление',
     updateAvailable: 'Доступна новая версия. Нажмите, чтобы просмотреть примечания к выпуску.',
     download: 'Скачать',
-    goToDownload: 'Перейти к загрузке',
     buildDate: 'Дата сборки',
     community: 'Сообщество',
     github: 'Репозиторий GitHub',
@@ -1002,14 +987,58 @@ export default {
     suppressInFocus: 'Не отправлять уведомления браузера, когда страница в фокусе',
     expandTypes: 'Развернуть детали',
     collapseTypes: 'Свернуть детали',
+    displaySettings: 'Настройки отображения',
+    displaySettingsDesc: 'Настройка визуальных эффектов игры',
+    backgroundAnimation: 'Фоновая анимация',
+    backgroundAnimationDesc: 'Показывать анимацию звёздного неба/частиц на фоне (может влиять на производительность)',
     // Обновление имен NPC
-    npcNameUpdate: 'Обновление имен NPC',
     npcNameUpdateTitle: 'Обнаружены устаревшие имена NPC',
     npcNameUpdateMessage: 'Найдено {count} NPC с устаревшим форматом имен. Хотите обновить их до новых локализованных имен?',
     npcNameUpdateConfirm: 'Обновить имена',
     npcNameUpdateCancel: 'Оставить как есть',
     npcNameUpdateSuccess: 'Успешно обновлено {count} имен NPC',
-    npcNameUpdateSkipped: 'Обновление имен NPC пропущено'
+    npcNameUpdateSkipped: 'Обновление имен NPC пропущено',
+    // WebDAV
+    webdav: {
+      title: 'Облачная синхронизация',
+      desc: 'Синхронизация сохранений через WebDAV',
+      config: 'Настроить',
+      configTitle: 'Настройка WebDAV',
+      configDesc: 'Настройте сервер WebDAV для облачной синхронизации',
+      notConfigured: 'Сначала настройте сервер WebDAV',
+      serverUrl: 'URL сервера',
+      serverUrlPlaceholder: 'напр. https://dav.example.com',
+      serverUrlHint: 'Введите адрес вашего WebDAV сервера',
+      username: 'Имя пользователя',
+      usernamePlaceholder: 'Введите имя пользователя',
+      password: 'Пароль',
+      passwordPlaceholder: 'Введите пароль',
+      passwordHint: 'Пароль хранится только локально',
+      basePath: 'Путь сохранений',
+      basePathPlaceholder: 'напр. /ogame-saves/',
+      testConnection: 'Проверить соединение',
+      testing: 'Проверка...',
+      testSuccess: 'Соединение успешно',
+      testFailed: 'Соединение не удалось',
+      save: 'Сохранить',
+      clearConfig: 'Очистить',
+      configSaved: 'Настройки сохранены',
+      configCleared: 'Настройки очищены',
+      upload: 'Загрузить',
+      uploading: 'Загрузка...',
+      uploadSuccess: 'Загрузка успешна',
+      uploadFailed: 'Загрузка не удалась',
+      download: 'Скачать',
+      downloadSuccess: 'Скачивание успешно',
+      downloadFailed: 'Скачивание не удалось',
+      selectFile: 'Выбрать сохранение',
+      selectFileDesc: 'Выберите файл сохранения для восстановления',
+      noFiles: 'Файлы сохранений не найдены',
+      loadFailed: 'Не удалось загрузить список файлов',
+      confirmDelete: 'Вы уверены, что хотите удалить "{name}"?',
+      deleteSuccess: 'Файл удален',
+      deleteFailed: 'Удаление не удалось'
+    }
   },
   notifications: {
     constructionComplete: 'Строительство завершено',
@@ -1031,8 +1060,8 @@ export default {
     officers: 'Офицеры',
     modifyResources: 'Изменить ресурсы',
     resourcesDesc: 'Быстрое изменение ресурсов планеты',
-    maxAllResources: '',
-    maxAllResourcesSuccess: '',
+    maxAllResources: 'Максимизировать все',
+    maxAllResourcesSuccess: 'Все ресурсы максимизированы',
     modifyBuildings: 'Изменить здания',
     buildingsDesc: 'Быстрая установка уровней зданий',
     modifyResearch: 'Изменить исследования',
@@ -1074,10 +1103,10 @@ export default {
     dangerZoneDesc: 'Следующие операции необратимы',
     resetGame: 'Сбросить игру',
     resetGameConfirm: 'Вы уверены, что хотите сбросить игру? Все данные будут удалены!',
-    completeAllQueues: '',
-    completeAllQueuesDesc: '',
-    completeQueues: '',
-    completeQueuesSuccess: ''
+    completeAllQueues: 'Завершить все очереди',
+    completeAllQueuesDesc: 'Мгновенно завершить все очереди строительства, исследований, верфи, обороны и миссии флота',
+    completeQueues: 'Завершить очереди',
+    completeQueuesSuccess: 'Все очереди успешно завершены'
   },
   alerts: {
     incomingFleets: '{count} вражеских флотов приближается',
@@ -1108,11 +1137,13 @@ export default {
     missionType: {
       spy: 'Разведка',
       attack: 'Атака',
+      recycle: 'Переработка',
       unknown: 'Неизвестно'
     },
     warning: {
       spy: 'Вражеская разведка приближается!',
       attack: 'Вражеская атака приближается!',
+      recycle: 'Враг перерабатывает обломки поблизости!',
       unknown: 'Вражеский флот приближается!'
     }
   },
@@ -1129,13 +1160,11 @@ export default {
     noFriendlyNpcs: 'Нет дружественных NPC',
     noNeutralNpcs: 'Нет нейтральных NPC',
     noHostileNpcs: 'Нет враждебных NPC',
-    recentEvents: 'Недавние события',
-    recentEventsDescription: 'Журнал последних дипломатических действий',
     ago: 'назад',
-    notifications: '',
-    markAllRead: '',
-    noReports: '',
-    viewAll: '',
+    notifications: 'Дипломатические уведомления',
+    markAllRead: 'Отметить всё прочитанным',
+    noReports: 'Нет дипломатических событий',
+    viewAll: 'Показать все',
     status: {
       friendly: 'Дружественный',
       neutral: 'Нейтральный',
@@ -1154,7 +1183,6 @@ export default {
     },
     note: 'Заметка',
     notePlaceholder: 'Введите заметку...',
-    noteEmpty: 'Нет заметки',
     lastEvent: 'Последнее событие',
     reportDetails: 'Детали дипломатического отчёта',
     eventDescription: 'Описание события',
@@ -1210,6 +1238,19 @@ export default {
       npcEliminatedMessage: 'Вы уничтожили все планеты {npcName}! Эта фракция полностью уничтожена.'
     },
     searchPlaceholder: 'Поиск NPC по имени...',
+    notificationType: {
+      tradeOffer: 'Торговое предложение',
+      intelReport: 'Разведывательный отчёт',
+      jointAttack: 'Приглашение на совместную атаку'
+    },
+    notificationBadge: {
+      trade: 'Торговля',
+      intel: 'Разведка',
+      jointAttack: 'Приглашение'
+    },
+    notificationExtra: {
+      pending: 'Ожидание'
+    },
     viewMode: {
       card: 'Карточки',
       list: 'Список'
@@ -1225,6 +1266,21 @@ export default {
         easy: 'Лёгкая',
         medium: 'Средняя',
         hard: 'Сложная'
+      },
+      aiType: 'Тип ИИ',
+      aiTypes: {
+        aggressive: 'Агрессивный',
+        defensive: 'Оборонительный',
+        trader: 'Торговец',
+        expansionist: 'Экспансионист',
+        balanced: 'Сбалансированный'
+      },
+      aiTypeDescriptions: {
+        aggressive: 'Активно шпионит и атакует, сильная месть',
+        defensive: 'Редко атакует, сильная месть при нападении',
+        trader: 'Почти не атакует, предпочитает торговлю и подарки',
+        expansionist: 'Фокус на развитии, менее агрессивен',
+        balanced: 'Динамически адаптирует стратегию к ситуации'
       },
       reputation: 'Репутация',
       spyProbes: 'Шпионские зонды',
@@ -1252,27 +1308,12 @@ export default {
         attackCooldown: 'Атака на перезарядке ({min}м {sec}с)',
         notSpiedYet: 'Ещё не разведан, сначала нужна разведка'
       }
-    },
-    aiType: 'Тип ИИ',
-    aiTypes: {
-      aggressive: 'Агрессивный',
-      defensive: 'Оборонительный',
-      trader: 'Торговец',
-      expansionist: 'Экспансионист',
-      balanced: 'Сбалансированный'
-    },
-    aiTypeDescriptions: {
-      aggressive: 'Активно шпионит и атакует, сильная месть',
-      defensive: 'Редко атакует, сильная месть при нападении',
-      trader: 'Почти не атакует, предпочитает торговлю и подарки',
-      expansionist: 'Фокус на развитии, менее агрессивен',
-      balanced: 'Динамически адаптирует стратегию к ситуации'
     }
   },
   pagination: {
     previous: 'Предыдущая',
     next: 'Следующая',
-    gotIt: '',
+    gotIt: 'Понятно',
     first: 'Первая',
     last: 'Последняя',
     page: 'Страница {page}'
@@ -1336,9 +1377,35 @@ export default {
     seconds: 'секунд'
   },
   tutorial: {
+    progress: 'Прогресс',
+    previous: 'Назад',
+    next: 'Далее',
+    gotIt: 'Понятно',
+    completeButton: 'Завершить',
+    skip: 'Пропустить руководство',
     welcome: {
       title: 'Добро пожаловать в OGame',
-      content: 'Добро пожаловать, Командир! Давайте начнём с основ и построим вашу космическую империю.'
+      content:
+        'Добро пожаловать, Командир! Это руководство познакомит вас с основами построения империи. Нажмите "Далее", чтобы начать своё путешествие.'
+    },
+    resources: {
+      title: 'Обзор ресурсов',
+      content:
+        'Это ваши ресурсы: металл, кристалл и дейтерий. Они необходимы для строительства зданий и исследований. Энергия также важна для питания инфраструктуры.'
+    },
+    planet: {
+      title: 'Ваша планета',
+      content:
+        'Это ваша родная планета. Здесь вы можете увидеть название планеты, координаты и переключаться между планетами при расширении империи.'
+    },
+    navigation: {
+      title: 'Меню навигации',
+      content:
+        'Используйте это меню для перехода между разделами: здания, исследования, флот, галактика и другие. Каждый раздел предоставляет уникальные игровые функции.'
+    },
+    gotoBuildings: {
+      title: 'Перейти к зданиям',
+      content: 'Давайте начнём с постройки зданий. Нажмите на пункт меню "Здания", чтобы увидеть доступные здания.'
     },
     buildSolarPlant: {
       title: 'Постройте солнечную электростанцию',
@@ -1350,16 +1417,119 @@ export default {
       content:
         'Ваше здание теперь в очереди строительства. Нажмите на значок очереди в правом верхнем углу, чтобы увидеть все текущие задачи строительства и исследований. Строительство занимает время, но вы можете продолжать работать во время ожидания.'
     },
+    buildMetalMine: {
+      title: 'Постройте рудник металла',
+      content:
+        'Теперь, когда есть энергия, постройте рудник металла. Рудник металла — ваш основной источник металла, который используется почти в каждом здании и корабле.'
+    },
+    buildCrystalMine: {
+      title: 'Постройте рудник кристалла',
+      content:
+        'Кристалл более редкий, но важен для продвинутых технологий. Постройте рудник кристалла, чтобы начать сбор этого ценного ресурса.'
+    },
+    buildDeuterium: {
+      title: 'Постройте синтезатор дейтерия',
+      content:
+        'Дейтерий необходим для топлива кораблей и продвинутых исследований. Постройте синтезатор дейтерия, чтобы начать производство этого ключевого ресурса.'
+    },
+    upgradeMines: {
+      title: 'Улучшите ресурсные рудники',
+      content:
+        'Далее вам нужно улучшить все три ресурсных рудника (металл, кристалл, дейтерий) до уровня 2, чтобы соответствовать требованиям для фабрики роботов. Продолжайте улучшать их, когда накопите достаточно ресурсов.'
+    },
+    buildRobotics: {
+      title: 'Постройте фабрику роботов',
+      content:
+        'Фабрика роботов значительно ускоряет строительство. Она требует, чтобы рудники металла, кристалла и дейтерия были на уровне 2. Постройте её для повышения эффективности строительства!'
+    },
+    upgradeMinesForLab: {
+      title: 'Продолжайте улучшать рудники',
+      content:
+        'Теперь вам нужно улучшить все три ресурсных рудника до уровня 3, чтобы соответствовать требованиям исследовательской лаборатории. Продолжайте развивать производство ресурсов.'
+    },
+    buildResearchLab: {
+      title: 'Постройте исследовательскую лабораторию',
+      content:
+        'Исследовательская лаборатория — основа технологического прогресса. Она требует, чтобы все три ресурсных рудника были на уровне 3. Постройте её, чтобы разблокировать исследования!'
+    },
+    gotoResearch: {
+      title: 'Перейти к исследованиям',
+      content:
+        'Теперь, когда у вас есть исследовательская лаборатория, нажмите на пункт меню "Исследования", чтобы увидеть доступные технологии.'
+    },
+    researchEnergy: {
+      title: 'Исследуйте энергетическую технологию',
+      content:
+        'Энергетическая технология увеличивает производство энергии и открывает продвинутые здания. Это одна из самых базовых и важных технологий.'
+    },
+    shipyardIntro: {
+      title: 'Флот и верфь',
+      content:
+        'Корабли позволяют исследовать галактику, транспортировать ресурсы и защищать вашу империю. Для строительства кораблей вам нужна верфь (требуется фабрика роботов уровня 2).'
+    },
+    gotoBuildingsForShipyard: {
+      title: 'Вернитесь к зданиям',
+      content: 'Вернитесь на страницу зданий, чтобы построить верфь.'
+    },
+    buildShipyard: {
+      title: 'Постройте верфь',
+      content: 'Верфь позволяет строить корабли и оборонительные системы. Это критично для флотских операций.'
+    },
+    fleetIntro: {
+      title: 'Флотские операции',
+      content:
+        'Когда у вас появятся корабли, вы сможете отправлять их на миссии: транспортировать ресурсы, колонизировать планеты, атаковать врагов или исследовать поля обломков.'
+    },
+    galaxyIntro: {
+      title: 'Исследование галактики',
+      content:
+        'Вид галактики показывает другие планеты, поля обломков и возможности для расширения. Используйте его для разведки целей и планирования стратегии.'
+    },
+    complete: {
+      title: 'Руководство завершено!',
+      content:
+        'Поздравляем, Командир! Теперь вы знаете основы. Продолжайте строить империю, исследовать технологии и изучать галактику. Помните: сначала развивайте энергию, затем ресурсы, потом фабрики и исследования! Удачи!'
+    },
+    // Мобильное руководство
     mobile: {
       welcome: {
         title: 'Добро пожаловать в OGame (Мобильная версия)',
         content:
           'Добро пожаловать, Командир! Это упрощённое руководство, разработанное для сенсорных экранов. Мы быстро рассмотрим основные функции, чтобы вы могли начать строить свою империю.'
       },
+      resources: {
+        title: 'Верхняя панель ресурсов',
+        content:
+          'Вверху отображаются ваши ресурсы: металл, кристалл и дейтерий. Нажмите, чтобы увидеть подробную информацию о производстве.'
+      },
+      menu: {
+        title: 'Открыть меню навигации',
+        content:
+          'Нажмите на этот значок меню, чтобы открыть панель навигации, где можно получить доступ к зданиям, исследованиям, флоту и всем функциям.'
+      },
+      gotoBuildings: {
+        title: 'Перейти к зданиям',
+        content: 'Меню открыто! Теперь нажмите на опцию "Здания", чтобы начать строительство инфраструктуры.'
+      },
+      buildSolarPlant: {
+        title: 'Постройте солнечную электростанцию',
+        content:
+          'Сначала постройте солнечную электростанцию! Прокрутите вниз, чтобы найти её, и нажмите на карточку для строительства. Энергия — основа всего.'
+      },
       waitBuild: {
         title: 'Очередь строительства',
         content:
           'Нажмите на значок очереди в правом верхнем углу, чтобы увидеть прогресс строительства. Вы можете продолжать просматривать другие страницы - строительство происходит в фоновом режиме.'
+      },
+      buildMetalMine: {
+        title: 'Постройте рудник металла',
+        content:
+          'После получения энергии постройте рудник металла. Прокрутите вниз, чтобы найти рудник металла, и нажмите для строительства.'
+      },
+      complete: {
+        title: 'Быстрое руководство завершено!',
+        content:
+          'Отлично! Вы освоили базовые операции. Продолжайте строить рудники кристалла и синтезатор дейтерия, затем исследуйте другие функции. Помните: сначала энергия, затем ресурсы!'
       }
     }
   },
@@ -1424,10 +1594,20 @@ export default {
       title: 'Симулятор боя',
       message: 'Симулируйте результаты боя перед атакой. Введите флоты и уровни технологий для прогноза победы, потерь и добычи.'
     },
+    campaign: {
+      title: 'Режим кампании',
+      message:
+        'Исследуйте сюжетную кампанию галактики! Выполняйте миссии, чтобы получить ресурсные награды и открыть новые испытания. Каждый узел имеет уникальные цели и врагов.'
+    },
     achievements: {
       title: 'Система достижений',
       message:
         'Выполняйте игровые цели для разблокировки достижений и получения наград в виде тёмной материи! Достижения имеют несколько уровней - стремитесь к более высоким целям для лучших наград.'
+    },
+    ranking: {
+      title: 'Рейтинг',
+      message:
+        'Сравнивайте свой прогресс с другими игроками и NPC. Смотрите рейтинги по очкам за здания, исследования, флот и оборону. Стремитесь к вершине таблицы лидеров!'
     },
     settings: {
       title: 'Настройки',
@@ -1554,5 +1734,344 @@ export default {
     you: 'Вы',
     scoreBreakdown: 'Детали очков',
     noData: 'Нет данных рейтинга'
+  },
+  // Уведомления о расширенном поведении НПС
+  npcBehavior: {
+    tradeOfferReceived: 'Торговое предложение получено',
+    tradeOfferDesc: '{npcName} отправил вам торговое предложение',
+    attitudeChanged: 'Изменение отношения НПС',
+    becameFriendly: '{npcName} стал к вам дружелюбным',
+    becameHostile: '{npcName} стал к вам враждебным',
+    intelReceived: 'Разведданные получены',
+    intelReceivedDesc: '{npcName} поделился информацией о враге',
+    jointAttackInvite: 'Приглашение к совместной атаке',
+    jointAttackInviteDesc: '{npcName} приглашает вас совместно атаковать врага',
+    aidReceived: 'Помощь получена',
+    aidReceivedDesc: '{npcName} отправил вам {amount} ресурсов',
+    allyDefense: 'Союзная оборона',
+    allyDefenseDesc: '{npcName} отправляет флот для защиты вашей планеты',
+    trade: {
+      title: 'Торговые предложения',
+      from: 'От',
+      offers: 'Предлагает',
+      requests: 'Запрашивает',
+      expiresIn: 'Истекает через',
+      expired: 'Истекло',
+      accept: 'Принять',
+      decline: 'Отклонить',
+      noOffers: 'Нет торговых предложений',
+      acceptSuccess: 'Сделка завершена!',
+      acceptFailed: 'Недостаточно ресурсов для сделки',
+      declined: 'Сделка отклонена',
+      ratio: 'Курс обмена'
+    },
+    intel: {
+      title: 'Разведывательные отчёты',
+      from: 'Источник',
+      target: 'Цель НПС',
+      type: 'Тип разведки',
+      types: {
+        enemyFleet: 'Данные о флоте',
+        enemyResources: 'Данные о ресурсах',
+        enemyMovement: 'Данные о передвижениях'
+      },
+      fleetInfo: 'Информация о флоте',
+      resourceInfo: 'Информация о ресурсах',
+      movementInfo: 'Информация о передвижениях',
+      noReports: 'Нет разведывательных отчётов',
+      markAsRead: 'Отметить как прочитанное',
+      content: 'Содержание разведки',
+      noFleet: 'Флот не обнаружен',
+      noData: 'Нет данных',
+      targetPosition: 'Целевые координаты',
+      missionType: 'Тип миссии'
+    },
+    jointAttack: {
+      title: 'Приглашения к совместной атаке',
+      from: 'Инициатор',
+      target: 'Цель НПС',
+      targetPlanet: 'Целевая планета',
+      npcFleet: 'Флот НПС',
+      lootShare: 'Доля добычи',
+      expiresIn: 'Истекает через',
+      expired: 'Истекло',
+      accept: 'Присоединиться к атаке',
+      decline: 'Отклонить',
+      noInvites: 'Нет приглашений к совместной атаке',
+      acceptSuccess: 'Вы присоединились к совместной атаке!',
+      declined: 'Приглашение отклонено',
+      targetInfo: 'Цель атаки',
+      expectedShare: 'Ожидаемая доля',
+      remaining: 'Оставшееся время'
+    },
+    aid: {
+      title: 'Ресурсная помощь',
+      from: 'Источник',
+      resources: 'Ресурсы помощи',
+      noAid: 'Нет записей о помощи'
+    },
+    attitudeChange: {
+      title: 'Изменения отношения',
+      npc: 'НПС',
+      previous: 'Было',
+      current: 'Сейчас',
+      reason: 'Причина',
+      reasons: {
+        naturalSwing: 'Естественное изменение',
+        giftReceived: 'Получен подарок',
+        attacked: 'Был атакован',
+        reputationThreshold: 'Порог репутации',
+        attitude_swing: 'Смена отношения',
+        gift: 'Получен подарок',
+        attack: 'Был атакован'
+      }
+    },
+    allyAction: {
+      title: 'Действия союзников',
+      defense: 'Оборонная поддержка',
+      defenseDesc: '{npcName} отправляет флот для защиты {targetPlanet}',
+      jointAttackStarted: 'Совместная атака началась',
+      jointAttackStartedDesc: 'Совместная атака на {targetNpc} началась',
+      reputationBonus: 'Бонус репутации',
+      reputationBonusDesc: 'Ваш союзник {npcName} хорошо отзывается о вас {targetNpc}'
+    }
+  },
+  campaign: {
+    name: 'Кампания',
+    description: 'Исследуйте загадочную галактику и раскройте древние тайны',
+    totalProgress: 'Общий прогресс',
+    questsCompleted: 'Квестов выполнено',
+    chapter: 'Глава',
+    branch: 'Ветвь',
+    startQuest: 'Начать квест',
+    claimRewards: 'Получить награды',
+    objectives: 'Цели',
+    objectivesLabel: 'Цели',
+    rewards: 'Награды',
+    completed: 'Завершено',
+    inProgress: 'В процессе',
+    available: 'Доступно',
+    locked: 'Заблокировано',
+    notifications: {
+      questStarted: 'Квест начат',
+      questCompleted: 'Квест завершён!',
+      rewardsClaimed: 'Награды получены',
+      objectiveCompleted: 'Цель достигнута',
+      chapterUnlocked: 'Новая глава разблокирована',
+      reputationUp: 'Репутация с {npcName} повысилась на {value}',
+      reputationDown: 'Репутация с {npcName} понизилась на {value}',
+      branchUnlocked: 'Новая сюжетная ветка разблокирована!'
+    },
+    dialogue: {
+      skip: 'Пропустить',
+      continue: 'Продолжить',
+      finish: 'Завершить',
+      player: 'Командир',
+      npc: 'NPC',
+      narrator: 'Рассказчик',
+      mysterious: 'Загадочный сигнал',
+      unknownSource: 'Неизвестный источник',
+      choiceEffect: 'Эффект выбора диалога'
+    },
+    chapters: {
+      '1': {
+        title: 'Начало',
+        description: 'Постройте свой дом и сделайте первый шаг в космос',
+        backgroundStory:
+          'Вы молодой космический командир, только что получивший свою первую планету. В этой необъятной вселенной вы будете строить свой дом, развивать технологии и исследовать глубины галактики...'
+      },
+      '2': {
+        title: 'Исследование',
+        description: 'Исследуйте вселенную и откройте древние руины',
+        backgroundStory:
+          'По мере роста вашей мощи загадочные сигналы из глубокого космоса привлекают ваше внимание. Эти сигналы, кажется, указывают на древнюю тайну, ожидающую смелых исследователей...'
+      },
+      '3': {
+        title: 'Дипломатия',
+        description: 'Установите связи с другими фракциями',
+        backgroundStory:
+          'Вы не одиноки в галактике. Другие цивилизации поднимаются. Вы должны решить, быть ли им врагом или союзником. Дипломатическая мудрость определит, как далеко зайдёт ваша империя...'
+      },
+      '4': {
+        title: 'Восходящая тень',
+        description: 'Противостойте могущественным врагам и защитите свою территорию',
+        backgroundStory:
+          'Опасность таится в тени. Могущественная враждебная сила нацелилась на вашу территорию. Война неизбежна. Вы должны подготовиться к надвигающейся буре...'
+      },
+      '5': {
+        title: 'Древние тайны',
+        description: 'Раскройте глубочайшие секреты галактики',
+        backgroundStory:
+          'Все улики указывают на самый загадочный регион галактики. Там скрыты конечные тайны, оставленные древними цивилизациями. Готовы ли вы раскрыть всё?'
+      }
+    },
+    quests: {
+      '1_1': { title: 'Строительство дома', description: 'Постройте инфраструктуру, чтобы заложить основу для вашей планеты' },
+      '1_2': { title: 'Техническое просвещение', description: 'Исследуйте базовые технологии, чтобы начать свой технологический путь' },
+      '1_3': { title: 'Первый корабль', description: 'Постройте свой первый боевой корабль' },
+      '1_4': { title: 'Странные соседи', description: 'Разведайте другие фракции в ближайших системах' },
+      '1_5': { title: 'Первый контакт', description: 'Установите начальный контакт с ближайшими NPC-фракциями' },
+      '2_1': { title: 'Пионерская колония', description: 'Колонизируйте свою первую новую планету' },
+      '2_2': { title: 'Экспедиция в глубокий космос', description: 'Отправьте флот в экспедиционные миссии' },
+      '2_3': { title: 'Загадочный сигнал', description: 'Исследуйте загадочные сигналы из глубокого космоса' },
+      '2_4': { title: 'Исследование руин', description: 'Исследуйте обнаруженные древние руины' },
+      '2_5': { title: 'Расшифровка архивов', description: 'Изучите данные, полученные из руин' },
+      '3_1': { title: 'Миротворец', description: 'Улучшите отношения с NPC через дипломатию' },
+      '3_2': { title: 'Торговые отношения', description: 'Установите стабильные отношения с дружественными фракциями' },
+      '3_3': { title: 'Общая угроза', description: 'Обнаружьте потенциальные враждебные силы' },
+      '3_4': { title: 'Переговоры об альянсе', description: 'Заключите официальный альянс с дружественными NPC' },
+      '3_5': { title: 'Подготовка к буре', description: 'Постройте оборону для подготовки к вызовам' },
+      '4_1': { title: 'Атака на форпост', description: 'Отразите первую атаку враждебных сил' },
+      '4_2': { title: 'Сбор разведданных', description: 'Разведайте военные позиции врага' },
+      '4_3': { title: 'Контратака', description: 'Начните контратаку против врага' },
+      '4_4': { title: 'Борьба за ресурсы', description: 'Переработайте обломки поля боя для ресурсов' },
+      '4_5': { title: 'Канун битвы', description: 'Постройте мощный флот для финальной битвы' },
+      '5_1': { title: 'Глубины руин', description: 'Исследуйте самые глубокие части руин' },
+      '5_2': { title: 'Древние технологии', description: 'Разблокируйте технологии древних цивилизаций' },
+      '5_3': { title: 'Финальное противостояние', description: 'Примите участие в финальной битве с загадочным врагом' },
+      '5_4': { title: 'Новая эра', description: 'Основывайте новые колонии и начните новую эпоху' },
+      '5_5': { title: 'Продолжение наследия', description: 'Продолжайте развитие и завоёвывайте больше систем' }
+    },
+    objectiveTypes: {
+      buildBuilding: 'Построить {building} до уровня {level}',
+      researchTech: 'Исследовать {tech} до уровня {level}',
+      produceShips: 'Произвести {count} {ship}',
+      accumulateResources: 'Накопить {amount} {resource}',
+      defeatNPC: 'Победить {npc}',
+      winBattles: 'Выиграть {count} сражений',
+      recycleDebris: 'Переработать {amount} обломков',
+      reachRelation: 'Достичь отношений {level} с {npc}',
+      sendGift: 'Отправить {count} подарков {npc}',
+      formAlliance: 'Заключить альянс с {npc}',
+      colonize: 'Колонизировать {count} планет',
+      expedition: 'Завершить {count} экспедиций',
+      spyTarget: 'Разведать {target}'
+    },
+    errors: {
+      questNotFound: 'Квест не найден',
+      questNotAvailable: 'Квест недоступен',
+      questNotActive: 'Квест не активен',
+      questNotCompleted: 'Квест не завершён',
+      rewardsAlreadyClaimed: 'Награды уже получены',
+      prerequisiteNotMet: 'Предварительный квест не завершён'
+    },
+    speakers: {
+      ancientVoice: 'Древний голос',
+      neighborNPC: 'Соседняя фракция',
+      mysteriousSignal: 'Загадочный сигнал',
+      enemyCommander: 'Вражеский командир'
+    },
+    objectiveDescriptions: {
+      buildMetalMine: 'Построить Металлургический завод до уровня 2',
+      buildCrystalMine: 'Построить Кристаллический завод до уровня 2',
+      buildSolarPlant: 'Построить Солнечную электростанцию до уровня 2',
+      buildResearchLab: 'Построить Исследовательскую лабораторию до уровня 1',
+      researchEnergy: 'Исследовать Энергетическую технологию до уровня 1',
+      buildShipyard: 'Построить Верфь до уровня 2',
+      researchCombustion: 'Исследовать Реактивный двигатель до уровня 1',
+      buildLightFighters: 'Построить 5 Лёгких истребителей',
+      researchEspionage: 'Исследовать Шпионаж до уровня 2',
+      buildSpyProbes: 'Построить 3 Шпионских зонда',
+      spyAnyNPC: 'Разведать планету NPC',
+      sendGiftToNPC: 'Отправить подарок NPC',
+      researchAstrophysics: 'Исследовать Астрофизику до уровня 1',
+      buildColonyShip: 'Построить Колониальный корабль',
+      colonizeNewPlanet: 'Колонизировать новую планету',
+      completeExpedition: 'Завершить экспедиционную миссию',
+      discoverRuins: 'Обнаружить древние руины',
+      researchComputer: 'Исследовать Компьютерную технологию до уровня 4',
+      improveRelation: 'Улучшить отношения с NPC',
+      reachFriendly: 'Достичь дружеского статуса с NPC',
+      spyHostileNPC: 'Разведать враждебного NPC',
+      formAlliance: 'Заключить альянс с дружественным NPC',
+      buildDefenses: 'Построить оборонительные сооружения',
+      winDefenseBattle: 'Выиграть оборонительное сражение',
+      spyEnemyPlanet: 'Разведать вражескую планету',
+      attackEnemy: 'Атаковать врага',
+      recycleDebris: 'Переработать обломки',
+      buildBattleships: 'Построить 10 Линкоров',
+      exploreDeepRuins: 'Исследовать глубокие руины',
+      researchHyperspace: 'Исследовать Гиперпространственную технологию',
+      defeatBoss: 'Победить загадочного врага',
+      colonizeSpecial: 'Колонизировать особое место',
+      continueDevelopment: 'Продолжить развитие'
+    },
+    dialogues: {
+      '1_1': {
+        prologue_1:
+          'Добро пожаловать в галактику, молодой командир. Эта необъятная вселенная ждёт вашего исследования. Сначала построим вашу родную планету.',
+        prologue_2: 'Я чувствую пробуждение нового сознания... Интересно... Посмотрим, как далеко ты зайдёшь...'
+      },
+      '1_2': {
+        prologue_1:
+          'Базовая инфраструктура завершена. Теперь время развивать технологии. Постройте Исследовательскую лабораторию и начните свой технологический путь.'
+      },
+      '1_3': {
+        prologue_1:
+          'С технологической поддержкой вы можете начать строить свой флот. Постройте Верфь и произведите свой первый боевой корабль.'
+      },
+      '1_4': {
+        prologue_1:
+          'Ваш флот обретает форму. Теперь давайте узнаем о вашем окружении. Отправьте шпионские зонды для разведки ближайших фракций.',
+        prologue_2: 'Ты не один... В этой галактике существуют другие цивилизации...'
+      },
+      '1_5': {
+        prologue_1: 'Вы обнаружили ближайшие фракции. Дипломатия — это искусство. Попробуйте установить с ними контакт.',
+        epilogue_1: 'Спасибо за ваш подарок, командир. Надеюсь, мы станем друзьями.',
+        epilogue_2: 'Хорошо... Установление связей — первый шаг к раскрытию более глубоких тайн...'
+      },
+      '2_1': {
+        prologue_1:
+          'Ваша сила установлена. Пора расширять территорию. Исследуйте Астрофизику, постройте колониальный корабль и исследуйте новые планеты.',
+        prologue_2: 'Вселенная бесконечна... Больше планет означает больше возможностей...'
+      },
+      '2_2': {
+        prologue_1: 'Колонизация успешна! Но в космосе ждут более глубокие тайны. Отправьте свой флот в экспедиционные миссии.',
+        prologue_2: 'Слабые сигналы издалека... Что-то ждёт тебя там...'
+      },
+      '2_3': {
+        prologue_1:
+          'Ваша экспедиция обнаружила аномальные сигналы. Эти сигналы, похоже, исходят от древней цивилизации... Исследуйте их источник.',
+        epilogue_1: 'Эти символы... Это руины древней цивилизации! Продолжайте исследование, чтобы раскрыть их тайны.'
+      },
+      '2_4': {
+        prologue_1: 'Вы нашли местоположение древних руин. Отправьте свой флот на исследование и посмотрите, что вы можете обнаружить.'
+      },
+      '2_5': { prologue_1: 'В руинах найдены архивы данных. Изучите эти данные, возможно, вы сможете разблокировать новую технологию.' },
+      '3_1': {
+        prologue_1: 'Во время исследований не забывайте о дипломатии. Поддержание хороших отношений с окружающими фракциями выгодно.'
+      },
+      '3_2': {
+        prologue_1: 'Некоторые фракции проявили дружелюбие. Продолжайте углублять отношения, возможно, вы получите больше поддержки.'
+      },
+      '3_3': {
+        prologue_1:
+          'Разведка показывает, что враждебные силы наблюдают за вами из тени. Оставайтесь бдительными и разведайте их перемещения.'
+      },
+      '3_4': { prologue_1: 'Заключите официальный альянс с дружественными фракциями для взаимной поддержки против угроз.' },
+      '3_5': { prologue_1: 'Угрозы приближаются. Постройте оборонительные сооружения и подготовьтесь к возможному конфликту.' },
+      '4_1': {
+        prologue_1: 'Враг начал атаку! Защитите свою планету!',
+        epilogue_1: 'Вы успешно отбили первую волну врага. Но это только начало...'
+      },
+      '4_2': { prologue_1: 'Враг отступил, но он вернётся. Разведайте их планеты, чтобы понять их силу.' },
+      '4_3': { prologue_1: 'Пора контратаковать. Атакуйте вражеские планеты и ослабьте их силы.' },
+      '4_4': { prologue_1: 'На поле боя осталось много обломков. Переработайте эти ресурсы для подготовки к следующей битве.' },
+      '4_5': { prologue_1: 'Финальная битва приближается. Постройте мощный флот и приготовьтесь к конечному испытанию.' },
+      '5_1': {
+        prologue_1: 'Все улики указывают на самую глубокую часть руин. Ключевые тайны древней цивилизации находятся там.',
+        prologue_2: 'Ты наконец прибыл... Истина скоро откроется...'
+      },
+      '5_2': { prologue_1: 'В глубинах руин вы обнаружили утерянные древние технологии. Исследуйте и разблокируйте их мощь.' },
+      '5_3': {
+        prologue_1: 'Появился загадочный враг. Это финальное испытание. Победите его!',
+        epilogue_1: 'Вы справились! Древний страж повержен. Тайны галактики теперь открыты для вас.'
+      },
+      '5_4': { prologue_1: 'Мир наконец наступил. В эту новую эру основывайте новые колонии и расширяйте свою империю.' },
+      '5_5': {
+        prologue_1: 'Ваша легенда только началась. Продолжайте исследовать и завоёвывать больше звёздных систем!',
+        epilogue_1: 'Галактика необъятна и бесконечна, бесчисленные тайны ждут вас...'
+      }
+    }
   }
 }

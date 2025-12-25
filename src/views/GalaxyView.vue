@@ -738,10 +738,16 @@
 
     <!-- 导弹攻击对话框 -->
     <Dialog :open="missileDialogOpen" @update:open="missileDialogOpen = $event">
-      <DialogContent>
+      <DialogContent class="max-w-md">
         <DialogHeader>
-          <DialogTitle>{{ t('galaxyView.missileAttackTitle') }}</DialogTitle>
-          <DialogDescription v-if="missileTargetPlanet">
+          <DialogTitle class="flex items-center gap-2">
+            <div class="p-2 rounded-lg bg-destructive/10">
+              <Rocket class="h-5 w-5 text-destructive" />
+            </div>
+            {{ t('galaxyView.missileAttackTitle') }}
+          </DialogTitle>
+          <DialogDescription v-if="missileTargetPlanet" class="flex items-center gap-2 pt-1">
+            <MapPin class="h-4 w-4 text-muted-foreground" />
             {{
               t('galaxyView.missileAttackMessage').replace(
                 '{coordinates}',
@@ -751,41 +757,78 @@
           </DialogDescription>
         </DialogHeader>
 
-        <div v-if="gameStore.currentPlanet && missileTargetPlanet" class="space-y-4">
+        <div v-if="gameStore.currentPlanet && missileTargetPlanet" class="space-y-5 py-2">
           <!-- 导弹数量输入 -->
-          <div class="space-y-2">
-            <Label>{{ t('galaxyView.missileCount') }}</Label>
-            <Input
-              v-model.number="missileCount"
-              type="number"
-              min="1"
-              :max="gameStore.currentPlanet.defense['interplanetaryMissile'] || 0"
-            />
-            <p class="text-sm text-muted-foreground">
-              {{ t('galaxyView.availableMissiles') }}: {{ gameStore.currentPlanet.defense['interplanetaryMissile'] || 0 }}
-            </p>
+          <div class="space-y-3">
+            <Label class="text-sm font-medium">{{ t('galaxyView.missileCount') }}</Label>
+            <div class="flex items-center gap-3">
+              <Input
+                v-model.number="missileCount"
+                type="number"
+                min="1"
+                :max="gameStore.currentPlanet.defense['interplanetaryMissile'] || 0"
+                class="flex-1"
+              />
+              <Button variant="outline" size="sm" @click="missileCount = gameStore.currentPlanet?.defense['interplanetaryMissile'] || 0">
+                {{ t('fleetView.all') }}
+              </Button>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-muted-foreground">
+              <Crosshair class="h-4 w-4" />
+              <span>{{ t('galaxyView.availableMissiles') }}:</span>
+              <span class="font-medium text-foreground">{{ gameStore.currentPlanet.defense['interplanetaryMissile'] || 0 }}</span>
+            </div>
           </div>
 
-          <!-- 射程和距离信息 -->
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between">
-              <span class="text-muted-foreground">{{ t('galaxyView.missileRange') }}:</span>
-              <span>{{ calculateMissileRange() }} {{ t('galaxyView.systems') }}</span>
+          <!-- 任务信息卡片 -->
+          <div class="rounded-lg border bg-muted/30 p-4 space-y-3">
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <Target class="h-4 w-4" />
+                <span>{{ t('galaxyView.missileRange') }}</span>
+              </div>
+              <span class="font-medium">{{ calculateMissileRange() }} {{ t('galaxyView.systems') }}</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-muted-foreground">{{ t('galaxyView.distance') }}:</span>
-              <span>{{ calculateDistance(missileTargetPlanet) }} {{ t('galaxyView.systems') }}</span>
+            <Separator />
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <Navigation class="h-4 w-4" />
+                <span>{{ t('galaxyView.distance') }}</span>
+              </div>
+              <span class="font-medium">{{ formatDistance(calculateDistance(missileTargetPlanet)) }}</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-muted-foreground">{{ t('galaxyView.flightTime') }}:</span>
-              <span>{{ formatFlightTime(calculateDistance(missileTargetPlanet)) }}</span>
+            <Separator />
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-2 text-muted-foreground">
+                <Clock class="h-4 w-4" />
+                <span>{{ t('galaxyView.flightTime') }}</span>
+              </div>
+              <span class="font-medium">{{ formatFlightTime(calculateDistance(missileTargetPlanet)) }}</span>
             </div>
+          </div>
+
+          <!-- 超出射程警告 -->
+          <div
+            v-if="calculateDistance(missileTargetPlanet) > calculateMissileRange()"
+            class="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 text-destructive text-sm"
+          >
+            <AlertTriangle class="h-4 w-4 shrink-0" />
+            <span>{{ t('galaxyView.outOfRange') }}</span>
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" @click="missileDialogOpen = false">{{ t('galaxyView.cancel') }}</Button>
-          <Button @click="launchMissileAttack">{{ t('galaxyView.launchMissile') }}</Button>
+        <DialogFooter class="gap-3">
+          <Button variant="outline" @click="missileDialogOpen = false">
+            {{ t('galaxyView.cancel') }}
+          </Button>
+          <Button
+            variant="destructive"
+            @click="launchMissileAttack"
+            :disabled="!missileCount || missileCount < 1 || calculateDistance(missileTargetPlanet!) > calculateMissileRange()"
+          >
+            <Rocket class="h-4 w-4 mr-2" />
+            {{ t('galaxyView.launchMissile') }}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -915,6 +958,7 @@
   import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select'
   import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
   import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
+  import { Separator } from '@/components/ui/separator'
   import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
   import {
     AlertDialog,
@@ -927,7 +971,25 @@
     AlertDialogTitle
   } from '@/components/ui/alert-dialog'
   import ResourceIcon from '@/components/common/ResourceIcon.vue'
-  import { Home, Eye, Sword, Rocket, Recycle, Gift, Globe, Bomb, Moon, Radar, Mountain } from 'lucide-vue-next'
+  import {
+    Home,
+    Eye,
+    Sword,
+    Rocket,
+    Recycle,
+    Gift,
+    Globe,
+    Bomb,
+    Moon,
+    Radar,
+    Mountain,
+    MapPin,
+    Crosshair,
+    Target,
+    Navigation,
+    Clock,
+    AlertTriangle
+  } from 'lucide-vue-next'
   import { useRouter, useRoute } from 'vue-router'
   import * as gameLogic from '@/logic/gameLogic'
   import * as moonLogic from '@/logic/moonLogic'
@@ -1326,16 +1388,23 @@
   }
 
   // 计算到目标的距离
-  const calculateDistance = (target: Planet) => {
-    if (!gameStore.currentPlanet) return 0
+  const calculateDistance = (target: Planet | null): number => {
+    if (!gameStore.currentPlanet || !target) return 0
     const from = gameStore.currentPlanet.position
     const to = target.position
     if (from.galaxy !== to.galaxy) return Infinity
     return Math.abs(from.system - to.system)
   }
 
+  // 格式化距离显示
+  const formatDistance = (distance: number): string => {
+    if (!isFinite(distance)) return t('galaxyView.outOfRange')
+    return `${distance} ${t('galaxyView.systems')}`
+  }
+
   // 格式化飞行时间
-  const formatFlightTime = (distance: number) => {
+  const formatFlightTime = (distance: number): string => {
+    if (!isFinite(distance)) return t('galaxyView.outOfRange')
     const seconds = 30 + distance * 60
     const minutes = Math.floor(seconds / 60)
     const secs = seconds % 60

@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { VitePWA } from 'vite-plugin-pwa'
+import autoprefixer from 'autoprefixer'
 import pkg from './package.json'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -93,8 +94,9 @@ export default defineConfig(async () => {
             if (id.includes('/src/logic/')) return 'game-logic'
             // 配置和类型
             if (id.includes('/src/config/') || id.includes('/src/types/')) return 'game-config'
-            // 本地化
-            if (id.includes('/src/locales/')) return 'game-i18n'
+            // 本地化 - 只打包默认语言和index，其他语言通过动态导入自动分割
+            if (id.includes('/src/locales/index') || id.includes('/src/locales/zh-CN')) return 'locale-default'
+            // 其他语言文件不指定chunk，让Vite根据动态导入自动分割
             // 其他 node_modules 依赖
             if (id.includes('node_modules/')) return 'vendor-others'
           },
@@ -107,6 +109,15 @@ export default defineConfig(async () => {
     },
     plugins,
     resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+    css: {
+      postcss: {
+        plugins: [
+          autoprefixer({
+            overrideBrowserslist: ['Android >= 4.1', 'iOS >= 7.1', 'Chrome >= 31', 'Firefox >= 31', 'ie >= 8']
+          })
+        ]
+      }
+    },
     // 优化依赖预构建
     optimizeDeps: { include: ['vue', 'vue-router', 'pinia', 'reka-ui', '@vueuse/core', 'lucide-vue-next', 'crypto-js', 'file-saver'] }
   }

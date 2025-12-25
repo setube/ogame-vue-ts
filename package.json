@@ -8,14 +8,15 @@
     "email": "1962257451@qq.com"
   },
   "private": true,
-  "version": "1.5.0",
-  "buildDate": "2025/12/24 01:51:29",
+  "version": "1.5.5",
+  "buildDate": "2025/12/25 18:23:43",
   "main": "dist-electron/main.js",
   "type": "module",
   "scripts": {
     "dev": "vite --port 25121",
     "build": "vue-tsc -b && vite build && node update-build-date.js",
     "preview": "vite preview",
+    "build:check": "pnpm run build",
     "build:server": "pnpm run build && go build",
     "build:electron": "cross-env ELECTRON_BUILD=1 pnpm run build && electron-builder",
     "build:android": "pnpm run build && npx cap sync android",
@@ -51,6 +52,7 @@
     "@types/node": "^24.10.2",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
+    "autoprefixer": "^10.4.23",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
@@ -91,6 +93,16 @@
       "icon": "public/favicon.ico",
       "verifyUpdateCodeSignature": false,
       "artifactName": "${productName}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "installerIcon": "public/favicon.ico",
+      "uninstallerIcon": "public/favicon.ico",
+      "installerHeaderIcon": "public/favicon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     },
     "mac": {
       "target": [

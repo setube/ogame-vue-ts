@@ -5,7 +5,7 @@
  */
 
 import { DIPLOMATIC_CONFIG } from '@/config/gameConfig'
-import { locales, type Locale } from '@/locales'
+import { getLocale, type Locale } from '@/locales'
 import * as resourceLogic from './resourceLogic'
 import * as officerLogic from './officerLogic'
 import type {
@@ -34,7 +34,7 @@ import { RelationStatus as RS, DiplomaticEventType as DET } from '@/types/game'
  */
 const t = (key: string, locale: Locale, params?: Record<string, string | number>): string => {
   const keys = key.split('.')
-  let value: any = locales[locale]
+  let value: any = getLocale(locale)
 
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
@@ -372,7 +372,7 @@ export const handleAttackReputation = (
     attacker,
     defender,
     DET.Attack,
-    -reputationLoss,
+    reputationLoss,
     t('diplomacy.reports.youAttackedNpc', locale, { npcName: defender.name })
   )
 }
@@ -875,4 +875,49 @@ export const checkAndHandleEliminatedNPCs = (allNpcs: NPC[], player: Player, loc
   })
 
   return eliminatedNpcIds
+}
+
+/**
+ * 通知玩家盟友正在协防
+ * @param npc 派遣协防舰队的NPC
+ * @param player 玩家
+ * @param targetPlanet 被协防的星球
+ * @param mission 协防任务
+ */
+export const notifyPlayerOfAllyDefense = (
+  npc: NPC,
+  player: Player,
+  targetPlanet: Planet,
+  mission: FleetMission
+): void => {
+  // 计算舰队规模
+  const fleetSize = Object.values(mission.fleet).reduce((sum, count) => sum + (count || 0), 0)
+
+  // 创建外交报告
+  const report: DiplomaticReport = {
+    id: `ally_defense_${Date.now()}_${npc.id}`,
+    npcId: npc.id,
+    npcName: npc.name,
+    eventType: 'ally_defend' as DiplomaticEventType,
+    timestamp: Date.now(),
+    details: {
+      targetPlanetName: targetPlanet.name,
+      targetPosition: targetPlanet.position,
+      fleetSize,
+      arrivalTime: mission.arrivalTime,
+      stationDuration: mission.returnTime ? mission.returnTime - mission.arrivalTime : 0
+    },
+    read: false
+  }
+
+  // 添加到玩家的外交报告列表
+  if (!player.diplomaticReports) {
+    player.diplomaticReports = []
+  }
+  player.diplomaticReports.unshift(report)
+
+  // 限制报告数量
+  if (player.diplomaticReports.length > 100) {
+    player.diplomaticReports = player.diplomaticReports.slice(0, 100)
+  }
 }

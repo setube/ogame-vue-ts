@@ -109,15 +109,27 @@ export const migrateGameData = (): void => {
           planet.temperature = generatePlanetTemperature(planet.position.position)
           needsSave = true
         }
+        // 迁移矿脉数据：确保所有矿脉都有 position 字段
+        if (planet.oreDeposits && !planet.isMoon) {
+          const deposits = planet.oreDeposits as any
+          // 情况1：旧格式有 initialMetal，需要删除并添加 position
+          if (deposits.initialMetal !== undefined) {
+            delete deposits.initialMetal
+            delete deposits.initialCrystal
+            delete deposits.initialDeuterium
+            needsSave = true
+          }
+          // 情况2：没有 position 字段，需要添加
+          if (!deposits.position) {
+            deposits.position = { ...planet.position }
+            needsSave = true
+          }
+        }
       })
-      if (needsSave) {
-        console.log('[Migration] Added temperature to player planets')
-      }
     }
 
     // NPC星球
     if (oldData.npcs && Array.isArray(oldData.npcs)) {
-      let npcPlanetMigrated = false
       oldData.npcs.forEach((npc: NPC) => {
         if (npc.planets && Array.isArray(npc.planets)) {
           npc.planets.forEach((planet: Planet) => {
@@ -125,14 +137,26 @@ export const migrateGameData = (): void => {
             if (!planet.isMoon && !planet.temperature) {
               planet.temperature = generatePlanetTemperature(planet.position.position)
               needsSave = true
-              npcPlanetMigrated = true
+            }
+            // 迁移矿脉数据：确保所有矿脉都有 position 字段
+            if (planet.oreDeposits && !planet.isMoon) {
+              const deposits = planet.oreDeposits as any
+              // 情况1：旧格式有 initialMetal，需要删除
+              if (deposits.initialMetal !== undefined) {
+                delete deposits.initialMetal
+                delete deposits.initialCrystal
+                delete deposits.initialDeuterium
+                needsSave = true
+              }
+              // 情况2：没有 position 字段，需要添加
+              if (!deposits.position) {
+                deposits.position = { ...planet.position }
+                needsSave = true
+              }
             }
           })
         }
       })
-      if (npcPlanetMigrated) {
-        console.log('[Migration] Added temperature to NPC planets')
-      }
     }
 
     // 迁移 player.diplomaticRelations 到 npc.relations
@@ -172,7 +196,6 @@ export const migrateGameData = (): void => {
       // 删除旧的 diplomaticRelations 字段
       delete oldData.player.diplomaticRelations
       needsSave = true
-      console.log('[Migration] Migrated player.diplomaticRelations to npc.relations')
     }
 
     // 检查是否需要迁移地图数据
@@ -241,7 +264,6 @@ export const migrateGameData = (): void => {
 
         if (universePlanetMigrated) {
           localStorage.setItem(universeStorageKey, encryptData(universeData))
-          console.log('[Migration] Added temperature to universe planets')
         }
       } catch (error) {
         console.error('[Migration] Failed to migrate universe planets temperature:', error)
@@ -251,7 +273,6 @@ export const migrateGameData = (): void => {
     // 如果有任何数据被修改，保存gameStore数据
     if (needsSave) {
       localStorage.setItem(storageKey, encryptData(oldData))
-      console.log('[Migration] Game data migrated successfully')
     }
   } catch (error) {
     console.error('[Migration] Failed to migrate game data:', error)

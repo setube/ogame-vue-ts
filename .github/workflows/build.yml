@@ -35,6 +35,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: '1.23'
+          cache: true
 
       - name: Build Frontend & Server
         run: |
@@ -71,6 +72,17 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # 缓存 Gradle 依赖 (可节省 3-5 分钟)
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
       - name: Build Frontend
         run: |
           pnpm install
@@ -78,9 +90,7 @@ jobs:
 
       - name: Generate Android Icons
         run: |
-          # 安装 ImageMagick
-          sudo apt-get update && sudo apt-get install -y imagemagick
-          # 使用 ImageMagick 生成各尺寸图标
+          # 使用 ImageMagick 生成各尺寸图标 (Ubuntu runner 已预装)
           convert logo.png -resize 48x48 android/app/src/main/res/mipmap-mdpi/ic_launcher.png
           convert logo.png -resize 48x48 android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png
           convert logo.png -resize 72x72 android/app/src/main/res/mipmap-hdpi/ic_launcher.png
@@ -105,7 +115,7 @@ jobs:
         working-directory: android
         run: |
           chmod +x ./gradlew
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease --no-daemon
 
       - name: Upload APK Artifacts
         uses: actions/upload-artifact@v4
@@ -137,6 +147,16 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+
+      - name: Cache Electron Builder
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/electron
+            ~/.cache/electron-builder
+          key: electron-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            electron-${{ runner.os }}-
 
       - name: Build Electron
         run: |
@@ -180,7 +200,6 @@ jobs:
           mkdir -p ./final-release
           
           # 移动 Server 文件并确保名字唯一
-          # 注意：根据你之前的附件，Artifact 名字是 server-windows-amd64
           cp ./raw-assets/server-windows-amd64/OGame-Vue-Ts-server-win.exe ./final-release/OGame-Vue-Ts-server-win.exe || cp ./raw-assets/server-windows-amd64/server-windows-amd64.exe ./final-release/OGame-Vue-Ts-server-win.exe || true
           cp ./raw-assets/server-linux-amd64/OGame-Vue-Ts-server-linux ./final-release/OGame-Vue-Ts-server-linux || true
           cp ./raw-assets/server-linux-arm64/OGame-Vue-Ts-server-linux-arm64 ./final-release/OGame-Vue-Ts-server-linux-arm64 || true

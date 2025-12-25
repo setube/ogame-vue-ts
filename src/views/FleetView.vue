@@ -60,9 +60,6 @@
                     <span class="font-medium">{{ preset.name }}</span>
                   </div>
                   <div class="text-xs text-muted-foreground mt-1 flex flex-wrap gap-2">
-                    <span v-if="preset.targetPosition">
-                      [{{ preset.targetPosition.galaxy }}:{{ preset.targetPosition.system }}:{{ preset.targetPosition.position }}]
-                    </span>
                     <span v-if="preset.missionType">
                       {{ getMissionName(preset.missionType) }}
                     </span>
@@ -232,7 +229,7 @@
             <!-- 赠送模式切换（仅当目标是NPC星球时显示） -->
             <div v-if="targetNpc" class="mb-4 p-3 border rounded-lg bg-muted/50">
               <div class="flex items-center gap-2 mb-2">
-                <Checkbox id="gift-mode" :default-value="isGiftMode" />
+                <Checkbox id="gift-mode" v-model:checked="isGiftMode" />
                 <Label for="gift-mode" class="flex items-center gap-2 cursor-pointer">
                   <Gift class="h-4 w-4" />
                   {{ t('fleetView.giftMode') }}
@@ -874,7 +871,7 @@
   const isGiftMode = ref(false)
 
   // 舰队预设相关状态
-  const MAX_PRESETS = 3
+  const MAX_PRESETS = 5
   const editingPresetId = ref<string | null>(null)
   const editingPresetName = ref('')
   const showPresetNameDialog = ref(false)
@@ -940,11 +937,7 @@
       id: generatePresetId(),
       name: editingPresetName.value.trim(),
       fleet: fleetToSave,
-      targetPosition: {
-        galaxy: targetPosition.value.galaxy,
-        system: targetPosition.value.system,
-        position: targetPosition.value.position
-      },
+      // 不再保存坐标，预设只保存舰队配置
       missionType: selectedMission.value,
       cargo: cargoToSave
     }
@@ -966,10 +959,7 @@
       selectedFleet.value[key as ShipType] = preset.fleet[key as ShipType] || 0
     })
 
-    // 加载目标坐标
-    if (preset.targetPosition) {
-      targetPosition.value = { ...preset.targetPosition }
-    }
+    // 不再加载坐标，保留用户当前输入的坐标
 
     // 加载任务类型
     if (preset.missionType) {
@@ -1028,11 +1018,7 @@
       id: existingPreset.id,
       name: existingPreset.name,
       fleet: fleetToSave,
-      targetPosition: {
-        galaxy: targetPosition.value.galaxy,
-        system: targetPosition.value.system,
-        position: targetPosition.value.position
-      },
+      // 不再保存坐标
       missionType: selectedMission.value,
       cargo: cargoToSave
     }

@@ -105,7 +105,8 @@ export const completeResearchQueue = (
     if (now >= item.endTime) {
       // 研究完成
       const oldLevel = technologies[item.itemType as TechnologyType] || 0
-      const newLevel = item.targetLevel || 0
+      // 研究完成时，等级+1（而不是直接使用targetLevel，保持一致性）
+      const newLevel = oldLevel + 1
       technologies[item.itemType as TechnologyType] = newLevel
 
       // 计算并累积积分

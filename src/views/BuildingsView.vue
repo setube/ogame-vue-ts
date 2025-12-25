@@ -52,7 +52,7 @@
         <CardContent>
           <div class="space-y-3">
             <div class="text-xs sm:text-sm space-y-1.5 sm:space-y-2">
-              <p class="text-muted-foreground mb-1 sm:mb-2">{{ t('buildingsView.upgradeCost') }}:</p>
+              <p class="text-muted-foreground mb-1 sm:mb-2">{{ t('buildingsView.upgradeCost') }}</p>
               <div class="space-y-1 sm:space-y-1.5">
                 <div
                   v-for="resourceType in costResourceTypes"
@@ -118,13 +118,23 @@
 
             <!-- 拆除信息提示 -->
             <div v-if="getBuildingLevel(buildingType) > 0" class="text-xs text-muted-foreground">
-              <p>{{ t('buildingsView.demolishRefund') }}:</p>
+              <p>{{ t('buildingsView.demolishRefund') }}</p>
               <div class="flex gap-2 flex-wrap">
-                <span>{{ formatNumber(getDemolishRefund(buildingType).metal) }} {{ t('resources.metal') }}</span>
-                <span>{{ formatNumber(getDemolishRefund(buildingType).crystal) }} {{ t('resources.crystal') }}</span>
-                <span>{{ formatNumber(getDemolishRefund(buildingType).deuterium) }} {{ t('resources.deuterium') }}</span>
-                <span v-if="getDemolishRefund(buildingType).darkMatter > 0">
-                  {{ formatNumber(getDemolishRefund(buildingType).darkMatter) }} {{ t('resources.darkMatter') }}
+                <span class="flex items-center gap-1.5" v-if="getDemolishRefund(buildingType).metal">
+                  <ResourceIcon type="metal" size="sm" />
+                  {{ formatNumber(getDemolishRefund(buildingType).metal) }}
+                </span>
+                <span class="flex items-center gap-1.5" v-if="getDemolishRefund(buildingType).crystal">
+                  <ResourceIcon type="crystal" size="sm" />
+                  {{ formatNumber(getDemolishRefund(buildingType).crystal) }}
+                </span>
+                <span class="flex items-center gap-1.5" v-if="getDemolishRefund(buildingType).deuterium">
+                  <ResourceIcon type="deuterium" size="sm" />
+                  {{ formatNumber(getDemolishRefund(buildingType).deuterium) }}
+                </span>
+                <span class="flex items-center gap-1.5" v-if="getDemolishRefund(buildingType).darkMatter">
+                  <ResourceIcon type="darkMatter" size="sm" />
+                  {{ formatNumber(getDemolishRefund(buildingType).darkMatter) }}
                 </span>
               </div>
             </div>
@@ -221,6 +231,10 @@
   const alertDialogRequirements = ref<Array<{ name: string; requiredLevel: number; currentLevel: number; met: boolean }>>([])
   const alertDialogShowRequirements = ref(false)
 
+  // 防抖状态：防止快速点击
+  const isProcessing = ref(false)
+  const DEBOUNCE_DELAY = 300 // 防抖延迟（毫秒）
+
   // 拆除确认对话框状态
   const demolishConfirmOpen = ref(false)
   const demolishConfirmMessage = ref('')
@@ -276,6 +290,13 @@
 
   // 升级建筑
   const handleUpgrade = (buildingType: BuildingType, event: MouseEvent) => {
+    // 防抖：防止快速点击
+    if (isProcessing.value) return
+    isProcessing.value = true
+    setTimeout(() => {
+      isProcessing.value = false
+    }, DEBOUNCE_DELAY)
+
     // 检查前置条件
     if (!checkUpgradeRequirements(buildingType)) {
       alertDialogTitle.value = t('common.requirementsNotMet')
@@ -448,12 +469,11 @@
 
   const handleDemolish = (buildingType: BuildingType) => {
     const refund = getDemolishRefund(buildingType)
-    demolishConfirmMessage.value = `${t('buildingsView.demolishRefund')}:
-${t('resources.metal')}: ${formatNumber(refund.metal)}
-${t('resources.crystal')}: ${formatNumber(refund.crystal)}
-${t('resources.deuterium')}: ${formatNumber(refund.deuterium)}${
-      refund.darkMatter > 0 ? `\n${t('resources.darkMatter')}: ${formatNumber(refund.darkMatter)}` : ''
-    }`
+    demolishConfirmMessage.value = `${t('buildingsView.demolishRefund')}
+${refund.metal ? `${t('resources.metal')}: ${formatNumber(refund.metal)}` : ''}
+${refund.crystal ? `${t('resources.crystal')}: ${formatNumber(refund.crystal)}` : ''}
+${refund.deuterium ? `${t('resources.deuterium')}: ${formatNumber(refund.deuterium)}` : ''}
+${refund.darkMatter ? `${t('resources.darkMatter')}: ${formatNumber(refund.darkMatter)}` : ''}`
 
     pendingDemolishBuilding.value = buildingType
     demolishConfirmOpen.value = true

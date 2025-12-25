@@ -11,29 +11,12 @@ export default {
   common: {
     confirm: '確認',
     cancel: '取消',
-    delete: '刪除',
-    edit: '編輯',
     save: '儲存',
     close: '關閉',
-    back: '返回',
-    next: '下一步',
-    gotIt: '',
-    previous: '上一步',
-    submit: '提交',
-    reset: '重置',
-    search: '搜尋',
-    filter: '篩選',
-    loading: '載入中...',
-    noData: '暫無資料',
-    error: '錯誤',
+    gotIt: '知道了',
     success: '成功',
-    warning: '警告',
-    info: '資訊',
     resourceType: '資源類型',
     playerName: '指揮官',
-    timeHour: '時',
-    timeMinute: '分',
-    timeSecond: '秒',
     featureLocked: '功能已鎖定',
     unlockRequired: '需要解鎖前置建築',
     requiredBuilding: '所需建築',
@@ -41,7 +24,6 @@ export default {
     goToBuildings: '前往建築頁面',
     locked: '已鎖定',
     viewRequirements: '查看前置條件',
-    requirements: '前置條件',
     requirementsNotMet: '前置條件未滿足',
     current: '當前',
     level: '等級',
@@ -51,7 +33,8 @@ export default {
     viewDetails: '查看詳情',
     exitConfirmTitle: '退出遊戲',
     exitConfirmMessage: '確定要退出遊戲嗎？遊戲進度會自動儲存。',
-    points: '積分'
+    points: '積分',
+    retry: '重試'
   },
   errors: {
     requirementsNotMet: '不滿足前置條件',
@@ -88,6 +71,7 @@ export default {
     galaxy: '星系',
     diplomacy: '外交',
     achievements: '成就',
+    campaign: '戰役',
     ranking: '排行',
     messages: '訊息',
     settings: '設定',
@@ -95,7 +79,6 @@ export default {
     gm: 'GM'
   },
   sidebar: {
-    language: '語言',
     lightMode: '日間模式',
     darkMode: '夜間模式',
     collapse: '收起選單',
@@ -120,9 +103,6 @@ export default {
   },
   energy: {
     lowWarning: '電力不足，資源生產已停止！',
-    severeWarning: '電力不足，資源生產已停止！',
-    criticalWarning: '電力不足，資源生產已停止！',
-    noProduction: '電力不足，資源生產已停止！',
     deficitDetail: '電力缺口: {deficit}，請建造更多電站',
     buildSolarPlant: '建造電站'
   },
@@ -133,27 +113,20 @@ export default {
     lowResources: '即將耗盡: {resources}'
   },
   planet: {
-    planet: '星球',
     moon: '月球',
-    colony: '殖民地',
     position: '位置',
-    coordinates: '座標',
     switchToMoon: '查看月球',
     backToPlanet: '返回母星',
     switchPlanet: '切換星球',
     currentPlanet: '當前星球',
-    fields: '場地',
     temperature: '溫度',
     homePlanet: '母星',
     planetPrefix: '星球',
-    moonSuffix: '的月球',
     colonyPrefix: '殖民地',
     renamePlanet: '重命名星球',
     renamePlanetTitle: '重命名星球',
-    newPlanetName: '新名稱',
     planetNamePlaceholder: '輸入新的星球名稱',
-    rename: '重命名',
-    renameSuccess: '星球已重命名為 {name}'
+    rename: '重命名'
   },
   player: {
     points: '總積分'
@@ -180,8 +153,10 @@ export default {
     sensorPhalanx: '傳感器陣列',
     jumpGate: '跳躍門',
     planetDestroyerFactory: '行星毀滅者工廠',
+    geoResearchStation: '地質研究站',
+    deepDrillingFacility: '深層鑽探設施',
     buildTime: '建造時間',
-    build: '',
+    build: '建造',
     production: '產量',
     consumption: '消耗',
     totalCost: '累積成本',
@@ -229,7 +204,9 @@ export default {
     lunarBase: '增加月球可用空間，每級+30空間',
     sensorPhalanx: '偵測周圍星系的艦隊活動',
     jumpGate: '瞬間傳送艦隊到其他月球',
-    planetDestroyerFactory: '建造能夠摧毀行星的終極武器'
+    planetDestroyerFactory: '建造能夠摧毀行星的終極武器',
+    geoResearchStation: '研究地質結構，提高礦脈自然恢復速度。每級增加50%恢復速率',
+    deepDrillingFacility: ''
   },
   ships: {
     lightFighter: '輕型戰鬥機',
@@ -293,9 +270,6 @@ export default {
   },
   research: {
     researchTime: '研究時間',
-    totalCost: '累積成本',
-    totalPoints: '累積積分',
-    levelRange: '等級範圍',
     capacity: '容量/效果',
     attackBonus: '攻擊加成',
     shieldBonus: '護盾加成',
@@ -304,8 +278,7 @@ export default {
     researchQueueBonus: '研究隊列',
     colonySlots: '殖民地槽位',
     forAllPlanets: '(全局)',
-    speedBonus: '速度加成',
-    researchSpeedBonus: '研究速度加成'
+    speedBonus: '速度加成'
   },
   technologies: {
     energyTechnology: '能源技術',
@@ -325,7 +298,8 @@ export default {
     hyperspaceDrive: '超空間引擎',
     darkMatterTechnology: '暗物質技術',
     terraformingTechnology: '地形改造技術',
-    planetDestructionTech: '行星毀滅技術'
+    planetDestructionTech: '行星毀滅技術',
+    miningTechnology: ''
   },
   technologyDescriptions: {
     energyTechnology: '提高能源利用效率',
@@ -346,7 +320,8 @@ export default {
     hyperspaceDrive: '高級推進技術',
     darkMatterTechnology: '研究暗物質的性質和應用',
     terraformingTechnology: '研究行星地形改造技術，每級為所有行星增加30個可用空間',
-    planetDestructionTech: '研究如何摧毀整個行星的恐怖技術'
+    planetDestructionTech: '研究如何摧毀整個行星的恐怖技術',
+    miningTechnology: ''
   },
   officers: {
     commander: '指揮官',
@@ -370,6 +345,9 @@ export default {
   queue: {
     title: '進行中的任務',
     empty: '當前沒有進行中的隊列',
+    buildQueueBonus: '建造佇列',
+    spaceBonus: '空間加成',
+    researchQueueBonus: '研究佇列',
     buildQueue: '建造佇列',
     researchQueue: '研究佇列',
     building: '建造中',
@@ -381,7 +359,8 @@ export default {
     cancelResearch: '取消研究',
     confirmCancel: '確定要取消嗎？將返還50%的資源。',
     level: '等級',
-    gmModeActivated: '',
+    quantity: '數量',
+    gmModeActivated: 'GM 模式已啟動！請查看導航選單。',
     upgradeToLevel: '升級到等級',
     tabs: {
       all: '全部',
@@ -400,14 +379,9 @@ export default {
     movedToQueue: '任務已移至正式佇列'
   },
   overview: {
-    title: '星球總覽',
     resourceOverview: '資源概覽',
     fleetInfo: '艦隊資訊',
     currentShips: '當前星球的艦船數量',
-    productionSources: '生產來源',
-    productionSourcesDesc: '詳細資源生產和加成資訊',
-    consumptionSources: '電力消耗來源',
-    consumptionSourcesDesc: '各建築的電力消耗詳情',
     totalProduction: '總產量',
     totalConsumption: '總消耗',
     noConsumption: '當前無電力消耗',
@@ -417,12 +391,8 @@ export default {
   },
   buildingsView: {
     title: '建築',
-    usedSpace: '已用空間',
     spaceUsage: '佔用空間',
-    level: '等級',
-    gmModeActivated: '',
     upgradeCost: '升級消耗',
-    buildTime: '建造時間',
     build: '建造',
     upgrade: '升級',
     maxLevelReached: '等級已滿',
@@ -433,8 +403,7 @@ export default {
     demolishRefund: '拆除返還',
     demolishFailed: '拆除失敗',
     demolishFailedMessage: '無法拆除該建築，請檢查建造隊列是否已滿或建築等級是否為0。',
-    confirmDemolish: '確認拆除',
-    confirmDemolishMessage: '確定要拆除以下建築嗎？'
+    confirmDemolish: '確認拆除'
   },
   researchView: {
     title: '研究',
@@ -445,26 +414,16 @@ export default {
     researchFailedMessage: '請檢查資源是否足夠、前置條件是否滿足，或是否有其他研究任務。'
   },
   shipyard: {
-    attack: '攻擊力',
     missileAttack: '導彈攻擊',
-    shield: '護盾',
     armor: '裝甲',
     speed: '速度',
     cargoCapacity: '載貨量',
     fuelConsumption: '燃料消耗',
-    buildCost: '建造成本',
-    buildTime: '建造時間',
-    build: '',
-    perUnit: '每個單位',
-    batchCalculator: '批量建造計算器',
-    quantity: '數量',
-    totalCost: '總成本',
-    totalTime: '總時間'
+    build: '建造'
   },
   shipyardView: {
     title: '船塢',
     fleetStorage: '艦隊倉儲',
-    owned: '擁有',
     attack: '攻擊力',
     missileAttack: '導彈攻擊',
     shield: '護盾',
@@ -486,7 +445,7 @@ export default {
     armor: '裝甲',
     buildCost: '建造成本',
     buildTime: '建造時間',
-    build: '',
+    build: '建造',
     perUnit: '每個單位',
     batchCalculator: '批量建造計算器',
     quantity: '數量',
@@ -539,6 +498,7 @@ export default {
     missionInfo: '任務資訊',
     fuelConsumption: '燃料消耗',
     flightTime: '飛行時間',
+    outOfRange: '超出射程',
     attackMission: '攻擊',
     transport: '運輸',
     colonize: '殖民',
@@ -569,6 +529,7 @@ export default {
       }
     },
     recycle: '回收',
+    destroy: '行星毀滅',
     transportResources: '運輸資源',
     totalCargoCapacity: '總載貨量',
     used: '已用',
@@ -580,11 +541,11 @@ export default {
     arrivalTime: '到達時間',
     returnTime: '返回時間',
     recallFleet: '召回艦隊',
-    abortMission: '',
-    abortMissionTitle: '',
-    abortMissionWarning: '',
-    abortMissionSuccess: '',
-    abortMissionSuccessMessage: '',
+    abortMission: '終止任務',
+    abortMissionTitle: '確認終止任務',
+    abortMissionWarning: '警告：終止任務將永久損失 {ships} 艘艦船和 {resources} 資源！\n\n此操作不可撤銷，艦隊和資源將不會返回。',
+    abortMissionSuccess: '任務已終止',
+    abortMissionSuccessMessage: '任務已終止，艦隊和資源已損失。',
     sendFailed: '派遣失敗',
     sendFailedMessage: '請檢查艦隊數量、燃料是否充足，或載貨量是否超出限制。',
     recallFailed: '召回失敗',
@@ -682,14 +643,12 @@ export default {
     selectGalaxy: '選擇銀河系',
     system: '星系',
     selectSystem: '選擇星系',
-    view: '查看',
     myPlanet: '我的星球',
     myPlanets: '查看我的星系',
     npcPlanets: 'NPC星球',
     selectPlanetToView: '選擇星球以查看其所在星系',
     totalPositions: '共10個星球位置',
     mine: '我的',
-    hostile: '敵對',
     emptySlot: '空位 - 可殖民',
     scout: '偵察',
     attack: '攻擊',
@@ -714,7 +673,9 @@ export default {
     systems: '星系',
     distance: '距離',
     flightTime: '飛行時間',
+    outOfRange: '超出射程',
     launchMissile: '發射',
+    missileLaunched: '導彈已發射',
     cancel: '取消',
     colonizePlanetMessage: '確定要殖民位置 [{coordinates}] 嗎？\n\n請前往艦隊頁面派遣殖民船。',
     recyclePlanetMessage: '確定要回收位置 [{coordinates}] 的殘骸嗎？\n\n請前往艦隊頁面派遣回收船。',
@@ -723,6 +684,25 @@ export default {
     giftPlanetTitle: '贈送禮物',
     giftPlanetMessage: '確定要向星球 [{coordinates}] 贈送資源嗎？\n\n請前往艦隊頁面選擇運輸船並裝載資源。',
     npcPlanetName: '{name}的星球',
+    // 傳感器陣列掃描
+    phalanxScan: '傳感器掃描',
+    phalanxScanTitle: '傳感器陣列掃描',
+    phalanxScanDescription: '掃描星球 [{coordinates}] 的艦隊活動',
+    phalanxNoMoon: '需要有傳感器陣列的月球才能掃描',
+    phalanxOutOfRange: '目標超出掃描範圍',
+    phalanxRange: '掃描範圍',
+    phalanxCost: '掃描消耗',
+    phalanxNoFleets: '未檢測到艦隊活動',
+    phalanxFleetDetected: '檢測到 {count} 支艦隊',
+    phalanxMission: '任務',
+    phalanxOrigin: '出發地',
+    phalanxDestination: '目的地',
+    phalanxArrival: '到達時間',
+    phalanxReturn: '返回時間',
+    phalanxStatus: '狀態',
+    phalanxStatusOutbound: '前往中',
+    phalanxStatusReturning: '返回中',
+    phalanxInsufficientDeuterium: '氘不足',
     intercepted: '被攔截',
     defenseLosses: '防禦損失'
   },
@@ -731,12 +711,12 @@ export default {
     battles: '戰鬥',
     spy: '偵查',
     npc: 'NPC',
-    diplomacy: '',
+    diplomacy: '外交',
     battleReports: '戰鬥報告',
     spyReports: '間諜報告',
     noBattleReports: '暫無戰鬥報告',
     noSpyReports: '暫無間諜報告',
-    noDiplomaticReports: '',
+    noDiplomaticReports: '暫無外交事件',
     battleReport: '戰鬥報告',
     spyReport: '間諜報告',
     victory: '勝利',
@@ -757,6 +737,8 @@ export default {
     defense: '防禦',
     buildings: '建築',
     unread: '未讀',
+    pending: '待處理',
+    invalidData: '無效數據',
     targetPlanet: '目標星球',
     attackerRemaining: '攻擊方剩餘',
     defenderRemaining: '防守方剩餘',
@@ -809,36 +791,36 @@ export default {
       polite_decline: '對方禮貌地拒絕了'
     },
     // Spied notification dialog
-    spiedNotificationDetails: '',
-    spyDetected: '',
-    detectionResult: '',
-    detectionSuccess: '',
-    spiedNotificationMessage: '',
-    spiedNotificationTip: '',
-    viewInGalaxy: '',
+    spiedNotificationDetails: '被偵查通知詳情',
+    spyDetected: '偵查被發現',
+    detectionResult: '檢測結果',
+    detectionSuccess: '你發現了敵方偵查！',
+    spiedNotificationMessage: '{npc}試圖偵查你的星球{planet}',
+    spiedNotificationTip: '若該NPC對你有敵意，請考慮增強防禦或反擊',
+    viewInGalaxy: '在星系中查看',
     // Mission report dialog
-    missionReportDetails: '',
-    missionSuccess: '',
-    missionFailed: '',
-    origin: '',
-    destination: '',
-    missionDetails: '',
-    transportedResources: '',
-    recycledResources: '',
-    remainingDebris: '',
-    newPlanet: '',
+    missionReportDetails: '任務報告詳情',
+    missionSuccess: '成功',
+    missionFailed: '失敗',
+    origin: '起點',
+    destination: '終點',
+    missionDetails: '任務詳情',
+    transportedResources: '運輸資源',
+    recycledResources: '回收資源',
+    remainingDebris: '剩餘殘骸',
+    newPlanet: '新星球',
     // NPC activity dialog
-    npcActivityDetails: '',
+    npcActivityDetails: 'NPC活動詳情',
     activityType: {
-      recycle: ''
+      recycle: '回收殘骸'
     },
-    activityLocation: '',
-    position: '',
-    nearPlanet: '',
-    activityDescription: '',
-    npcActivityMessage: '',
-    arrivalTime: '',
-    npcActivityTip: '',
+    activityLocation: '活動位置',
+    position: '位置',
+    nearPlanet: '附近星球',
+    activityDescription: '活動描述',
+    npcActivityMessage: '{npc}正在{position}{activity}',
+    arrivalTime: '到達時間',
+    npcActivityTip: 'NPC可能會收集戰鬥產生的殘骸。若想競爭資源，可嘗試先到達該位置',
     clearMessages: '清空訊息',
     clearMessageTypes: '選擇要清空的訊息類型',
     clearBattleReports: '戰鬥報告',
@@ -848,7 +830,11 @@ export default {
     clearNPCActivity: 'NPC活動',
     clearGiftNotifications: '禮物通知',
     clearGiftRejected: '拒絕記錄',
-    clearNow: '立即清空'
+    clearTradeOffers: '貿易提議',
+    clearIntelReports: '情報報告',
+    clearJointAttackInvites: '聯合攻擊邀請',
+    clearNow: '立即清空',
+    clearSuccess: '訊息已清空'
   },
   missionReports: {
     transportSuccess: '運輸任務成功完成',
@@ -980,6 +966,10 @@ export default {
     github: 'GitHub 儲存庫',
     qqGroup: 'QQ 交流群',
     privacyPolicy: '隱私協議',
+    displaySettings: '顯示設定',
+    displaySettingsDesc: '調整遊戲的視覺效果',
+    backgroundAnimation: '背景動畫',
+    backgroundAnimationDesc: '開啟後顯示星空/粒子背景動畫（可能影響效能）',
     notifications: '通知設定',
     notificationsDesc: '管理遊戲內的通知提醒',
     notificationTypes: '通知類型',
@@ -1003,7 +993,48 @@ export default {
     npcNameUpdateConfirm: '更新名稱',
     npcNameUpdateCancel: '保持原樣',
     npcNameUpdateSuccess: '已成功更新 {count} 個NPC名稱',
-    npcNameUpdateSkipped: '已跳過NPC名稱更新'
+    npcNameUpdateSkipped: '已跳過NPC名稱更新',
+    // WebDAV
+    webdav: {
+      title: '雲端同步',
+      desc: '透過WebDAV同步遊戲存檔',
+      config: '設定',
+      configTitle: 'WebDAV 設定',
+      configDesc: '設定WebDAV伺服器以啟用雲端同步',
+      notConfigured: '請先設定WebDAV伺服器',
+      serverUrl: '伺服器位址',
+      serverUrlPlaceholder: '例如 https://dav.example.com',
+      serverUrlHint: '輸入您的WebDAV伺服器位址',
+      username: '使用者名稱',
+      usernamePlaceholder: '輸入使用者名稱',
+      password: '密碼',
+      passwordPlaceholder: '輸入密碼',
+      passwordHint: '密碼僅儲存在本機',
+      basePath: '存檔路徑',
+      basePathPlaceholder: '例如 /ogame-saves/',
+      testConnection: '測試連線',
+      testing: '測試中...',
+      testSuccess: '連線成功',
+      testFailed: '連線失敗',
+      save: '儲存',
+      clearConfig: '清除',
+      configSaved: '設定已儲存',
+      configCleared: '設定已清除',
+      upload: '上傳',
+      uploading: '上傳中...',
+      uploadSuccess: '上傳成功',
+      uploadFailed: '上傳失敗',
+      download: '下載',
+      downloadSuccess: '下載成功',
+      downloadFailed: '下載失敗',
+      selectFile: '選擇存檔',
+      selectFileDesc: '選擇要還原的存檔檔案',
+      noFiles: '沒有找到存檔檔案',
+      loadFailed: '載入檔案清單失敗',
+      confirmDelete: '確定要刪除 "{name}" 嗎？',
+      deleteSuccess: '檔案已刪除',
+      deleteFailed: '刪除失敗'
+    }
   },
   notifications: {
     constructionComplete: '建造完成',
@@ -1025,8 +1056,8 @@ export default {
     officers: '軍官',
     modifyResources: '修改資源',
     resourcesDesc: '快速修改星球資源數量',
-    maxAllResources: '',
-    maxAllResourcesSuccess: '',
+    maxAllResources: '一鍵拉滿',
+    maxAllResourcesSuccess: '所有資源已拉滿',
     modifyBuildings: '修改建築',
     buildingsDesc: '快速設定建築等級',
     modifyResearch: '修改科技',
@@ -1067,10 +1098,11 @@ export default {
     dangerZoneDesc: '以下操作不可撤銷，請謹慎操作',
     resetGame: '重置遊戲',
     resetGameConfirm: '確定要重置遊戲嗎？這將刪除所有資料！',
-    completeAllQueues: '',
-    completeAllQueuesDesc: '',
-    completeQueues: '',
-    completeQueuesSuccess: ''
+    completeAllQueues: '一鍵完成所有佇列',
+    completeAllQueuesDesc: '立即完成所有建築、科技、艦船、防禦佇列和飛行任務',
+    completeQueues: '完成佇列',
+    completeQueuesSuccess:
+      '已完成 {buildingCount} 個建築佇列、{researchCount} 個科技佇列、{missionCount} 個飛行任務、{missileCount} 個導彈任務'
   },
   alerts: {
     incomingFleets: '{count}支敵方艦隊來襲',
@@ -1127,10 +1159,10 @@ export default {
     recentEvents: '最近事件',
     recentEventsDescription: '最近的外交活動記錄',
     ago: '前',
-    notifications: '',
-    markAllRead: '',
-    noReports: '',
-    viewAll: '',
+    notifications: '外交通知',
+    markAllRead: '全部已讀',
+    noReports: '暫無外交事件',
+    viewAll: '查看全部',
     status: {
       friendly: '友好',
       neutral: '中立',
@@ -1205,6 +1237,19 @@ export default {
       npcEliminatedMessage: '你消滅了{npcName}的所有星球！該勢力已被徹底摧毀。'
     },
     searchPlaceholder: '搜索NPC名稱...',
+    notificationType: {
+      tradeOffer: '貿易提議',
+      intelReport: '情報報告',
+      jointAttack: '聯合攻擊邀請'
+    },
+    notificationBadge: {
+      trade: '貿易',
+      intel: '情報',
+      jointAttack: '邀請'
+    },
+    notificationExtra: {
+      pending: '待處理'
+    },
     viewMode: {
       card: '卡片',
       list: '列表'
@@ -1219,6 +1264,21 @@ export default {
         easy: '簡單',
         medium: '普通',
         hard: '困難'
+      },
+      aiType: 'AI類型',
+      aiTypes: {
+        aggressive: '侵略型',
+        defensive: '防守型',
+        trader: '商人型',
+        expansionist: '擴張型',
+        balanced: '平衡型'
+      },
+      aiTypeDescriptions: {
+        aggressive: '積極偵查和攻擊，反擊猛烈',
+        defensive: '很少主動攻擊，被攻擊後強烈反擊',
+        trader: '幾乎不攻擊，更願意交易和送禮',
+        expansionist: '專注發展，較少攻擊',
+        balanced: '根據情況動態調整策略'
       },
       reputation: '好感度',
       spyProbes: '偵察機數量',
@@ -1246,27 +1306,12 @@ export default {
         attackCooldown: '攻擊冷卻中（{min}分{sec}秒）',
         notSpiedYet: '尚未偵查過，需要先進行偵查'
       }
-    },
-    aiType: 'AI類型',
-    aiTypes: {
-      aggressive: '侵略型',
-      defensive: '防守型',
-      trader: '商人型',
-      expansionist: '擴張型',
-      balanced: '平衡型'
-    },
-    aiTypeDescriptions: {
-      aggressive: '積極偵查和攻擊，反擊猛烈',
-      defensive: '很少主動攻擊，被攻擊後強烈反擊',
-      trader: '幾乎不攻擊，更願意交易和送禮',
-      expansionist: '專注發展，較少攻擊',
-      balanced: '根據情況動態調整策略'
     }
   },
   pagination: {
     previous: '上一頁',
     next: '下一頁',
-    gotIt: '',
+    gotIt: '知道了',
     first: '首頁',
     last: '末頁',
     page: '第 {page} 頁'
@@ -1329,9 +1374,31 @@ export default {
     seconds: '秒'
   },
   tutorial: {
+    progress: '進度',
+    previous: '上一步',
+    next: '下一步',
+    gotIt: '我知道了',
+    completeButton: '完成',
+    skip: '跳過引導',
     welcome: {
       title: '歡迎來到 OGame',
-      content: '歡迎，指揮官！讓我們從基礎開始，建立您的宇宙帝國。'
+      content: '歡迎，指揮官！本教學將引導您了解建立帝國的基礎知識。點擊「下一步」開始您的征程。'
+    },
+    resources: {
+      title: '資源概覽',
+      content: '這些是您的資源：金屬、晶體和重氫。它們是建造建築和研究科技的必需品。能量也很重要，用於為您的基礎設施供電。'
+    },
+    planet: {
+      title: '您的星球',
+      content: '這是您的母星。您可以在這裡查看星球名稱、座標，並在擴張帝國時切換星球。'
+    },
+    navigation: {
+      title: '導航選單',
+      content: '使用此選單在不同部分之間導航：建築、研究、艦隊、星系等。每個部分都提供獨特的遊戲功能。'
+    },
+    gotoBuildings: {
+      title: '前往建築頁面',
+      content: '讓我們從建造一些建築開始。點擊「建築」選單項查看可用建築。'
     },
     buildSolarPlant: {
       title: '建造太陽能電站',
@@ -1342,14 +1409,100 @@ export default {
       content:
         '您的建築現在在建造佇列中。點擊右上角的佇列圖示可以查看所有正在進行的建造和研究任務。建築需要時間完成，但您可以在等待時繼續操作。'
     },
+    buildMetalMine: {
+      title: '建造金屬礦',
+      content: '現在有了能量，可以建造金屬礦了。金屬礦是您的主要金屬來源，金屬幾乎用於每個建築和艦船。'
+    },
+    buildCrystalMine: {
+      title: '建造晶體礦',
+      content: '晶體更稀有但對高級科技至關重要。建造晶體礦開始收集這種寶貴的資源。'
+    },
+    buildDeuterium: {
+      title: '建造重氫合成器',
+      content: '重氫是艦船燃料和高級研究的必需品。建造重氫合成器開始生產這種關鍵資源。'
+    },
+    upgradeMines: {
+      title: '升級資源礦',
+      content: '接下來，您需要升級三種資源礦（金屬、晶體、重氫）到2級，以滿足建造機器人工廠的要求。資源充足後，繼續升級它們。'
+    },
+    buildRobotics: {
+      title: '建造機器人工廠',
+      content: '機器人工廠可以大幅加快建造速度。它需要金屬礦、晶體礦和重氫合成器各達到2級。建造它來提升建造效率！'
+    },
+    upgradeMinesForLab: {
+      title: '繼續升級資源礦',
+      content: '現在需要將三種資源礦升級到3級，以滿足研究實驗室的建造要求。繼續發展您的資源產能。'
+    },
+    buildResearchLab: {
+      title: '建造研究實驗室',
+      content: '研究實驗室是技術進步的基礎。它需要三種資源礦各達到3級。建造它以解鎖科技研究！'
+    },
+    gotoResearch: {
+      title: '前往研究頁面',
+      content: '既然您有了研究實驗室，點擊「研究」選單查看可用的科技。'
+    },
+    researchEnergy: {
+      title: '研究能量科技',
+      content: '能量科技可以提高您的能量產出並解鎖高級建築。這是最基礎也是最重要的科技之一。'
+    },
+    shipyardIntro: {
+      title: '艦隊與船塢',
+      content: '艦船讓您能夠探索星系、運輸資源並保衛您的帝國。要建造艦船，您需要船塢（需要機器人工廠2級）。'
+    },
+    gotoBuildingsForShipyard: {
+      title: '返回建築頁面',
+      content: '返回建築頁面來建造您的船塢。'
+    },
+    buildShipyard: {
+      title: '建造船塢',
+      content: '船塢允許您建造艦船和防禦系統。這對艦隊行動至關重要。'
+    },
+    fleetIntro: {
+      title: '艦隊行動',
+      content: '一旦您擁有艦船，就可以派遣它們執行任務：運輸資源、殖民星球、攻擊敵人或探索廢墟場。'
+    },
+    galaxyIntro: {
+      title: '探索星系',
+      content: '星系視圖顯示其他星球、廢墟場和擴張機會。使用它來偵察目標並規劃您的戰略。'
+    },
+    complete: {
+      title: '教學完成！',
+      content:
+        '恭喜，指揮官！您現在了解了基礎知識。繼續建設您的帝國，研究科技，探索星系。記住：先發展能量，再建資源，然後是工廠和研究！祝您好運！'
+    },
+    // 移動端教學
     mobile: {
       welcome: {
         title: '歡迎來到 OGame（移動版）',
-        content: '歡迎，指揮官！這是專為觸控螢幕設計的簡化教程。我們將快速介紹核心功能，讓您開始建設帝國。'
+        content: '歡迎，指揮官！這是專為觸控螢幕設計的簡化教學。我們將快速介紹核心功能，讓您開始建設帝國。'
+      },
+      resources: {
+        title: '頂部資源欄',
+        content: '頂部顯示您的資源：金屬、晶體和重氫。點擊可查看詳細生產資訊。'
+      },
+      menu: {
+        title: '打開導航選單',
+        content: '點擊這個選單圖示打開導航欄，您可以存取建築、研究、艦隊等所有功能。'
+      },
+      gotoBuildings: {
+        title: '前往建築頁面',
+        content: '選單已打開！現在點擊「建築」選項，開始建造基礎設施。'
+      },
+      buildSolarPlant: {
+        title: '建造太陽能電站',
+        content: '首先建造太陽能電站！向下捲動找到它，點擊卡片進行建造。能量是一切的基礎。'
       },
       waitBuild: {
         title: '建造佇列',
         content: '點擊右上角的佇列圖示可以查看建造進度。您可以繼續瀏覽其他頁面，建造會在背景進行。'
+      },
+      buildMetalMine: {
+        title: '建造金屬礦',
+        content: '有了能量後，建造金屬礦。向下捲動找到金屬礦，點擊建造。'
+      },
+      complete: {
+        title: '快速教學完成！',
+        content: '很好！您已經掌握了基礎操作。繼續建造晶體礦和重氫合成器，然後探索其他功能。記住：先能量，再資源！'
       }
     }
   },
@@ -1405,9 +1558,17 @@ export default {
       title: '戰鬥模擬器',
       message: '在發動攻擊前模擬戰鬥結果。輸入雙方艦隊和科技等級，預測勝負和損失。'
     },
+    campaign: {
+      title: '戰役模式',
+      message: '探索銀河系的故事戰役！完成任務獲得資源獎勵，解鎖新的挑戰。每個節點都有獨特的目標和敵人。'
+    },
     achievements: {
       title: '成就系統',
       message: '完成各類遊戲目標解鎖成就，獲得暗物質獎勵！成就分為多個等級，挑戰更高難度獲得更豐厚的獎勵。'
+    },
+    ranking: {
+      title: '排行榜',
+      message: '與其他玩家和NPC比較進度。查看基於建築、研究、艦隊和防禦積分的排名。努力攀登排行榜！'
     },
     settings: {
       title: '設置',
@@ -1670,5 +1831,427 @@ export default {
     you: '你',
     scoreBreakdown: '積分詳情',
     noData: '暫無排行數據'
+  },
+  // NPC增強行為通知
+  npcBehavior: {
+    tradeOfferReceived: '收到貿易提議',
+    tradeOfferDesc: '{npcName}向你發來了貿易提議',
+    attitudeChanged: 'NPC態度變化',
+    becameFriendly: '{npcName}對你的態度變得友好了',
+    becameHostile: '{npcName}對你的態度變得敵對了',
+    intelReceived: '收到情報',
+    intelReceivedDesc: '{npcName}向你分享了敵方情報',
+    jointAttackInvite: '聯合攻擊邀請',
+    jointAttackInviteDesc: '{npcName}邀請你一起攻擊敵人',
+    aidReceived: '收到援助',
+    aidReceivedDesc: '{npcName}向你贈送了 {amount} 資源',
+    allyDefense: '盟友協防',
+    allyDefenseDesc: '{npcName}派遣艦隊協助防禦你的星球',
+    trade: {
+      title: '貿易提議',
+      from: '來自',
+      offers: '提供',
+      requests: '請求',
+      expiresIn: '剩餘時間',
+      expired: '已過期',
+      accept: '接受',
+      decline: '拒絕',
+      noOffers: '暫無貿易提議',
+      acceptSuccess: '貿易完成！',
+      acceptFailed: '資源不足，無法完成貿易',
+      declined: '已拒絕貿易',
+      ratio: '交換比率'
+    },
+    intel: {
+      title: '情報報告',
+      from: '情報來源',
+      target: '目標NPC',
+      type: '情報類型',
+      types: {
+        enemyFleet: '艦隊情報',
+        enemyResources: '資源情報',
+        enemyMovement: '動向情報'
+      },
+      fleetInfo: '艦隊資訊',
+      resourceInfo: '資源資訊',
+      movementInfo: '動向資訊',
+      noReports: '暫無情報報告',
+      markAsRead: '標記已讀',
+      content: '情報內容',
+      noFleet: '未偵測到艦隊',
+      noData: '暫無資料',
+      targetPosition: '目標座標',
+      missionType: '任務類型'
+    },
+    jointAttack: {
+      title: '聯合攻擊邀請',
+      from: '發起者',
+      target: '目標NPC',
+      targetPlanet: '目標星球',
+      npcFleet: 'NPC出動艦隊',
+      lootShare: '戰利品分成',
+      expiresIn: '剩餘時間',
+      expired: '已過期',
+      accept: '參與攻擊',
+      decline: '婉拒',
+      noInvites: '暫無聯合攻擊邀請',
+      acceptSuccess: '已加入聯合攻擊！',
+      declined: '已婉拒邀請',
+      targetInfo: '攻擊目標',
+      expectedShare: '預期分成',
+      remaining: '剩餘時間'
+    },
+    aid: {
+      title: '資源援助',
+      from: '援助來源',
+      resources: '援助資源',
+      noAid: '暫無援助記錄'
+    },
+    attitudeChange: {
+      title: '態度變化',
+      npc: 'NPC',
+      previous: '之前',
+      current: '現在',
+      reason: '原因',
+      reasons: {
+        attitude_swing: '態度搖擺',
+        gift: '收到禮物',
+        attack: '遭受攻擊',
+        naturalSwing: '自然變動',
+        giftReceived: '收到禮物',
+        attacked: '被攻擊',
+        reputationThreshold: '聲望閾值'
+      }
+    },
+    allyAction: {
+      title: '盟友行動',
+      defense: '防禦支援',
+      defenseDesc: '{npcName}派遣艦隊協助防禦{targetPlanet}',
+      jointAttackStarted: '聯合攻擊開始',
+      jointAttackStartedDesc: '對{targetNpc}的聯合攻擊已開始',
+      reputationBonus: '聲望加成',
+      reputationBonusDesc: '你的盟友{npcName}向{targetNpc}說了你的好話'
+    }
+  },
+  campaign: {
+    name: '戰役',
+    description: '探索神秘的銀河系，揭開古代文明的秘密',
+    totalProgress: '總進度',
+    questsCompleted: '任務完成',
+    chapter: '章節',
+    branch: '分支',
+    startQuest: '開始任務',
+    claimRewards: '領取獎勵',
+    objectives: '任務目標',
+    objectivesLabel: '目標',
+    rewards: '任務獎勵',
+    completed: '已完成',
+    inProgress: '進行中',
+    available: '可接取',
+    locked: '未解鎖',
+    notifications: {
+      questStarted: '任務已開始',
+      questCompleted: '任務完成！',
+      rewardsClaimed: '獎勵已領取',
+      objectiveCompleted: '目標完成',
+      chapterUnlocked: '新章節已解鎖',
+      reputationUp: '與 {npcName} 的聲望提升了 {value}',
+      reputationDown: '與 {npcName} 的聲望降低了 {value}',
+      branchUnlocked: '新的故事分支已解鎖！'
+    },
+    dialogue: {
+      skip: '跳過',
+      continue: '繼續',
+      finish: '完成',
+      player: '指揮官',
+      npc: 'NPC',
+      narrator: '旁白',
+      mysterious: '神秘信號',
+      unknownSource: '信號來源不明',
+      choiceEffect: '對話選擇效果'
+    },
+    chapters: {
+      '1': {
+        title: '起源之地',
+        description: '建設你的家園，邁出星際征途的第一步',
+        backgroundStory:
+          '你是一位年輕的星際指揮官，剛剛獲得了屬於自己的第一顆星球。在這片陌生的宇宙中，你將建設家園，發展科技，探索未知的銀河系深處...'
+      },
+      '2': {
+        title: '星際探索',
+        description: '探索宇宙，發現神秘的古代遺跡',
+        backgroundStory:
+          '隨著你的勢力不斷壯大，來自深空的神秘信號引起了你的注意。這些信號似乎指向一個古老的秘密，等待著勇敢的探索者去揭開...'
+      },
+      '3': {
+        title: '銀河外交',
+        description: '與其他勢力建立聯繫，在星際政治中立足',
+        backgroundStory: '銀河系中並不只有你一方勢力。其他文明正在崛起，你需要決定是與他們為敵還是結盟。外交的智慧將決定你的帝國能走多遠...'
+      },
+      '4': {
+        title: '暗影降臨',
+        description: '面對強大的敵人，保衛你的領地',
+        backgroundStory: '暗影中潛伏著危險。一個強大的敵對勢力已經盯上了你的領地。戰爭不可避免，你必須做好準備，迎接即將到來的風暴...'
+      },
+      '5': {
+        title: '古代秘密',
+        description: '揭開銀河系最深處的秘密',
+        backgroundStory: '所有的線索都指向銀河系最神秘的區域。在那裡，隱藏著古代文明留下的終極秘密。你準備好揭開這一切了嗎？'
+      }
+    },
+    quests: {
+      '1_1': {
+        title: '家園建設',
+        description: '建造基礎設施，為你的星球奠定發展基礎'
+      },
+      '1_2': {
+        title: '科技啟蒙',
+        description: '研究基礎科技，開啟科技發展之路'
+      },
+      '1_3': {
+        title: '第一艘船',
+        description: '建造你的第一艘戰艦'
+      },
+      '1_4': {
+        title: '陌生鄰居',
+        description: '偵查附近星系中的其他勢力'
+      },
+      '1_5': {
+        title: '初次接觸',
+        description: '與附近的NPC勢力建立初步聯繫'
+      },
+      '2_1': {
+        title: '殖民先驅',
+        description: '殖民你的第一顆新星球'
+      },
+      '2_2': {
+        title: '深空探險',
+        description: '派遣艦隊進行遠征探險'
+      },
+      '2_3': {
+        title: '神秘信號',
+        description: '調查來自深空的神秘信號'
+      },
+      '2_4': {
+        title: '遺跡調查',
+        description: '探索發現的古代遺跡'
+      },
+      '2_5': {
+        title: '解密檔案',
+        description: '研究從遺跡中獲得的數據'
+      },
+      '3_1': {
+        title: '和平使者',
+        description: '通過外交手段提升與NPC的關係'
+      },
+      '3_2': {
+        title: '利益交換',
+        description: '與友好勢力建立穩定的關係'
+      },
+      '3_3': {
+        title: '共同威脅',
+        description: '發現潛在的敵對勢力'
+      },
+      '3_4': {
+        title: '聯盟談判',
+        description: '與友好NPC建立正式同盟'
+      },
+      '3_5': {
+        title: '備戰風暴',
+        description: '建設防禦設施，準備迎接挑戰'
+      },
+      '4_1': {
+        title: '前哨遭襲',
+        description: '抵禦敵對勢力的首次進攻'
+      },
+      '4_2': {
+        title: '情報收集',
+        description: '偵查敵方的軍事部署'
+      },
+      '4_3': {
+        title: '反擊行動',
+        description: '對敵方發起反擊'
+      },
+      '4_4': {
+        title: '資源爭奪',
+        description: '回收戰場殘骸，獲取資源'
+      },
+      '4_5': {
+        title: '決戰前夕',
+        description: '建造強大的艦隊，準備最終決戰'
+      },
+      '5_1': {
+        title: '遺跡深處',
+        description: '探索遺跡的最深處'
+      },
+      '5_2': {
+        title: '古代科技',
+        description: '解鎖古代文明的科技'
+      },
+      '5_3': {
+        title: '最終對決',
+        description: '與神秘敵人進行最終決戰'
+      },
+      '5_4': {
+        title: '新紀元',
+        description: '建立新的殖民地，開啟新時代'
+      },
+      '5_5': {
+        title: '傳承延續',
+        description: '繼續發展，征服更多的星系'
+      }
+    },
+    objectiveTypes: {
+      buildBuilding: '建造 {building} 到 {level} 級',
+      researchTech: '研究 {tech} 到 {level} 級',
+      produceShips: '生產 {count} 艘 {ship}',
+      accumulateResources: '積累 {amount} {resource}',
+      defeatNPC: '擊敗 {npc}',
+      winBattles: '贏得 {count} 場戰鬥',
+      recycleDebris: '回收 {amount} 殘骸',
+      reachRelation: '與 {npc} 達到 {level} 關係',
+      sendGift: '向 {npc} 送禮 {count} 次',
+      formAlliance: '與 {npc} 結盟',
+      colonize: '殖民 {count} 顆星球',
+      expedition: '完成 {count} 次探險',
+      spyTarget: '偵查 {target}'
+    },
+    errors: {
+      questNotFound: '任務不存在',
+      questNotAvailable: '任務不可接取',
+      questNotActive: '任務未激活',
+      questNotCompleted: '任務未完成',
+      rewardsAlreadyClaimed: '獎勵已領取',
+      prerequisiteNotMet: '前置任務未完成'
+    },
+    speakers: {
+      ancientVoice: '古代之聲',
+      neighborNPC: '鄰近勢力',
+      mysteriousSignal: '神秘信號',
+      enemyCommander: '敵方指揮官'
+    },
+    objectiveDescriptions: {
+      buildMetalMine: '建造金屬礦到2級',
+      buildCrystalMine: '建造晶體礦到2級',
+      buildSolarPlant: '建造太陽能電站到2級',
+      buildResearchLab: '建造研究實驗室到1級',
+      researchEnergy: '研究能量技術到1級',
+      buildShipyard: '建造船塢到2級',
+      researchCombustion: '研究燃燒驅動到1級',
+      buildLightFighters: '建造5艘輕型戰鬥機',
+      researchEspionage: '研究間諜技術到2級',
+      buildSpyProbes: '建造3艘間諜探測器',
+      spyAnyNPC: '偵查任意NPC星球',
+      sendGiftToNPC: '向任意NPC送禮',
+      researchAstrophysics: '研究天體物理學到1級',
+      buildColonyShip: '建造殖民船',
+      colonizeNewPlanet: '殖民新星球',
+      completeExpedition: '完成遠征任務',
+      discoverRuins: '發現古代遺跡',
+      researchComputer: '研究電腦技術到4級',
+      improveRelation: '提升與NPC的關係',
+      reachFriendly: '與NPC達到友好關係',
+      spyHostileNPC: '偵查敵對NPC',
+      formAlliance: '與友好NPC結盟',
+      buildDefenses: '建造防禦設施',
+      winDefenseBattle: '贏得防禦戰鬥',
+      spyEnemyPlanet: '偵查敵方星球',
+      attackEnemy: '攻擊敵方',
+      recycleDebris: '回收殘骸',
+      buildBattleships: '建造10艘戰列艦',
+      exploreDeepRuins: '探索遺跡深處',
+      researchHyperspace: '研究超空間技術',
+      defeatBoss: '擊敗神秘敵人',
+      colonizeSpecial: '殖民特殊位置',
+      continueDevelopment: '繼續發展'
+    },
+    dialogues: {
+      '1_1': {
+        prologue_1: '歡迎來到銀河系，年輕的指揮官。這片廣袤的宇宙等待著你的探索。首先，讓我們建設好你的家園星球。',
+        prologue_2: '我感應到了新的意識覺醒...有趣...讓我們看看你能走多遠...'
+      },
+      '1_2': {
+        prologue_1: '基礎設施已經建設完成。現在，是時候發展科技了。建造研究實驗室，開啟你的科技之路。'
+      },
+      '1_3': {
+        prologue_1: '有了科技的支持，你可以開始建造艦隊了。建造船塢，生產你的第一艘戰艦。'
+      },
+      '1_4': {
+        prologue_1: '你的艦隊已經成型。現在，讓我們了解一下周圍的環境。派出間諜探測器，偵查附近的勢力。',
+        prologue_2: '你並不孤單...銀河系中還有其他文明存在...'
+      },
+      '1_5': {
+        prologue_1: '你已經發現了鄰近的勢力。外交是一門藝術，嘗試與他們建立聯繫。',
+        epilogue_1: '感謝你的禮物，指揮官。希望我們能成為朋友。',
+        epilogue_2: '很好...建立聯繫是探索更深秘密的第一步...'
+      },
+      '2_1': {
+        prologue_1: '你的勢力已經穩固。是時候擴張領地了。研究天體物理學，建造殖民船，探索新的星球。',
+        prologue_2: '宇宙是無限的...更多的星球意味著更多的可能性...'
+      },
+      '2_2': {
+        prologue_1: '殖民成功！但宇宙深處還有更多秘密等待發現。派遣艦隊進行遠征探險吧。',
+        prologue_2: '遠方傳來微弱的信號...那裡有什麼在等待著你...'
+      },
+      '2_3': {
+        prologue_1: '你的探險隊發現了異常信號。這些信號似乎來自一個古老的文明...調查它們的來源。',
+        epilogue_1: '這些符號...是古代文明的遺跡！繼續調查，揭開它們的秘密。'
+      },
+      '2_4': {
+        prologue_1: '你發現了古代遺跡的位置。派遣艦隊前去探索，看看能發現什麼。'
+      },
+      '2_5': {
+        prologue_1: '遺跡中發現了大量數據檔案。研究這些數據，也許能解鎖新的科技。'
+      },
+      '3_1': {
+        prologue_1: '在探索的同時，也不要忘記外交。與周圍的勢力保持良好關係對你有益。'
+      },
+      '3_2': {
+        prologue_1: '有些勢力對你表示了友好。繼續加深關係，也許能獲得更多支持。'
+      },
+      '3_3': {
+        prologue_1: '情報顯示，有敵對勢力正在暗中觀察你。保持警惕，偵查他們的動向。'
+      },
+      '3_4': {
+        prologue_1: '與友好勢力建立正式同盟，在面對威脅時互相支持。'
+      },
+      '3_5': {
+        prologue_1: '威脅正在逼近。建設防禦設施，準備迎接可能的衝突。'
+      },
+      '4_1': {
+        prologue_1: '敵人發動了進攻！保衛你的星球！',
+        epilogue_1: '你成功擊退了敵人的第一波進攻。但這只是開始...'
+      },
+      '4_2': {
+        prologue_1: '敵人退卻了，但他們還會回來。偵查他們的星球，了解他們的實力。'
+      },
+      '4_3': {
+        prologue_1: '是時候反擊了。進攻敵人的星球，削弱他們的力量。'
+      },
+      '4_4': {
+        prologue_1: '戰場上留下了大量殘骸。回收這些資源，為下一場戰鬥做準備。'
+      },
+      '4_5': {
+        prologue_1: '最終決戰即將來臨。建造強大的艦隊，準備迎接最後的挑戰。'
+      },
+      '5_1': {
+        prologue_1: '所有線索都指向遺跡的最深處。那裡隱藏著古代文明最核心的秘密。',
+        prologue_2: '你終於來到了這裡...真相即將揭曉...'
+      },
+      '5_2': {
+        prologue_1: '在遺跡深處，你發現了失落的古代科技。研究並解鎖它們的力量。'
+      },
+      '5_3': {
+        prologue_1: '一個神秘的敵人出現了。這是最後的挑戰，擊敗它！',
+        epilogue_1: '你做到了！古代的守護者已被擊敗。銀河系的秘密向你敞開。'
+      },
+      '5_4': {
+        prologue_1: '和平終於來臨。在這個新紀元中，建立新的殖民地，擴展你的帝國。'
+      },
+      '5_5': {
+        prologue_1: '你的傳奇才剛剛開始。繼續探索，征服更多的星系！',
+        epilogue_1: '銀河系廣闘無垠，還有無數秘密等待你去發現...'
+      }
+    }
   }
 }

@@ -41,7 +41,9 @@ export const useGameConfig = () => {
     [BuildingType.LunarBase]: 'lunarBase',
     [BuildingType.SensorPhalanx]: 'sensorPhalanx',
     [BuildingType.JumpGate]: 'jumpGate',
-    [BuildingType.PlanetDestroyerFactory]: 'planetDestroyerFactory'
+    [BuildingType.PlanetDestroyerFactory]: 'planetDestroyerFactory',
+    [BuildingType.GeoResearchStation]: 'geoResearchStation',
+    [BuildingType.DeepDrillingFacility]: 'deepDrillingFacility'
   }
 
   // 舰船类型枚举值到翻译键的映射
@@ -97,7 +99,8 @@ export const useGameConfig = () => {
     [TechnologyType.HyperspaceDrive]: 'hyperspaceDrive',
     [TechnologyType.DarkMatterTechnology]: 'darkMatterTechnology',
     [TechnologyType.TerraformingTechnology]: 'terraformingTechnology',
-    [TechnologyType.PlanetDestructionTech]: 'planetDestructionTech'
+    [TechnologyType.PlanetDestructionTech]: 'planetDestructionTech',
+    [TechnologyType.MiningTechnology]: 'miningTechnology'
   }
 
   // 军官类型枚举值到翻译键的映射

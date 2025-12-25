@@ -2,7 +2,7 @@
   <!-- 遮罩从标题下方开始，不遮挡名称 -->
   <div
     v-if="!isUnlocked"
-    class="absolute inset-x-0 top-30 sm:top-25 bottom-0 z-10 bg-background/70 backdrop-blur-[2px] rounded-b-lg flex items-center justify-center"
+    class="absolute inset-x-0 top-20 sm:top-13 bottom-0 z-10 bg-background/70 backdrop-blur-[2px] rounded-b-lg flex items-center justify-center"
   >
     <div class="text-center p-4 space-y-2">
       <div class="flex justify-center">

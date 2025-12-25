@@ -200,6 +200,10 @@
   const alertDialogTitle = ref('')
   const alertDialogMessage = ref('')
 
+  // 防抖状态：防止快速点击
+  const isProcessing = ref(false)
+  const DEBOUNCE_DELAY = 300 // 防抖延迟（毫秒）
+
   // 资源类型配置（用于成本显示）
   const costResourceTypes = [
     { key: 'metal' as const },
@@ -255,6 +259,13 @@
 
   // 建造舰船
   const handleBuild = (shipType: ShipType, event: MouseEvent) => {
+    // 防抖：防止快速点击
+    if (isProcessing.value) return
+    isProcessing.value = true
+    setTimeout(() => {
+      isProcessing.value = false
+    }, DEBOUNCE_DELAY)
+
     const quantity = quantities.value[shipType]
     if (quantity <= 0) {
       alertDialogTitle.value = t('shipyardView.inputError')

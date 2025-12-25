@@ -131,9 +131,11 @@ export const createNPCPlanet = (
     isMoon: false
   }
 
-  // 随机初始化建筑等级
+  // 初始化所有建筑等级为0
+  // 实际的建筑等级会在 initializeNPCByDistance 中根据距离难度系统设置
+  // 这里只做基础初始化，避免随机设置不合理的等级（如月球专属建筑）
   Object.values(BuildingType).forEach(building => {
-    npcPlanet.buildings[building] = Math.floor(Math.random() * 10)
+    npcPlanet.buildings[building] = 0
   })
 
   // 初始化矿脉储量

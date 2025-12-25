@@ -11,29 +11,11 @@ export default {
   common: {
     confirm: 'Bestätigen',
     cancel: 'Abbrechen',
-    delete: 'Löschen',
-    edit: 'Bearbeiten',
     save: 'Speichern',
     close: 'Schließen',
-    back: 'Zurück',
-    next: 'Weiter',
-    gotIt: '',
-    previous: 'Vorherige',
-    submit: 'Absenden',
-    reset: 'Zurücksetzen',
-    search: 'Suchen',
-    filter: 'Filtern',
-    loading: 'Laden...',
-    noData: 'Keine Daten',
-    error: 'Fehler',
-    success: 'Erfolg',
-    warning: 'Warnung',
-    info: 'Info',
+    gotIt: 'Verstanden',
     resourceType: 'Ressourcentyp',
     playerName: 'Kommandant',
-    timeHour: 'Std',
-    timeMinute: 'Min',
-    timeSecond: 'Sek',
     featureLocked: 'Funktion gesperrt',
     unlockRequired: 'Gebäude erforderlich',
     requiredBuilding: 'Erforderliches Gebäude',
@@ -41,7 +23,6 @@ export default {
     goToBuildings: 'Zu Gebäuden',
     locked: 'Gesperrt',
     viewRequirements: 'Anforderungen anzeigen',
-    requirements: 'Anforderungen',
     requirementsNotMet: 'Anforderungen nicht erfüllt',
     current: 'Aktuell',
     level: 'Stufe',
@@ -51,7 +32,8 @@ export default {
     viewDetails: 'Details anzeigen',
     exitConfirmTitle: 'Spiel beenden',
     exitConfirmMessage: 'Möchten Sie das Spiel wirklich beenden? Ihr Fortschritt wird automatisch gespeichert.',
-    points: 'Punkte'
+    points: 'Punkte',
+    retry: 'Wiederholen'
   },
   errors: {
     requirementsNotMet: 'Anforderungen nicht erfüllt',
@@ -88,13 +70,13 @@ export default {
     galaxy: 'Galaxie',
     diplomacy: 'Diplomatie',
     achievements: 'Erfolge',
+    campaign: 'Kampagne',
     ranking: 'Rangliste',
     messages: 'Nachrichten',
     settings: 'Einstellungen',
     gm: 'GM'
   },
   sidebar: {
-    language: 'Sprache',
     lightMode: 'Heller Modus',
     darkMode: 'Dunkler Modus',
     collapse: 'Einklappen',
@@ -119,9 +101,6 @@ export default {
   },
   energy: {
     lowWarning: 'Energiedefizit! Ressourcenproduktion gestoppt!',
-    severeWarning: 'Energiedefizit! Ressourcenproduktion gestoppt!',
-    criticalWarning: 'Energiedefizit! Ressourcenproduktion gestoppt!',
-    noProduction: 'Energiedefizit! Ressourcenproduktion gestoppt!',
     deficitDetail: 'Energiedefizit: {deficit}, bauen Sie mehr Kraftwerke',
     buildSolarPlant: 'Kraftwerk bauen'
   },
@@ -132,27 +111,20 @@ export default {
     lowResources: 'Fast erschöpft: {resources}'
   },
   planet: {
-    planet: 'Planet',
     moon: 'Mond',
-    colony: 'Kolonie',
     position: 'Position',
-    coordinates: 'Koordinaten',
     switchToMoon: 'Zum Mond',
     backToPlanet: 'Zurück zum Planeten',
     switchPlanet: 'Planet wechseln',
     currentPlanet: 'Aktueller Planet',
-    fields: 'Felder',
     temperature: 'Temperatur',
     homePlanet: 'Heimatplanet',
     planetPrefix: 'Planet',
-    moonSuffix: 's Mond',
     colonyPrefix: 'Kolonie',
     renamePlanet: 'Planet umbenennen',
     renamePlanetTitle: 'Planet umbenennen',
-    newPlanetName: 'Neuer Name',
     planetNamePlaceholder: 'Neuen Planetennamen eingeben',
-    rename: 'Umbenennen',
-    renameSuccess: 'Planet wurde in {name} umbenannt'
+    rename: 'Umbenennen'
   },
   player: {
     points: 'Gesamtpunkte'
@@ -179,13 +151,12 @@ export default {
     sensorPhalanx: 'Sensorphalanx',
     jumpGate: 'Sprungtor',
     planetDestroyerFactory: 'Planetenzerstörer-Fabrik',
+    geoResearchStation: 'Geologische Forschungsstation',
+    deepDrillingFacility: 'Tiefbohranlage',
     buildTime: 'Bauzeit',
-    build: '',
+    build: 'Bauen',
     production: 'Produktion',
     consumption: 'Verbrauch',
-    totalCost: 'Gesamtkosten',
-    totalPoints: 'Gesamtpunkte',
-    levelRange: 'Stufenbereich',
     capacity: 'Capacity/Effect',
     storageCapacity: 'Capacity',
     energyProduction: 'Energy Production',
@@ -194,7 +165,6 @@ export default {
     buildQueueBonus: 'Bauauftrag',
     spaceBonus: 'Raumbonus',
     buildSpeedBonus: 'Baugeschwindigkeitsbonus',
-    researchSpeedBonus: 'Forschungsgeschwindigkeitsbonus',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
     missileCapacity: 'Missile Capacity',
@@ -228,7 +198,10 @@ export default {
     lunarBase: 'Erhöht verfügbaren Platz auf dem Mond, +30 Platz pro Stufe',
     sensorPhalanx: 'Erkennt Flottenaktivitäten in umliegenden Systemen',
     jumpGate: 'Überträgt Flotten sofort zu anderen Monden',
-    planetDestroyerFactory: 'Konstruiert ultimative Waffen zur Zerstörung von Planeten'
+    planetDestroyerFactory: 'Konstruiert ultimative Waffen zur Zerstörung von Planeten',
+    geoResearchStation:
+      'Erforscht geologische Strukturen und erhöht die natürliche Erzvorkommen-Regenerationsrate. +50% Regeneration pro Stufe',
+    deepDrillingFacility: ''
   },
   ships: {
     lightFighter: 'Leichter Jäger',
@@ -292,9 +265,6 @@ export default {
   },
   research: {
     researchTime: 'Forschungszeit',
-    totalCost: 'Gesamtkosten',
-    totalPoints: 'Gesamtpunkte',
-    levelRange: 'Stufenbereich',
     capacity: 'Capacity/Effect',
     storageCapacity: 'Capacity',
     energyProduction: 'Energy Production',
@@ -302,7 +272,15 @@ export default {
     buildQueue: 'Build Queue',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
-    missileCapacity: 'Missile Capacity'
+    missileCapacity: 'Missile Capacity',
+    attackBonus: 'Angriffsbonus',
+    shieldBonus: 'Schildbonus',
+    armorBonus: 'Panzerungsbonus',
+    spyLevel: 'Spionagestufe',
+    researchQueueBonus: 'Forschungswarteschlange',
+    colonySlots: 'Kolonieplätze',
+    forAllPlanets: '(Global)',
+    speedBonus: 'Geschwindigkeitsbonus'
   },
   technologies: {
     energyTechnology: 'Energietechnik',
@@ -322,7 +300,8 @@ export default {
     hyperspaceDrive: 'Hyperraumantrieb',
     darkMatterTechnology: 'Dunkle-Materie-Technologie',
     terraformingTechnology: 'Terraforming-Technologie',
-    planetDestructionTech: 'Planetenzerstörungstechnologie'
+    planetDestructionTech: 'Planetenzerstörungstechnologie',
+    miningTechnology: ''
   },
   technologyDescriptions: {
     energyTechnology: 'Verbessert Energieeffizienz',
@@ -343,7 +322,8 @@ export default {
     hyperspaceDrive: 'Fortgeschrittene Antriebstechnologie',
     darkMatterTechnology: 'Forschung zu Eigenschaften und Anwendungen von Dunkler Materie',
     terraformingTechnology: 'Forschung zur Planeten-Terraforming-Technologie, erhöht verfügbaren Platz aller Planeten um 30 pro Stufe',
-    planetDestructionTech: 'Schreckliche Technologie zur Zerstörung ganzer Planeten'
+    planetDestructionTech: 'Schreckliche Technologie zur Zerstörung ganzer Planeten',
+    miningTechnology: ''
   },
   officers: {
     commander: 'Kommandant',
@@ -378,8 +358,12 @@ export default {
     cancelResearch: 'Forschung abbrechen',
     confirmCancel: 'Möchten Sie wirklich abbrechen? 50% der Ressourcen werden zurückerstattet.',
     level: 'Stufe',
-    gmModeActivated: '',
+    gmModeActivated: 'GM-Modus aktiviert! Überprüfen Sie das Navigationsmenü.',
     upgradeToLevel: 'Auf Stufe aufrüsten',
+    buildQueueBonus: 'Bauauftrag',
+    spaceBonus: 'Raumbonus',
+    researchQueueBonus: 'Forschungswarteschlange',
+    quantity: 'Anzahl',
     tabs: {
       all: 'Alle',
       buildings: 'Gebäude',
@@ -397,14 +381,9 @@ export default {
     movedToQueue: 'Aufgabe in Warteschlange verschoben'
   },
   overview: {
-    title: 'Planetenübersicht',
     resourceOverview: 'Ressourcen',
     fleetInfo: 'Flotte',
     currentShips: 'Schiffe auf diesem Planeten',
-    productionSources: 'Produktionsquellen',
-    productionSourcesDesc: 'Detaillierte Ressourcenproduktion und Bonusinformationen',
-    consumptionSources: 'Verbrauchsquellen',
-    consumptionSourcesDesc: 'Energieverbrauchsdetails für Gebäude',
     totalProduction: 'Gesamtproduktion',
     totalConsumption: 'Gesamtverbrauch',
     noConsumption: 'Kein Energieverbrauch',
@@ -413,14 +392,8 @@ export default {
     tabConsumption: 'Verbrauchsdetails'
   },
   buildingsView: {
-    title: 'Gebäude',
-    usedSpace: 'Verwendeter Platz',
     spaceUsage: 'Platzbedarf',
-    level: 'Stufe',
-    gmModeActivated: '',
     upgradeCost: 'Ausbaukosten',
-    buildTime: 'Bauzeit',
-    build: 'Bauen',
     upgrade: 'Ausbauen',
     maxLevelReached: 'Maximale Stufe erreicht',
     requirementsNotMet: 'Anforderungen nicht erfüllt',
@@ -430,8 +403,7 @@ export default {
     demolishRefund: 'Abriss-Rückerstattung',
     demolishFailed: 'Abriss fehlgeschlagen',
     demolishFailedMessage: 'Abriss nicht möglich. Bitte überprüfen Sie, ob die Bauqueue voll ist oder die Gebäudestufe 0 ist.',
-    confirmDemolish: '',
-    confirmDemolishMessage: ''
+    confirmDemolish: 'Abriss bestätigen'
   },
   researchView: {
     title: 'Forschung',
@@ -443,26 +415,14 @@ export default {
       'Bitte überprüfen Sie, ob Sie genügend Ressourcen haben, die Voraussetzungen erfüllt sind oder keine anderen Forschungsaufträge vorhanden sind.'
   },
   shipyard: {
-    attack: 'Angriff',
     missileAttack: 'Raketenangriff',
-    shield: 'Schild',
-    armor: 'Panzerung',
     speed: 'Geschwindigkeit',
     cargoCapacity: 'Ladekapazität',
-    fuelConsumption: 'Treibstoffverbrauch',
-    buildCost: 'Baukosten',
-    buildTime: 'Bauzeit',
-    build: '',
-    perUnit: 'Pro Einheit',
-    batchCalculator: 'Batch-Rechner',
-    quantity: 'Menge',
-    totalCost: 'Gesamtkosten',
-    totalTime: 'Gesamtzeit'
+    fuelConsumption: 'Treibstoffverbrauch'
   },
   shipyardView: {
     title: 'Raumschiffwerft',
     fleetStorage: 'Flottenspeicher',
-    owned: 'Besitz',
     attack: 'Angriff',
     missileAttack: 'Raketenangriff',
     shield: 'Schild',
@@ -484,7 +444,7 @@ export default {
     armor: 'Panzerung',
     buildCost: 'Baukosten',
     buildTime: 'Bauzeit',
-    build: '',
+    build: 'Bauen',
     perUnit: 'Pro Einheit',
     batchCalculator: 'Batch-Rechner',
     quantity: 'Menge',
@@ -538,6 +498,7 @@ export default {
     missionInfo: 'Missionsinfo',
     fuelConsumption: 'Treibstoffverbrauch',
     flightTime: 'Flugzeit',
+    outOfRange: 'Außer Reichweite',
     attackMission: 'Angriff',
     transport: 'Transport',
     colonize: 'Kolonisieren',
@@ -549,6 +510,7 @@ export default {
     requiresAstro: 'Benötigt Astrophysik Stufe {level}',
     reward: 'Belohnung',
     danger: 'Gefahr',
+    destroy: 'Vernichten',
     zones: {
       nearSpace: {
         name: 'Naher Weltraum',
@@ -579,11 +541,12 @@ export default {
     arrivalTime: 'Ankunftszeit',
     returnTime: 'Rückkehrzeit',
     recallFleet: 'Flotte zurückrufen',
-    abortMission: '',
-    abortMissionTitle: '',
-    abortMissionWarning: '',
-    abortMissionSuccess: '',
-    abortMissionSuccessMessage: '',
+    abortMission: 'Mission abbrechen',
+    abortMissionTitle: 'Mission abbrechen bestätigen',
+    abortMissionWarning:
+      'WARNUNG: Das Abbrechen dieser Mission führt zum permanenten Verlust von {ships} Schiffen und {resources} Ressourcen!\n\nDiese Aktion ist unwiderruflich und die Flotte und Ressourcen werden nicht zurückkehren.',
+    abortMissionSuccess: 'Mission abgebrochen',
+    abortMissionSuccessMessage: 'Mission wurde abgebrochen, Flotte und Ressourcen sind verloren.',
     sendFailed: 'Senden fehlgeschlagen',
     sendFailedMessage: 'Bitte überprüfen Sie Flottenanzahl, Treibstoffverfügbarkeit oder Ladekapazitätsgrenzen.',
     recallFailed: 'Zurückrufen fehlgeschlagen',
@@ -652,7 +615,6 @@ export default {
     benefitsBonus: 'Vorteile',
     resourceProduction: 'Ressourcenproduktion',
     darkMatterProduction: 'Dunkle-Materie-Produktion',
-    energyProduction: 'Energieproduktion',
     buildingSpeed: 'Baugeschwindigkeit',
     researchSpeed: 'Forschungsgeschwindigkeit',
     fleetSpeed: 'Flottengeschwindigkeit',
@@ -681,14 +643,11 @@ export default {
     selectGalaxy: 'Galaxie auswählen',
     system: 'System',
     selectSystem: 'System auswählen',
-    view: 'Anzeigen',
-    myPlanet: 'Mein Planet',
     myPlanets: 'Meine Systeme ansehen',
     npcPlanets: 'NPC-Planeten',
     selectPlanetToView: 'Planet auswählen, um sein System anzuzeigen',
     totalPositions: 'Insgesamt 10 Planetenpositionen',
     mine: 'Mein',
-    hostile: 'Feindlich',
     emptySlot: 'Leer - Kolonisierbar',
     scout: 'Spähen',
     attack: 'Angriff',
@@ -715,7 +674,9 @@ export default {
     systems: 'Systeme',
     distance: 'Entfernung',
     flightTime: 'Flugzeit',
+    outOfRange: 'Außer Reichweite',
     launchMissile: 'Starten',
+    missileLaunched: 'Rakete abgefeuert',
     cancel: 'Abbrechen',
     colonizePlanetMessage:
       'Möchten Sie wirklich Position [{coordinates}] kolonisieren?\n\nBitte gehen Sie zur Flottenseite, um ein Kolonieschiff zu senden.',
@@ -728,20 +689,34 @@ export default {
       'Möchten Sie wirklich Ressourcen als Geschenk an Planet [{coordinates}] senden?\n\nBitte gehen Sie zur Flottenseite, um Transporter auszuwählen und Ressourcen zu laden.',
     npcPlanetName: '{name}s Planet',
     intercepted: 'Abgefangen',
-    defenseLosses: 'Verteidigungsverluste'
+    defenseLosses: 'Verteidigungsverluste',
+    phalanxScan: 'Sensorabtastung',
+    phalanxScanTitle: 'Sensorarray-Scan',
+    phalanxScanDescription: 'Flottenaktivität von Planet [{coordinates}] scannen',
+    phalanxNoMoon: 'Benötigt Mond mit Sensorarray zum Scannen',
+    phalanxCost: 'Scan-Kosten',
+    phalanxNoFleets: 'Keine Flottenaktivität erkannt',
+    phalanxFleetDetected: '{count} Flotte(n) erkannt',
+    phalanxOrigin: 'Ausgangsort',
+    phalanxDestination: 'Zielort',
+    phalanxArrival: 'Ankunftszeit',
+    phalanxReturn: 'Rückkehrzeit',
+    phalanxStatusOutbound: 'Unterwegs',
+    phalanxStatusReturning: 'Rückkehr',
+    phalanxInsufficientDeuterium: 'Unzureichend Deuterium'
   },
   messagesView: {
     title: 'Nachrichten',
     battles: 'Kämpfe',
     spy: 'Spionage',
     npc: 'NPC',
-    diplomacy: '',
+    diplomacy: 'Diplomatie',
     spied: 'Ausspioniert',
     battleReports: 'Kampfberichte',
     spyReports: 'Spionageberichte',
     noBattleReports: 'Keine Kampfberichte',
     noSpyReports: 'Keine Spionageberichte',
-    noDiplomaticReports: '',
+    noDiplomaticReports: 'Keine diplomatischen Berichte',
     noSpiedNotifications: 'Keine Ausspionierungs-Benachrichtigungen',
     battleReport: 'Kampfbericht',
     spyReport: 'Spionagebericht',
@@ -766,6 +741,8 @@ export default {
     defense: 'Verteidigung',
     buildings: 'Gebäude',
     unread: 'Ungelesen',
+    pending: 'Ausstehend',
+    invalidData: 'Ungültige Daten',
     targetPlanet: 'Zielplanet',
     attackerRemaining: 'Angreifer verblieben',
     defenderRemaining: 'Verteidiger verblieben',
@@ -813,36 +790,37 @@ export default {
       polite_decline: 'Sie lehnten höflich ab'
     },
     // Spied notification dialog
-    spiedNotificationDetails: '',
-    spyDetected: '',
-    detectionResult: '',
-    detectionSuccess: '',
-    spiedNotificationMessage: '',
-    spiedNotificationTip: '',
-    viewInGalaxy: '',
+    spiedNotificationDetails: 'Ausspionierung Details',
+    spyDetected: 'Spion entdeckt',
+    detectionResult: 'Erkennungsergebnis',
+    detectionSuccess: 'Du hast den feindlichen Spion entdeckt!',
+    spiedNotificationMessage: '{npc} hat versucht, deinen Planeten {planet} auszuspionieren',
+    spiedNotificationTip: 'Erwäge, deine Verteidigung zu erhöhen oder einen Gegenangriff zu starten, wenn dieser NPC feindlich ist',
+    viewInGalaxy: 'In Galaxie anzeigen',
     // Mission report dialog
-    missionReportDetails: '',
-    missionSuccess: '',
-    missionFailed: '',
-    origin: '',
-    destination: '',
-    missionDetails: '',
-    transportedResources: '',
-    recycledResources: '',
-    remainingDebris: '',
-    newPlanet: '',
+    missionReportDetails: 'Missionsbericht Details',
+    missionSuccess: 'Erfolg',
+    missionFailed: 'Fehlgeschlagen',
+    origin: 'Herkunft',
+    destination: 'Ziel',
+    missionDetails: 'Missionsdetails',
+    transportedResources: 'Transportierte Ressourcen',
+    recycledResources: 'Recycelte Ressourcen',
+    remainingDebris: 'Verbleibende Trümmer',
+    newPlanet: 'Neuer Planet',
     // NPC activity dialog
-    npcActivityDetails: '',
+    npcActivityDetails: 'NPC-Aktivität Details',
     activityType: {
-      recycle: ''
+      recycle: 'Trümmer recyceln'
     },
-    activityLocation: '',
-    position: '',
-    nearPlanet: '',
-    activityDescription: '',
-    npcActivityMessage: '',
-    arrivalTime: '',
-    npcActivityTip: '',
+    activityLocation: 'Aktivitätsort',
+    position: 'Position',
+    nearPlanet: 'In der Nähe von Planet',
+    activityDescription: 'Aktivitätsbeschreibung',
+    npcActivityMessage: '{npc} {activity} bei {position}',
+    arrivalTime: 'Ankunftszeit',
+    npcActivityTip:
+      'NPCs können Trümmer aus Kämpfen sammeln. Du kannst versuchen, den Ort zuerst zu erreichen, wenn du um Ressourcen konkurrieren möchtest',
     clearMessages: 'Nachrichten löschen',
     clearMessageTypes: 'Nachrichtentypen zum Löschen auswählen',
     clearBattleReports: 'Kampfberichte',
@@ -852,7 +830,11 @@ export default {
     clearNPCActivity: 'NPC-Aktivität',
     clearGiftNotifications: 'Geschenkbenachrichtigungen',
     clearGiftRejected: 'Abgelehnte Geschenke',
-    clearNow: 'Jetzt löschen'
+    clearTradeOffers: 'Handelsangebote',
+    clearIntelReports: 'Geheimdienstberichte',
+    clearJointAttackInvites: 'Gemeinsame Angriffseinladungen',
+    clearNow: 'Jetzt löschen',
+    clearSuccess: 'Nachrichten gelöscht'
   },
   missionReports: {
     transportSuccess: 'Transportmission erfolgreich abgeschlossen',
@@ -963,7 +945,6 @@ export default {
     resume: 'Fortsetzen',
     gamePaused: 'Spiel pausiert',
     gameResumed: 'Spiel fortgesetzt',
-    playerName: 'Spielername',
     gameSpeed: 'Ressourcenproduktionsgeschwindigkeit',
     gameSpeedDesc: 'Aktueller Ressourcenproduktionsgeschwindigkeitsmultiplikator',
     speedChanged: 'Ressourcenproduktionsgeschwindigkeit auf {speed}x geändert',
@@ -971,17 +952,18 @@ export default {
     reset: 'Zurücksetzen',
     about: 'Über',
     version: 'Version',
-    latestVersion: 'Neueste Version',
     checkUpdate: 'Update prüfen',
     checking: 'Prüfen...',
     newVersionAvailable: 'Neue Version {version} verfügbar',
     upToDate: 'Bereits auf dem neuesten Stand',
-    checkUpdateCooldown: 'Bitte versuchen Sie es später erneut (5 Minuten Abklingzeit)',
     checkUpdateFailed: 'Update-Prüfung fehlgeschlagen, bitte überprüfen Sie Ihre Netzwerkverbindung',
     viewUpdate: 'Update ansehen',
     updateAvailable: 'Eine neue Version ist verfügbar. Klicken Sie, um die Versionshinweise anzuzeigen.',
     download: 'Herunterladen',
-    goToDownload: 'Zum Download',
+    displaySettings: 'Anzeigeeinstellungen',
+    displaySettingsDesc: 'Visuelle Effekte des Spiels anpassen',
+    backgroundAnimation: 'Hintergrundanimation',
+    backgroundAnimationDesc: 'Sternenhimmel-/Partikel-Hintergrundanimation anzeigen (kann die Leistung beeinträchtigen)',
     buildDate: 'Build-Datum',
     community: 'Community',
     github: 'GitHub-Repository',
@@ -1004,13 +986,53 @@ export default {
     expandTypes: 'Details anzeigen',
     collapseTypes: 'Details ausblenden',
     // NPC-Namen-Update
-    npcNameUpdate: 'NPC-Namen-Update',
     npcNameUpdateTitle: 'Alte NPC-Namen erkannt',
     npcNameUpdateMessage: '{count} NPCs mit altem Namensformat gefunden. Möchten Sie auf neue lokalisierte Namen aktualisieren?',
     npcNameUpdateConfirm: 'Namen aktualisieren',
     npcNameUpdateCancel: 'Beibehalten',
     npcNameUpdateSuccess: '{count} NPC-Namen erfolgreich aktualisiert',
-    npcNameUpdateSkipped: 'NPC-Namen-Update übersprungen'
+    npcNameUpdateSkipped: 'NPC-Namen-Update übersprungen',
+    // WebDAV
+    webdav: {
+      title: 'Cloud-Sync',
+      desc: 'Spielstände über WebDAV synchronisieren',
+      config: 'Konfigurieren',
+      configTitle: 'WebDAV-Konfiguration',
+      configDesc: 'WebDAV-Server für Cloud-Sync konfigurieren',
+      notConfigured: 'Bitte zuerst WebDAV-Server konfigurieren',
+      serverUrl: 'Server-URL',
+      serverUrlPlaceholder: 'z.B. https://dav.example.com',
+      serverUrlHint: 'Gib deine WebDAV-Server-Adresse ein',
+      username: 'Benutzername',
+      usernamePlaceholder: 'Benutzername eingeben',
+      password: 'Passwort',
+      passwordPlaceholder: 'Passwort eingeben',
+      passwordHint: 'Passwort wird nur lokal gespeichert',
+      basePath: 'Speicherpfad',
+      basePathPlaceholder: 'z.B. /ogame-saves/',
+      testConnection: 'Verbindung testen',
+      testing: 'Teste...',
+      testSuccess: 'Verbindung erfolgreich',
+      testFailed: 'Verbindung fehlgeschlagen',
+      save: 'Speichern',
+      clearConfig: 'Löschen',
+      configSaved: 'Konfiguration gespeichert',
+      configCleared: 'Konfiguration gelöscht',
+      upload: 'Hochladen',
+      uploading: 'Lädt hoch...',
+      uploadSuccess: 'Upload erfolgreich',
+      uploadFailed: 'Upload fehlgeschlagen',
+      download: 'Herunterladen',
+      downloadSuccess: 'Download erfolgreich',
+      downloadFailed: 'Download fehlgeschlagen',
+      selectFile: 'Spielstand wählen',
+      selectFileDesc: 'Wähle eine Spielstand-Datei zum Wiederherstellen',
+      noFiles: 'Keine Spielstände gefunden',
+      loadFailed: 'Dateiliste konnte nicht geladen werden',
+      confirmDelete: 'Möchtest du "{name}" wirklich löschen?',
+      deleteSuccess: 'Datei gelöscht',
+      deleteFailed: 'Löschen fehlgeschlagen'
+    }
   },
   notifications: {
     constructionComplete: 'Bau abgeschlossen',
@@ -1032,8 +1054,8 @@ export default {
     officers: 'Offiziere',
     modifyResources: 'Ressourcen ändern',
     resourcesDesc: 'Planetenressourcen schnell ändern',
-    maxAllResources: '',
-    maxAllResourcesSuccess: '',
+    maxAllResources: 'Alle maximieren',
+    maxAllResourcesSuccess: 'Alle Ressourcen wurden maximiert',
     modifyBuildings: 'Gebäude ändern',
     buildingsDesc: 'Gebäudelevel schnell festlegen',
     modifyResearch: 'Forschung ändern',
@@ -1075,10 +1097,11 @@ export default {
     dangerZoneDesc: 'Die folgenden Vorgänge sind irreversibel',
     resetGame: 'Spiel zurücksetzen',
     resetGameConfirm: 'Möchten Sie das Spiel wirklich zurücksetzen? Alle Daten werden gelöscht!',
-    completeAllQueues: '',
-    completeAllQueuesDesc: '',
-    completeQueues: '',
-    completeQueuesSuccess: ''
+    completeAllQueues: 'Alle Warteschlangen abschließen',
+    completeAllQueuesDesc: 'Alle Bau-, Forschungs-, Schiffs- und Verteidigungswarteschlangen sowie Flottenmissionen sofort abschließen',
+    completeQueues: 'Warteschlangen abschließen',
+    completeQueuesSuccess:
+      '{buildingCount} Bauwarteschlangen, {researchCount} Forschungswarteschlangen, {missionCount} Flottenmissionen, {missileCount} Raketenangriffe abgeschlossen'
   },
   alerts: {
     incomingFleets: '{count} feindliche Flotten im Anmarsch',
@@ -1109,11 +1132,13 @@ export default {
     missionType: {
       spy: 'Spionage',
       attack: 'Angriff',
+      recycle: 'Recyceln',
       unknown: 'Unbekannt'
     },
     warning: {
       spy: 'Feindliche Spionage im Anmarsch!',
       attack: 'Feindlicher Angriff im Anmarsch!',
+      recycle: 'Feind recycelt Trümmer in deiner Nähe!',
       unknown: 'Feindliche Flotte im Anmarsch!'
     }
   },
@@ -1130,13 +1155,11 @@ export default {
     noFriendlyNpcs: 'Keine freundlichen NPCs',
     noNeutralNpcs: 'Keine neutralen NPCs',
     noHostileNpcs: 'Keine feindlichen NPCs',
-    recentEvents: 'Aktuelle Ereignisse',
-    recentEventsDescription: 'Protokoll der jüngsten diplomatischen Aktivitäten',
     ago: 'vor',
-    notifications: '',
-    markAllRead: '',
-    noReports: '',
-    viewAll: '',
+    notifications: 'Diplomatische Benachrichtigungen',
+    markAllRead: 'Alle als gelesen markieren',
+    noReports: 'Keine diplomatischen Ereignisse',
+    viewAll: 'Alle anzeigen',
     status: {
       friendly: 'Freundlich',
       neutral: 'Neutral',
@@ -1155,7 +1178,6 @@ export default {
     },
     note: 'Notiz',
     notePlaceholder: 'Notiz eingeben...',
-    noteEmpty: 'Keine Notiz',
     lastEvent: 'Letztes Ereignis',
     reportDetails: 'Diplomatischer Bericht Details',
     eventDescription: 'Ereignisbeschreibung',
@@ -1211,6 +1233,19 @@ export default {
       npcEliminatedMessage: 'Sie haben alle Planeten von {npcName} zerstört! Diese Fraktion wurde vollständig ausgelöscht.'
     },
     searchPlaceholder: 'NPC-Name suchen...',
+    notificationType: {
+      tradeOffer: 'Handelsangebot',
+      intelReport: 'Geheimdienstbericht',
+      jointAttack: 'Gemeinsame Angriffseinladung'
+    },
+    notificationBadge: {
+      trade: 'Handel',
+      intel: 'Intel',
+      jointAttack: 'Einladung'
+    },
+    notificationExtra: {
+      pending: 'Ausstehend'
+    },
     viewMode: {
       card: 'Karte',
       list: 'Liste'
@@ -1226,6 +1261,21 @@ export default {
         easy: 'Einfach',
         medium: 'Mittel',
         hard: 'Schwer'
+      },
+      aiType: 'KI-Typ',
+      aiTypes: {
+        aggressive: 'Aggressiv',
+        defensive: 'Defensiv',
+        trader: 'Händler',
+        expansionist: 'Expansionist',
+        balanced: 'Ausgewogen'
+      },
+      aiTypeDescriptions: {
+        aggressive: 'Spioniert und greift aktiv an, starke Vergeltung',
+        defensive: 'Greift selten an, starke Vergeltung bei Angriff',
+        trader: 'Greift fast nie an, bevorzugt Handel und Geschenke',
+        expansionist: 'Konzentriert auf Entwicklung, weniger aggressiv',
+        balanced: 'Passt Strategie dynamisch an die Situation an'
       },
       reputation: 'Ansehen',
       spyProbes: 'Spionagesonden',
@@ -1253,27 +1303,11 @@ export default {
         attackCooldown: 'Angriff auf Abklingzeit ({min}m {sec}s)',
         notSpiedYet: 'Noch nicht spioniert, zuerst Spionage nötig'
       }
-    },
-    aiType: 'KI-Typ',
-    aiTypes: {
-      aggressive: 'Aggressiv',
-      defensive: 'Defensiv',
-      trader: 'Händler',
-      expansionist: 'Expansionist',
-      balanced: 'Ausgewogen'
-    },
-    aiTypeDescriptions: {
-      aggressive: 'Spioniert und greift aktiv an, starke Vergeltung',
-      defensive: 'Greift selten an, starke Vergeltung bei Angriff',
-      trader: 'Greift fast nie an, bevorzugt Handel und Geschenke',
-      expansionist: 'Konzentriert auf Entwicklung, weniger aggressiv',
-      balanced: 'Passt Strategie dynamisch an die Situation an'
     }
   },
   pagination: {
     previous: 'Vorherige',
     next: 'Nächste',
-    gotIt: '',
     first: 'Erste',
     last: 'Letzte',
     page: 'Seite {page}'
@@ -1337,30 +1371,132 @@ export default {
     seconds: 'Sekunden'
   },
   tutorial: {
+    progress: 'Fortschritt',
+    previous: 'Zurück',
+    next: 'Weiter',
+    gotIt: 'Verstanden',
+    completeButton: 'Fertig',
+    skip: 'Anleitung überspringen',
     welcome: {
       title: 'Willkommen bei OGame',
-      content: 'Willkommen, Kommandant! Beginnen wir mit den Grundlagen und bauen Sie Ihr Weltraum-Imperium auf.'
+      content: 'Willkommen, Kommandant! Diese Anleitung führt Sie durch die Grundlagen des Imperiumsaufbaus. Klicken Sie auf "Weiter", um Ihre Reise zu beginnen.'
+    },
+    resources: {
+      title: 'Ressourcenübersicht',
+      content: 'Dies sind Ihre Ressourcen: Metall, Kristall und Deuterium. Sie sind für den Bau von Gebäuden und die Erforschung von Technologien unerlässlich. Energie ist ebenfalls wichtig, um Ihre Infrastruktur zu betreiben.'
+    },
+    planet: {
+      title: 'Ihr Planet',
+      content: 'Dies ist Ihr Heimatplanet. Hier sehen Sie den Planetennamen, die Koordinaten und können zwischen Planeten wechseln, wenn Sie Ihr Imperium erweitern.'
+    },
+    navigation: {
+      title: 'Navigationsmenü',
+      content: 'Verwenden Sie dieses Menü, um zwischen verschiedenen Bereichen zu navigieren: Gebäude, Forschung, Flotte, Galaxie usw. Jeder Bereich bietet einzigartige Spielfunktionen.'
+    },
+    gotoBuildings: {
+      title: 'Zu Gebäuden gehen',
+      content: 'Beginnen wir mit dem Bau einiger Gebäude. Klicken Sie auf den Menüpunkt "Gebäude", um verfügbare Gebäude anzuzeigen.'
     },
     buildSolarPlant: {
       title: 'Solarkraftwerk bauen',
-      content:
-        'Bauen Sie zuerst ein Solarkraftwerk! Es liefert Energie für Ihren Planeten. Ohne Energie können andere Ressourcengebäude nicht funktionieren. Dies ist der wichtigste erste Schritt.'
+      content: 'Bauen Sie zuerst ein Solarkraftwerk! Es versorgt Ihren Planeten mit Energie. Ohne Energie können andere Ressourcengebäude nicht funktionieren. Dies ist der wichtigste erste Schritt.'
     },
     waitBuild: {
       title: 'Bauauftrag',
-      content:
-        'Ihr Gebäude befindet sich jetzt in der Bauauftragsliste. Klicken Sie auf das Warteschlangensymbol oben rechts, um alle laufenden Bau- und Forschungsaufträge anzuzeigen. Gebäude brauchen Zeit zum Fertigstellen, aber Sie können während des Wartens weitermachen.'
+      content: 'Ihr Gebäude befindet sich jetzt im Bauauftrag. Klicken Sie auf das Warteschlangensymbol oben rechts, um alle laufenden Bau- und Forschungsaufgaben anzuzeigen. Gebäude brauchen Zeit zur Fertigstellung, aber Sie können während des Wartens weitermachen.'
+    },
+    buildMetalMine: {
+      title: 'Metallmine bauen',
+      content: 'Jetzt, da Sie Energie haben, bauen Sie eine Metallmine. Die Metallmine ist Ihre Hauptmetallquelle, und Metall wird für fast jedes Gebäude und Schiff benötigt.'
+    },
+    buildCrystalMine: {
+      title: 'Kristallmine bauen',
+      content: 'Kristall ist seltener, aber für fortgeschrittene Technologien entscheidend. Bauen Sie eine Kristallmine, um diese wertvolle Ressource zu sammeln.'
+    },
+    buildDeuterium: {
+      title: 'Deuteriumsynthesizer bauen',
+      content: 'Deuterium ist für Schiffstreibstoff und fortgeschrittene Forschung unerlässlich. Bauen Sie einen Deuteriumsynthesizer, um diese wichtige Ressource zu produzieren.'
+    },
+    upgradeMines: {
+      title: 'Ressourcenminen upgraden',
+      content: 'Als Nächstes müssen Sie die drei Ressourcenminen (Metall, Kristall, Deuterium) auf Level 2 upgraden, um die Anforderungen für den Bau der Roboterfabrik zu erfüllen. Upgraden Sie sie weiter, wenn Sie genügend Ressourcen haben.'
+    },
+    buildRobotics: {
+      title: 'Roboterfabrik bauen',
+      content: 'Die Roboterfabrik kann die Baugeschwindigkeit erheblich erhöhen. Sie benötigt Metallmine, Kristallmine und Deuteriumsynthesizer jeweils auf Level 2. Bauen Sie sie, um die Baueffizienz zu steigern!'
+    },
+    upgradeMinesForLab: {
+      title: 'Ressourcenminen weiter upgraden',
+      content: 'Jetzt müssen Sie die drei Ressourcenminen auf Level 3 upgraden, um die Bauanforderungen des Forschungslabors zu erfüllen. Entwickeln Sie Ihre Ressourcenproduktion weiter.'
+    },
+    buildResearchLab: {
+      title: 'Forschungslabor bauen',
+      content: 'Das Forschungslabor ist die Grundlage für technologischen Fortschritt. Es benötigt alle drei Ressourcenminen auf Level 3. Bauen Sie es, um Technologieforschung freizuschalten!'
+    },
+    gotoResearch: {
+      title: 'Zur Forschung gehen',
+      content: 'Da Sie nun ein Forschungslabor haben, klicken Sie auf das Menü "Forschung", um verfügbare Technologien anzuzeigen.'
+    },
+    researchEnergy: {
+      title: 'Energietechnik erforschen',
+      content: 'Die Energietechnik kann Ihre Energieproduktion verbessern und fortgeschrittene Gebäude freischalten. Dies ist eine der grundlegendsten und wichtigsten Technologien.'
+    },
+    shipyardIntro: {
+      title: 'Flotte & Werft',
+      content: 'Schiffe ermöglichen es Ihnen, die Galaxie zu erkunden, Ressourcen zu transportieren und Ihr Imperium zu verteidigen. Um Schiffe zu bauen, benötigen Sie eine Raumschiffwerft (benötigt Roboterfabrik Level 2).'
+    },
+    gotoBuildingsForShipyard: {
+      title: 'Zurück zur Gebäudeseite',
+      content: 'Kehren Sie zur Gebäudeseite zurück, um Ihre Raumschiffwerft zu bauen.'
+    },
+    buildShipyard: {
+      title: 'Raumschiffwerft bauen',
+      content: 'Die Raumschiffwerft ermöglicht es Ihnen, Schiffe und Verteidigungssysteme zu bauen. Dies ist für Flottenoperationen unerlässlich.'
+    },
+    fleetIntro: {
+      title: 'Flottenoperationen',
+      content: 'Sobald Sie Schiffe haben, können Sie sie auf Missionen schicken: Ressourcen transportieren, Planeten kolonisieren, Feinde angreifen oder Trümmerfelder erkunden.'
+    },
+    galaxyIntro: {
+      title: 'Galaxie erkunden',
+      content: 'Die Galaxieansicht zeigt andere Planeten, Trümmerfelder und Expansionsmöglichkeiten. Verwenden Sie sie, um Ziele auszukundschaften und Ihre Strategie zu planen.'
+    },
+    complete: {
+      title: 'Anleitung abgeschlossen!',
+      content: 'Glückwunsch, Kommandant! Sie kennen jetzt die Grundlagen. Bauen Sie Ihr Imperium weiter auf, erforschen Sie Technologien und erkunden Sie die Galaxie. Denken Sie daran: Zuerst Energie entwickeln, dann Ressourcen, dann Fabriken und Forschung! Viel Glück!'
     },
     mobile: {
       welcome: {
         title: 'Willkommen bei OGame (Mobil)',
-        content:
-          'Willkommen, Kommandant! Dies ist ein optimiertes Tutorial für Touchscreens. Wir werden schnell die Kernfunktionen durchgehen, damit Sie mit dem Aufbau Ihres Imperiums beginnen können.'
+        content: 'Willkommen, Kommandant! Dies ist eine vereinfachte Anleitung für Touchscreens. Wir werden schnell die Kernfunktionen durchgehen, damit Sie mit dem Aufbau Ihres Imperiums beginnen können.'
+      },
+      resources: {
+        title: 'Obere Ressourcenleiste',
+        content: 'Oben werden Ihre Ressourcen angezeigt: Metall, Kristall und Deuterium. Tippen Sie, um detaillierte Produktionsinformationen anzuzeigen.'
+      },
+      menu: {
+        title: 'Navigationsmenü öffnen',
+        content: 'Tippen Sie auf dieses Menüsymbol, um die Navigationsleiste zu öffnen. Sie können auf alle Funktionen zugreifen: Gebäude, Forschung, Flotte usw.'
+      },
+      gotoBuildings: {
+        title: 'Zur Gebäudeseite gehen',
+        content: 'Das Menü ist jetzt geöffnet! Tippen Sie nun auf die Option "Gebäude", um mit dem Bau der Infrastruktur zu beginnen.'
+      },
+      buildSolarPlant: {
+        title: 'Solarkraftwerk bauen',
+        content: 'Bauen Sie zuerst ein Solarkraftwerk! Scrollen Sie nach unten, um es zu finden, und tippen Sie auf die Karte zum Bauen. Energie ist die Grundlage für alles.'
       },
       waitBuild: {
         title: 'Bauauftrag',
-        content:
-          'Klicken Sie auf das Warteschlangensymbol oben rechts, um den Baufortschritt anzuzeigen. Sie können weiter andere Seiten durchsuchen - der Bau läuft im Hintergrund.'
+        content: 'Tippen Sie auf das Warteschlangensymbol oben rechts, um den Baufortschritt anzuzeigen. Sie können weiter andere Seiten durchsuchen - der Bau läuft im Hintergrund.'
+      },
+      buildMetalMine: {
+        title: 'Metallmine bauen',
+        content: 'Nachdem Sie Energie haben, bauen Sie eine Metallmine. Scrollen Sie nach unten, um die Metallmine zu finden, und tippen Sie zum Bauen.'
+      },
+      complete: {
+        title: 'Schnellanleitung abgeschlossen!',
+        content: 'Sehr gut! Sie haben die Grundlagen gemeistert. Bauen Sie weiter die Kristallmine und den Deuteriumsynthesizer und erkunden Sie andere Funktionen. Denken Sie daran: Zuerst Energie, dann Ressourcen!'
       }
     }
   },
@@ -1427,10 +1563,19 @@ export default {
       message:
         'Simulieren Sie Kampfergebnisse vor dem Angriff. Geben Sie Flotten und Technologiestufen ein, um Sieg, Verluste und Beute vorherzusagen.'
     },
+    campaign: {
+      title: 'Kampagnenmodus',
+      message: 'Erkunden Sie die Galaxie-Story-Kampagne! Schließen Sie Missionen ab, um Ressourcenbelohnungen zu erhalten und neue Herausforderungen freizuschalten. Jeder Knoten hat einzigartige Ziele und Feinde.'
+    },
     achievements: {
       title: 'Erfolgssystem',
       message:
         'Schließen Sie Spielziele ab, um Erfolge freizuschalten und Dunkle Materie-Belohnungen zu erhalten! Erfolge haben mehrere Stufen - streben Sie höhere Herausforderungen an, um bessere Belohnungen zu erhalten.'
+    },
+    ranking: {
+      title: 'Rangliste',
+      message:
+        'Vergleichen Sie Ihren Fortschritt mit anderen Spielern und NPCs. Sehen Sie Rankings basierend auf Punkten aus Gebäuden, Forschung, Flotte und Verteidigung. Streben Sie nach höheren Platzierungen!'
     },
     settings: {
       title: 'Einstellungen',
@@ -1557,5 +1702,350 @@ export default {
     you: 'Du',
     scoreBreakdown: 'Punkteübersicht',
     noData: 'Keine Ranglistendaten'
+  },
+  // NPC Enhanced Behavior Notifications
+  npcBehavior: {
+    tradeOfferReceived: 'Handelsangebot erhalten',
+    tradeOfferDesc: '{npcName} hat dir ein Handelsangebot gesendet',
+    attitudeChanged: 'NPC-Haltung geändert',
+    becameFriendly: '{npcName} ist dir gegenüber freundlich geworden',
+    becameHostile: '{npcName} ist dir gegenüber feindlich geworden',
+    intelReceived: 'Informationen erhalten',
+    intelReceivedDesc: '{npcName} hat Feindinformationen mit dir geteilt',
+    jointAttackInvite: 'Gemeinsamer Angriffseinladung',
+    jointAttackInviteDesc: '{npcName} lädt dich ein, gemeinsam einen Feind anzugreifen',
+    aidReceived: 'Hilfe erhalten',
+    aidReceivedDesc: '{npcName} hat dir {amount} Ressourcen gesendet',
+    allyDefense: 'Verbündete Verteidigung',
+    allyDefenseDesc: '{npcName} sendet eine Flotte, um deinen Planeten zu verteidigen',
+    trade: {
+      title: 'Handelsangebote',
+      from: 'Von',
+      offers: 'Bietet',
+      requests: 'Fordert',
+      expiresIn: 'Läuft ab in',
+      expired: 'Abgelaufen',
+      accept: 'Annehmen',
+      decline: 'Ablehnen',
+      noOffers: 'Keine Handelsangebote',
+      acceptSuccess: 'Handel abgeschlossen!',
+      acceptFailed: 'Nicht genug Ressourcen für den Handel',
+      declined: 'Handel abgelehnt',
+      ratio: 'Tauschverhältnis'
+    },
+    intel: {
+      title: 'Geheimdienstberichte',
+      from: 'Quelle',
+      target: 'Ziel-NPC',
+      type: 'Informationstyp',
+      types: {
+        enemyFleet: 'Flotteninformation',
+        enemyResources: 'Ressourceninformation',
+        enemyMovement: 'Bewegungsinformation'
+      },
+      fleetInfo: 'Flotteninformation',
+      resourceInfo: 'Ressourceninformation',
+      movementInfo: 'Bewegungsinformation',
+      noReports: 'Keine Geheimdienstberichte',
+      markAsRead: 'Als gelesen markieren',
+      content: 'Informationsinhalt',
+      noFleet: 'Keine Flotte erkannt',
+      noData: 'Keine Daten verfügbar',
+      targetPosition: 'Zielposition',
+      missionType: 'Missionstyp'
+    },
+    jointAttack: {
+      title: 'Gemeinsame Angriffseinladungen',
+      from: 'Initiator',
+      target: 'Ziel-NPC',
+      targetPlanet: 'Zielplanet',
+      npcFleet: 'NPC-Flotte',
+      lootShare: 'Beuteanteil',
+      expiresIn: 'Läuft ab in',
+      expired: 'Abgelaufen',
+      accept: 'Am Angriff teilnehmen',
+      decline: 'Ablehnen',
+      noInvites: 'Keine gemeinsamen Angriffseinladungen',
+      acceptSuccess: 'Dem gemeinsamen Angriff beigetreten!',
+      declined: 'Einladung abgelehnt',
+      targetInfo: 'Angriffsziel',
+      expectedShare: 'Erwarteter Anteil',
+      remaining: 'Verbleibende Zeit'
+    },
+    aid: {
+      title: 'Ressourcenhilfe',
+      from: 'Quelle',
+      resources: 'Hilfsressourcen',
+      noAid: 'Keine Hilfsaufzeichnungen'
+    },
+    attitudeChange: {
+      title: 'Haltungsänderungen',
+      npc: 'NPC',
+      previous: 'Vorher',
+      current: 'Jetzt',
+      reason: 'Grund',
+      reasons: {
+        naturalSwing: 'Natürliche Veränderung',
+        giftReceived: 'Geschenk erhalten',
+        attacked: 'Wurde angegriffen',
+        reputationThreshold: 'Reputationsschwelle',
+        attitude_swing: 'Haltungsschwankung',
+        gift: 'Geschenk erhalten',
+        attack: 'Angriff erlitten'
+      }
+    },
+    allyAction: {
+      title: 'Verbündete Aktionen',
+      defense: 'Verteidigungsunterstützung',
+      defenseDesc: '{npcName} sendet Flotte zur Verteidigung von {targetPlanet}',
+      jointAttackStarted: 'Gemeinsamer Angriff gestartet',
+      jointAttackStartedDesc: 'Gemeinsamer Angriff auf {targetNpc} hat begonnen',
+      reputationBonus: 'Reputationsbonus',
+      reputationBonusDesc: 'Dein Verbündeter {npcName} spricht gut von dir zu {targetNpc}'
+    }
+  },
+  campaign: {
+    name: 'Kampagne',
+    description: 'Erkunde die mysteriöse Galaxie und entdecke antike Geheimnisse',
+    totalProgress: 'Gesamtfortschritt',
+    questsCompleted: 'Quests abgeschlossen',
+    chapter: 'Kapitel',
+    branch: 'Zweig',
+    startQuest: 'Quest starten',
+    claimRewards: 'Belohnungen abholen',
+    objectives: 'Ziele',
+    rewards: 'Belohnungen',
+    completed: 'Abgeschlossen',
+    inProgress: 'In Bearbeitung',
+    available: 'Verfügbar',
+    locked: 'Gesperrt',
+    notifications: {
+      questStarted: 'Quest gestartet',
+      questCompleted: 'Quest abgeschlossen!',
+      rewardsClaimed: 'Belohnungen erhalten',
+      objectiveCompleted: 'Ziel erreicht',
+      chapterUnlocked: 'Neues Kapitel freigeschaltet',
+      reputationUp: 'Reputation bei {npcName} um {value} erhöht',
+      reputationDown: 'Reputation bei {npcName} um {value} verringert',
+      branchUnlocked: 'Neuer Storyzweig freigeschaltet!'
+    },
+    dialogue: {
+      skip: 'Überspringen',
+      continue: 'Weiter',
+      finish: 'Beenden',
+      player: 'Kommandant',
+      npc: 'NPC',
+      narrator: 'Erzähler',
+      mysterious: 'Mysteriöses Signal',
+      unknownSource: 'Unbekannte Quelle',
+      choiceEffect: 'Dialogauswahl-Effekt'
+    },
+    chapters: {
+      '1': {
+        title: 'Ursprung',
+        description: 'Baue deine Heimat auf und mache den ersten Schritt ins All',
+        backgroundStory:
+          'Du bist ein junger Weltraumkommandant, der gerade seinen ersten Planeten erworben hat. In diesem weiten Universum wirst du deine Heimat aufbauen, Technologie entwickeln und die Tiefen der Galaxie erkunden...'
+      },
+      '2': {
+        title: 'Erkundung',
+        description: 'Erkunde das Universum und entdecke antike Ruinen',
+        backgroundStory:
+          'Während deine Macht wächst, erregen mysteriöse Signale aus dem tiefen Weltraum deine Aufmerksamkeit. Diese Signale scheinen auf ein antikes Geheimnis hinzuweisen, das mutige Entdecker erwartet...'
+      },
+      '3': {
+        title: 'Diplomatie',
+        description: 'Knüpfe Verbindungen mit anderen Fraktionen',
+        backgroundStory:
+          'Du bist nicht allein in der Galaxie. Andere Zivilisationen erheben sich. Du musst entscheiden, ob du ihr Feind oder Verbündeter sein willst. Diplomatische Weisheit wird bestimmen, wie weit dein Imperium gehen kann...'
+      },
+      '4': {
+        title: 'Aufziehende Schatten',
+        description: 'Stelle dich mächtigen Feinden und verteidige dein Territorium',
+        backgroundStory:
+          'Gefahr lauert in den Schatten. Eine mächtige feindliche Macht hat dein Territorium ins Visier genommen. Krieg ist unvermeidlich. Du musst dich auf den kommenden Sturm vorbereiten...'
+      },
+      '5': {
+        title: 'Antike Geheimnisse',
+        description: 'Enthülle die tiefsten Geheimnisse der Galaxie',
+        backgroundStory:
+          'Alle Hinweise deuten auf die mysteriöseste Region der Galaxie. Dort warten die ultimativen Geheimnisse antiker Zivilisationen. Bist du bereit, alles zu enthüllen?'
+      }
+    },
+    quests: {
+      '1_1': { title: 'Heimataufbau', description: 'Baue Infrastruktur auf, um die Grundlage für deinen Planeten zu legen' },
+      '1_2': { title: 'Technische Erleuchtung', description: 'Erforsche Basistechnologie, um deine technische Reise zu beginnen' },
+      '1_3': { title: 'Erstes Schiff', description: 'Baue dein erstes Kriegsschiff' },
+      '1_4': { title: 'Seltsame Nachbarn', description: 'Erkunde andere Fraktionen in nahen Systemen' },
+      '1_5': { title: 'Erster Kontakt', description: 'Stelle ersten Kontakt mit nahen NPC-Fraktionen her' },
+      '2_1': { title: 'Pionierkolonie', description: 'Kolonisiere deinen ersten neuen Planeten' },
+      '2_2': { title: 'Tiefraum-Expedition', description: 'Sende Flotte auf Expeditionsmissionen' },
+      '2_3': { title: 'Mysteriöses Signal', description: 'Untersuche mysteriöse Signale aus dem tiefen Weltraum' },
+      '2_4': { title: 'Ruinenuntersuchung', description: 'Erkunde entdeckte antike Ruinen' },
+      '2_5': { title: 'Archive entschlüsseln', description: 'Erforsche Daten aus den Ruinen' },
+      '3_1': { title: 'Friedensstifter', description: 'Verbessere Beziehungen zu NPCs durch Diplomatie' },
+      '3_2': { title: 'Handelsbeziehungen', description: 'Baue stabile Beziehungen zu freundlichen Fraktionen auf' },
+      '3_3': { title: 'Gemeinsame Bedrohung', description: 'Entdecke potenzielle feindliche Kräfte' },
+      '3_4': { title: 'Allianzverhandlungen', description: 'Schließe eine formelle Allianz mit freundlichen NPCs' },
+      '3_5': { title: 'Sturmvorbereitung', description: 'Baue Verteidigungen zur Vorbereitung auf Herausforderungen' },
+      '4_1': { title: 'Außenpostenangriff', description: 'Wehre den ersten Angriff feindlicher Kräfte ab' },
+      '4_2': { title: 'Informationsbeschaffung', description: 'Erkunde feindliche Militäraufstellungen' },
+      '4_3': { title: 'Gegenangriff', description: 'Starte einen Gegenangriff gegen den Feind' },
+      '4_4': { title: 'Ressourcenkampf', description: 'Recycel Schlachtfeldtrümmer für Ressourcen' },
+      '4_5': { title: 'Vorabend der Schlacht', description: 'Baue eine mächtige Flotte für die letzte Schlacht' },
+      '5_1': { title: 'Tiefen der Ruinen', description: 'Erkunde die tiefsten Teile der Ruinen' },
+      '5_2': { title: 'Antike Technologie', description: 'Schalte Technologie antiker Zivilisationen frei' },
+      '5_3': { title: 'Letzte Konfrontation', description: 'Stelle dich dem letzten Kampf gegen den mysteriösen Feind' },
+      '5_4': { title: 'Neue Ära', description: 'Gründe neue Kolonien und beginne ein neues Zeitalter' },
+      '5_5': { title: 'Vermächtnis', description: 'Entwickle weiter und erobere mehr Systeme' }
+    },
+    objectiveTypes: {
+      buildBuilding: 'Baue {building} auf Stufe {level}',
+      researchTech: 'Erforsche {tech} auf Stufe {level}',
+      produceShips: 'Produziere {count} {ship}',
+      accumulateResources: 'Sammle {amount} {resource}',
+      defeatNPC: 'Besiege {npc}',
+      winBattles: 'Gewinne {count} Kämpfe',
+      recycleDebris: 'Recycel {amount} Trümmer',
+      reachRelation: 'Erreiche {level} Beziehung mit {npc}',
+      sendGift: 'Sende {count} Geschenke an {npc}',
+      formAlliance: 'Schließe Allianz mit {npc}',
+      colonize: 'Kolonisiere {count} Planeten',
+      expedition: 'Schließe {count} Expeditionen ab',
+      spyTarget: 'Spioniere {target} aus'
+    },
+    errors: {
+      questNotFound: 'Quest nicht gefunden',
+      questNotAvailable: 'Quest nicht verfügbar',
+      questNotActive: 'Quest nicht aktiv',
+      questNotCompleted: 'Quest nicht abgeschlossen',
+      rewardsAlreadyClaimed: 'Belohnungen bereits erhalten',
+      prerequisiteNotMet: 'Voraussetzungs-Quest nicht abgeschlossen'
+    },
+    speakers: {
+      ancientVoice: 'Antike Stimme',
+      neighborNPC: 'Nachbar-Fraktion',
+      mysteriousSignal: 'Mysteriöses Signal',
+      enemyCommander: 'Feindlicher Kommandant'
+    },
+    objectiveDescriptions: {
+      buildMetalMine: 'Baue Metallmine auf Stufe 2',
+      buildCrystalMine: 'Baue Kristallmine auf Stufe 2',
+      buildSolarPlant: 'Baue Solarkraftwerk auf Stufe 2',
+      buildResearchLab: 'Baue Forschungslabor auf Stufe 1',
+      researchEnergy: 'Erforsche Energietechnik auf Stufe 1',
+      buildShipyard: 'Baue Raumschiffwerft auf Stufe 2',
+      researchCombustion: 'Erforsche Verbrennungstriebwerk auf Stufe 1',
+      buildLightFighters: 'Baue 5 Leichte Jäger',
+      researchEspionage: 'Erforsche Spionagetechnik auf Stufe 2',
+      buildSpyProbes: 'Baue 3 Spionagesonden',
+      spyAnyNPC: 'Spioniere einen NPC-Planeten aus',
+      sendGiftToNPC: 'Sende ein Geschenk an einen NPC',
+      researchAstrophysics: 'Erforsche Astrophysik auf Stufe 1',
+      buildColonyShip: 'Baue ein Kolonieschiff',
+      colonizeNewPlanet: 'Kolonisiere einen neuen Planeten',
+      completeExpedition: 'Schließe eine Expeditionsmission ab',
+      discoverRuins: 'Entdecke antike Ruinen',
+      researchComputer: 'Erforsche Computertechnik auf Stufe 4',
+      improveRelation: 'Verbessere Beziehungen zu einem NPC',
+      reachFriendly: 'Erreiche freundlichen Status mit einem NPC',
+      spyHostileNPC: 'Spioniere einen feindlichen NPC aus',
+      formAlliance: 'Schließe Allianz mit einem freundlichen NPC',
+      buildDefenses: 'Baue Verteidigungsanlagen',
+      winDefenseBattle: 'Gewinne eine Verteidigungsschlacht',
+      spyEnemyPlanet: 'Spioniere Feindplaneten aus',
+      attackEnemy: 'Greife den Feind an',
+      recycleDebris: 'Recycel Trümmer',
+      buildBattleships: 'Baue 10 Schlachtschiffe',
+      exploreDeepRuins: 'Erkunde tiefe Ruinen',
+      researchHyperspace: 'Erforsche Hyperraumtechnologie',
+      defeatBoss: 'Besiege den mysteriösen Feind',
+      colonizeSpecial: 'Kolonisiere besonderen Standort',
+      continueDevelopment: 'Setze Entwicklung fort'
+    },
+    dialogues: {
+      '1_1': {
+        prologue_1:
+          'Willkommen in der Galaxie, junger Kommandant. Dieses weite Universum wartet auf deine Erkundung. Zuerst bauen wir deinen Heimatplaneten auf.',
+        prologue_2: 'Ich spüre ein neues Bewusstsein erwachen... Interessant... Mal sehen, wie weit du kommst...'
+      },
+      '1_2': {
+        prologue_1:
+          'Grundlegende Infrastruktur ist fertig. Jetzt ist es Zeit, Technologie zu entwickeln. Baue ein Forschungslabor und beginne deine technische Reise.'
+      },
+      '1_3': {
+        prologue_1:
+          'Mit technologischer Unterstützung kannst du beginnen, deine Flotte aufzubauen. Baue eine Werft und produziere dein erstes Kriegsschiff.'
+      },
+      '1_4': {
+        prologue_1:
+          'Deine Flotte nimmt Form an. Jetzt lass uns deine Umgebung kennenlernen. Sende Spionagesonden aus, um nahe Fraktionen zu erkunden.',
+        prologue_2: 'Du bist nicht allein... Andere Zivilisationen existieren in dieser Galaxie...'
+      },
+      '1_5': {
+        prologue_1: 'Du hast nahe Fraktionen entdeckt. Diplomatie ist eine Kunst. Versuche, Kontakt mit ihnen aufzunehmen.',
+        epilogue_1: 'Danke für dein Geschenk, Kommandant. Ich hoffe, wir können Freunde werden.',
+        epilogue_2: 'Gut... Verbindungen aufzubauen ist der erste Schritt, tiefere Geheimnisse zu enthüllen...'
+      },
+      '2_1': {
+        prologue_1:
+          'Deine Macht ist etabliert. Es ist Zeit, dein Territorium zu erweitern. Erforsche Astrophysik, baue ein Kolonieschiff und erkunde neue Planeten.',
+        prologue_2: 'Das Universum ist unendlich... Mehr Planeten bedeuten mehr Möglichkeiten...'
+      },
+      '2_2': {
+        prologue_1: 'Kolonisierung erfolgreich! Aber tiefere Geheimnisse warten im Universum. Sende deine Flotte auf Expeditionsmissionen.',
+        prologue_2: 'Schwache Signale aus der Ferne... Etwas erwartet dich dort...'
+      },
+      '2_3': {
+        prologue_1:
+          'Deine Expedition entdeckte anomale Signale. Diese Signale scheinen von einer antiken Zivilisation zu stammen... Untersuche ihre Quelle.',
+        epilogue_1: 'Diese Symbole... Sie sind Ruinen einer antiken Zivilisation! Untersuche weiter, um ihre Geheimnisse zu enthüllen.'
+      },
+      '2_4': {
+        prologue_1: 'Du hast den Standort antiker Ruinen gefunden. Sende deine Flotte zur Erkundung und sieh, was du entdecken kannst.'
+      },
+      '2_5': {
+        prologue_1: 'Datenarchive wurden in den Ruinen gefunden. Studiere diese Daten, vielleicht kannst du neue Technologie freischalten.'
+      },
+      '3_1': { prologue_1: 'Beim Erkunden vergiss nicht die Diplomatie. Gute Beziehungen zu umliegenden Fraktionen zu pflegen nützt dir.' },
+      '3_2': {
+        prologue_1:
+          'Einige Fraktionen haben Freundlichkeit gezeigt. Vertiefe die Beziehungen weiter, vielleicht erhältst du mehr Unterstützung.'
+      },
+      '3_3': {
+        prologue_1:
+          'Geheimdienstberichte deuten darauf hin, dass feindliche Kräfte dich aus den Schatten beobachten. Bleibe wachsam und erkunde ihre Bewegungen.'
+      },
+      '3_4': {
+        prologue_1: 'Schließe eine formelle Allianz mit freundlichen Fraktionen, um euch gegenseitig gegen Bedrohungen zu unterstützen.'
+      },
+      '3_5': { prologue_1: 'Bedrohungen nähern sich. Baue Verteidigungsanlagen und bereite dich auf mögliche Konflikte vor.' },
+      '4_1': {
+        prologue_1: 'Der Feind hat einen Angriff gestartet! Verteidige deinen Planeten!',
+        epilogue_1: 'Du hast die erste Welle des Feindes erfolgreich abgewehrt. Aber das ist erst der Anfang...'
+      },
+      '4_2': {
+        prologue_1: 'Der Feind hat sich zurückgezogen, aber er wird zurückkehren. Erkunde ihre Planeten, um ihre Stärke zu verstehen.'
+      },
+      '4_3': { prologue_1: 'Es ist Zeit zurückzuschlagen. Greife die feindlichen Planeten an und schwäche ihre Kräfte.' },
+      '4_4': {
+        prologue_1: 'Viele Trümmer bleiben auf dem Schlachtfeld. Recycel diese Ressourcen, um dich auf die nächste Schlacht vorzubereiten.'
+      },
+      '4_5': { prologue_1: 'Die letzte Schlacht naht. Baue eine mächtige Flotte und bereite dich auf die ultimative Herausforderung vor.' },
+      '5_1': {
+        prologue_1: 'Alle Hinweise deuten auf den tiefsten Teil der Ruinen. Die Kerngeheimnisse der antiken Zivilisation liegen dort.',
+        prologue_2: 'Du bist endlich angekommen... Die Wahrheit wird bald enthüllt...'
+      },
+      '5_2': { prologue_1: 'In den Tiefen der Ruinen entdecktest du verlorene antike Technologie. Erforsche und schalte ihre Macht frei.' },
+      '5_3': {
+        prologue_1: 'Ein mysteriöser Feind ist aufgetaucht. Dies ist die letzte Herausforderung. Besiege ihn!',
+        epilogue_1: 'Du hast es geschafft! Der antike Wächter wurde besiegt. Die Geheimnisse der Galaxie stehen dir nun offen.'
+      },
+      '5_4': { prologue_1: 'Frieden ist endlich eingekehrt. In dieser neuen Ära gründe neue Kolonien und erweitere dein Imperium.' },
+      '5_5': {
+        prologue_1: 'Deine Legende hat gerade erst begonnen. Erkunde weiter und erobere mehr Sternensysteme!',
+        epilogue_1: 'Die Galaxie ist weit und grenzenlos, mit zahllosen Geheimnissen, die auf dich warten...'
+      }
+    }
   }
 }

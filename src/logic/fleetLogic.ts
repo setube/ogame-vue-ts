@@ -63,7 +63,8 @@ export const createFleetMission = (
     id: `mission_${now}`,
     playerId,
     originPlanetId,
-    targetPosition,
+    // 深拷贝targetPosition，避免多个任务共享同一个引用
+    targetPosition: { ...targetPosition },
     missionType,
     fleet,
     cargo,
@@ -766,8 +767,8 @@ export const processExpeditionArrival = (mission: FleetMission): ExpeditionResul
   const aliensThreshold = piratesThreshold + probs.aliens
 
   if (random < resourceThreshold) {
-    // 发现资源
-    const baseMultiplier = 0.1 + Math.random() * 0.3 // 10%-40% 的货舱容量
+    // 发现资源 - 大幅提升奖励
+    const baseMultiplier = 0.3 + Math.random() * 0.5 // 30%-80% 的货舱容量
     const resourceMultiplier = baseMultiplier * zoneConfig.resourceMultiplier
     const resourceAmount = Math.floor(totalCargoCapacity * resourceMultiplier)
     const metalAmount = Math.floor(resourceAmount * 0.5)
@@ -784,8 +785,8 @@ export const processExpeditionArrival = (mission: FleetMission): ExpeditionResul
       message: 'expedition.foundResources'
     }
   } else if (random < darkMatterThreshold) {
-    // 发现暗物质
-    const baseDarkMatter = 50 + Math.random() * 150 // 50-200 暗物质
+    // 发现暗物质 - 大幅提升奖励
+    const baseDarkMatter = 200 + Math.random() * 500 // 200-700 暗物质
     const darkMatterAmount = Math.floor(baseDarkMatter * zoneConfig.darkMatterMultiplier)
     mission.cargo.darkMatter += darkMatterAmount
 
@@ -807,7 +808,7 @@ export const processExpeditionArrival = (mission: FleetMission): ExpeditionResul
 
     const shipTypeIndex = Math.floor(Math.random() * possibleShips.length)
     const shipType = possibleShips[shipTypeIndex] ?? ShipType.LightFighter
-    const baseCount = 1 + Math.random() * 5 // 1-5 艘
+    const baseCount = 3 + Math.random() * 12 // 3-15 艘
     const count = Math.floor(baseCount * zoneConfig.fleetFindMultiplier)
     foundFleet[shipType] = count
 
@@ -1062,11 +1063,11 @@ export const processFleetReturn = (
 ): void => {
   // 舰船返回 - 使用安全添加函数
   fleetStorageLogic.addFleetSafely(originPlanet, mission.fleet, technologies)
-  // 注意：如果舰队仓储溢出，超出部分会丢失（这是合理的惩罚）
+  // 如果舰队仓储溢出，超出部分会丢失（这是合理的惩罚）
 
   // 资源返回（掠夺物或运输货物）- 使用安全添加函数
   resourceLogic.addResourcesSafely(originPlanet, mission.cargo, storageCapacityBonus)
-  // 注意：如果资源仓储溢出，超出部分会丢失（这是合理的惩罚）
+  // 如果资源仓储溢出，超出部分会丢失（这是合理的惩罚）
 }
 
 /**

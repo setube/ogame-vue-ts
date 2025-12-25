@@ -437,7 +437,7 @@
   import { ref, computed } from 'vue'
   import { useI18n } from '@/composables/useI18n'
   import { useGameStore } from '@/stores/gameStore'
-  import type { BuildingType, TechnologyType, ShipType, DefenseType } from '@/types/game'
+  import { BuildingType, TechnologyType, type ShipType, type DefenseType } from '@/types/game'
   import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
   import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
   import { Badge } from '@/components/ui/badge'
@@ -452,7 +452,7 @@
   import * as shipLogic from '@/logic/shipLogic'
   import * as oreDepositLogic from '@/logic/oreDepositLogic'
   import * as resourceLogic from '@/logic/resourceLogic'
-  import { SHIPS, DEFENSES } from '@/config/gameConfig'
+  import { SHIPS, DEFENSES, ORE_DEPOSIT_CONFIG } from '@/config/gameConfig'
   import { formatTime } from '@/utils/format'
   import { Progress } from '@/components/ui/progress'
   import ResourceIcon from '@/components/common/ResourceIcon.vue'
@@ -576,11 +576,23 @@
     const deposits = currentPlanet.value.oreDeposits
     const resourceType = miningResourceType.value
     const remaining = deposits[resourceType]
-    const initial =
-      resourceType === 'metal' ? deposits.initialMetal : resourceType === 'crystal' ? deposits.initialCrystal : deposits.initialDeuterium
-    const percentage = oreDepositLogic.getDepositPercentage(deposits, resourceType)
-    const isWarning = oreDepositLogic.isDepositWarning(deposits, resourceType)
-    const isDepleted = oreDepositLogic.isDepositDepleted(deposits, resourceType)
+
+    // 获取深层钻探设施等级（星球级）和采矿技术等级（全局）
+    const deepDrillingLevel = currentPlanet.value.buildings[BuildingType.DeepDrillingFacility] || 0
+    const miningTechLevel = gameStore.player?.technologies?.[TechnologyType.MiningTechnology] || 0
+
+    // 使用增强版计算函数获取带加成的储量上限
+    const enhancedDeposits = oreDepositLogic.calculateEnhancedDeposits(
+      deposits.position,
+      deepDrillingLevel,
+      miningTechLevel
+    )
+    const initial = enhancedDeposits[resourceType]
+
+    // 百分比基于增强后的上限计算
+    const percentage = initial > 0 ? (remaining / initial) * 100 : 0
+    const isWarning = percentage < ORE_DEPOSIT_CONFIG.WARNING_THRESHOLD * 100 && percentage > 0
+    const isDepleted = remaining <= 0
 
     // 计算当前产量（每小时）
     const production = resourceLogic.calculateResourceProduction(currentPlanet.value, {
@@ -591,7 +603,7 @@
     const productionPerHour = production[resourceType]
 
     // 计算耗尽时间
-    const depletionTimeHours = oreDepositLogic.calculateDepletionTime(deposits, resourceType, productionPerHour)
+    const depletionTimeHours = productionPerHour > 0 ? remaining / productionPerHour : Infinity
     const depletionTimeFormatted = oreDepositLogic.formatDepletionTime(depletionTimeHours)
 
     return {
@@ -601,7 +613,10 @@
       isWarning,
       isDepleted,
       productionPerHour,
-      depletionTimeFormatted
+      depletionTimeFormatted,
+      bonusMultiplier: enhancedDeposits.bonusMultiplier,
+      deepDrillingLevel,
+      miningTechLevel
     }
   })
 

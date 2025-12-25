@@ -10,6 +10,9 @@ interface CombatUnit {
   shield: number
   armor: number
   rapidFire?: Record<string, number> // 快速射击
+  // 战斗状态追踪（用于护盾再生和装甲损坏效果）
+  currentShield?: number // 当前护盾值（每轮开始恢复）
+  armorDamage?: number // 累积装甲损坏（降低防御效果）
 }
 
 // 战斗方
@@ -55,7 +58,8 @@ const prepareCombatUnits = (side: BattleSide, isDefender: boolean = false): Comb
           count: count,
           attack: applyTechBonus(config.attack, side.weaponTech),
           shield: applyTechBonus(config.shield, side.shieldTech),
-          armor: applyTechBonus(config.armor, side.armorTech)
+          armor: applyTechBonus(config.armor, side.armorTech),
+          rapidFire: config.rapidFire as Record<string, number> | undefined
         })
       }
     }
@@ -72,6 +76,7 @@ const prepareCombatUnits = (side: BattleSide, isDefender: boolean = false): Comb
           attack: applyTechBonus(config.attack, side.weaponTech),
           shield: applyTechBonus(config.shield, side.shieldTech),
           armor: applyTechBonus(config.armor, side.armorTech)
+          // 防御设施没有rapidFire
         })
       }
     }
@@ -81,20 +86,57 @@ const prepareCombatUnits = (side: BattleSide, isDefender: boolean = false): Comb
 }
 
 /**
- * 计算一个单位对另一个单位造成的伤害
+ * 战斗效果配置
  */
-const calculateDamage = (attacker: CombatUnit, defender: CombatUnit): { destroyed: number; damagedShield: number } => {
+const COMBAT_EFFECTS = {
+  // 护盾弹回阈值：攻击力低于护盾此比例时大概率弹回
+  SHIELD_BOUNCE_THRESHOLD: 0.01,
+  // 护盾弹回时仍有此概率穿透
+  SHIELD_BOUNCE_PENETRATION_CHANCE: 0.01,
+  // 每轮护盾再生比例（恢复最大护盾的百分比）
+  SHIELD_REGEN_RATE: 0.7,
+  // 装甲损坏累积效果：每次受到未被护盾完全吸收的伤害，累积装甲损坏
+  ARMOR_DAMAGE_RATE: 0.05,
+  // 装甲损坏上限（最多降低防御效果的百分比）
+  MAX_ARMOR_DAMAGE: 0.3,
+  // 重型武器对护盾穿透概率（攻击力>5000的武器）
+  HEAVY_WEAPON_SHIELD_PENETRATION: 0.15,
+  // 重型武器阈值
+  HEAVY_WEAPON_THRESHOLD: 5000
+}
+
+/**
+ * 计算一个单位对另一个单位造成的伤害
+ * 增强版：包含护盾弹回、重型武器穿透、装甲损坏累积
+ */
+const calculateDamage = (attacker: CombatUnit, defender: CombatUnit): { destroyed: number; damagedShield: number; armorDamageDealt: number } => {
   const attackPower = attacker.attack
-  const defenderShield = defender.shield
-  const defenderArmor = defender.armor
+  // 使用当前护盾值（如果有），否则使用最大护盾
+  const defenderCurrentShield = defender.currentShield ?? defender.shield
+  // 考虑装甲损坏后的有效装甲
+  const armorDamageMultiplier = 1 - (defender.armorDamage ?? 0)
+  const effectiveArmor = defender.armor * armorDamageMultiplier
 
   let destroyed = 0
   let damagedShield = 0
+  let armorDamageDealt = 0
 
-  // 如果攻击力小于护盾的1%，有很大概率无法击穿护盾
-  if (attackPower < defenderShield * 0.01) {
-    if (Math.random() > 0.01) {
-      return { destroyed: 0, damagedShield: 0 }
+  // 重型武器穿透：高攻击力武器有概率部分无视护盾
+  let shieldPenetration = 0
+  if (attackPower >= COMBAT_EFFECTS.HEAVY_WEAPON_THRESHOLD) {
+    if (Math.random() < COMBAT_EFFECTS.HEAVY_WEAPON_SHIELD_PENETRATION) {
+      // 穿透30%-50%的护盾
+      shieldPenetration = 0.3 + Math.random() * 0.2
+    }
+  }
+
+  // 计算实际护盾值（考虑穿透）
+  const effectiveShield = defenderCurrentShield * (1 - shieldPenetration)
+
+  // 如果攻击力小于护盾的1%，有很大概率无法击穿护盾（护盾弹回机制）
+  if (attackPower < effectiveShield * COMBAT_EFFECTS.SHIELD_BOUNCE_THRESHOLD) {
+    if (Math.random() > COMBAT_EFFECTS.SHIELD_BOUNCE_PENETRATION_CHANCE) {
+      return { destroyed: 0, damagedShield: 0, armorDamageDealt: 0 }
     }
   }
 
@@ -102,26 +144,96 @@ const calculateDamage = (attacker: CombatUnit, defender: CombatUnit): { destroye
   let remainingDamage = attackPower
 
   // 先消耗护盾
-  if (remainingDamage > defenderShield) {
-    remainingDamage -= defenderShield
-    damagedShield = defenderShield
+  if (remainingDamage > effectiveShield) {
+    remainingDamage -= effectiveShield
+    damagedShield = effectiveShield
+    // 更新单位的当前护盾
+    defender.currentShield = Math.max(0, defenderCurrentShield - damagedShield)
   } else {
     damagedShield = remainingDamage
-    return { destroyed: 0, damagedShield }
+    defender.currentShield = Math.max(0, defenderCurrentShield - damagedShield)
+    return { destroyed: 0, damagedShield, armorDamageDealt: 0 }
+  }
+
+  // 穿透护盾后对装甲造成损坏累积
+  if (remainingDamage > 0) {
+    armorDamageDealt = Math.min(
+      COMBAT_EFFECTS.ARMOR_DAMAGE_RATE,
+      COMBAT_EFFECTS.MAX_ARMOR_DAMAGE - (defender.armorDamage ?? 0)
+    )
+    defender.armorDamage = Math.min(
+      COMBAT_EFFECTS.MAX_ARMOR_DAMAGE,
+      (defender.armorDamage ?? 0) + armorDamageDealt
+    )
   }
 
   // 再消耗装甲
-  if (remainingDamage > defenderArmor) {
+  if (remainingDamage > effectiveArmor) {
     destroyed = 1
   } else {
-    // 有概率摧毁
-    const destroyChance = remainingDamage / defenderArmor
+    // 有概率摧毁（基于伤害与有效装甲的比例）
+    const destroyChance = remainingDamage / effectiveArmor
     if (Math.random() < destroyChance) {
       destroyed = 1
     }
   }
 
-  return { destroyed, damagedShield }
+  return { destroyed, damagedShield, armorDamageDealt }
+}
+
+/**
+ * 执行单个攻击单位的射击（包含快速射击机制）
+ * OGame规则：如果攻击者对目标有rapidFire值N，攻击后有(N-1)/N的概率再次攻击
+ * @param attacker 攻击单位
+ * @param targets 目标单位数组
+ * @param losses 损失记录对象
+ * @param isShipLoss 是否是舰船损失（用于区分舰船和防御）
+ */
+const executeAttack = (
+  attacker: CombatUnit,
+  targets: CombatUnit[],
+  shipLosses: Partial<Fleet>,
+  defenseLosses: Partial<Record<DefenseType, number>>
+): void => {
+  if (targets.length === 0) return
+
+  // 随机选择一个目标
+  const targetIndex = Math.floor(Math.random() * targets.length)
+  const target = targets[targetIndex]
+  if (!target) return
+
+  const { destroyed } = calculateDamage(attacker, target)
+
+  if (destroyed > 0) {
+    target.count -= destroyed
+
+    // 记录损失
+    if (Object.values(ShipType).includes(target.type as ShipType)) {
+      const shipType = target.type as ShipType
+      shipLosses[shipType] = (shipLosses[shipType] || 0) + destroyed
+    } else {
+      const defenseType = target.type as DefenseType
+      defenseLosses[defenseType] = (defenseLosses[defenseType] || 0) + destroyed
+    }
+
+    // 如果目标被全部摧毁，从列表中移除
+    if (target.count <= 0) {
+      targets.splice(targetIndex, 1)
+    }
+  }
+
+  // 快速射击机制：如果攻击者对目标类型有rapidFire，有概率继续攻击
+  if (attacker.rapidFire && targets.length > 0) {
+    const rapidFireValue = attacker.rapidFire[target.type]
+    if (rapidFireValue && rapidFireValue > 1) {
+      // 继续攻击的概率 = (N-1)/N
+      const continueChance = (rapidFireValue - 1) / rapidFireValue
+      if (Math.random() < continueChance) {
+        // 递归执行下一次攻击
+        executeAttack(attacker, targets, shipLosses, defenseLosses)
+      }
+    }
+  }
 }
 
 /**
@@ -132,43 +244,17 @@ const executeRound = (attackerUnits: CombatUnit[], defenderUnits: CombatUnit[]):
   const defenderShipLosses: Partial<Fleet> = {}
   const defenderDefenseLosses: Partial<Record<DefenseType, number>> = {}
 
-  // 攻击方向防守方射击
+  // 攻击方向防守方射击（带快速射击）
   for (const attacker of attackerUnits) {
     for (let i = 0; i < attacker.count; i++) {
-      // 随机选择一个目标
       if (defenderUnits.length === 0) break
-
-      const targetIndex = Math.floor(Math.random() * defenderUnits.length)
-      const target = defenderUnits[targetIndex]
-
-      if (!target) continue
-
-      const { destroyed } = calculateDamage(attacker, target)
-
-      if (destroyed > 0) {
-        target.count -= destroyed
-
-        // 记录损失
-        if (Object.values(ShipType).includes(target.type as ShipType)) {
-          const shipType = target.type as ShipType
-          defenderShipLosses[shipType] = (defenderShipLosses[shipType] || 0) + destroyed
-        } else {
-          const defenseType = target.type as DefenseType
-          defenderDefenseLosses[defenseType] = (defenderDefenseLosses[defenseType] || 0) + destroyed
-        }
-
-        // 如果目标被全部摧毁，从列表中移除
-        if (target.count <= 0) {
-          defenderUnits.splice(targetIndex, 1)
-        }
-      }
+      executeAttack(attacker, defenderUnits, defenderShipLosses, defenderDefenseLosses)
     }
   }
 
-  // 防守方向攻击方射击
+  // 防守方向攻击方射击（防御设施没有rapidFire，使用简化逻辑）
   for (const defender of defenderUnits) {
     for (let i = 0; i < defender.count; i++) {
-      // 随机选择一个目标
       if (attackerUnits.length === 0) break
 
       const targetIndex = Math.floor(Math.random() * attackerUnits.length)
@@ -246,6 +332,27 @@ export const simulateBattle = (
   let attackerUnits = prepareCombatUnits(attacker, false)
   let defenderUnits = prepareCombatUnits(defender, true)
 
+  // 初始化战斗状态
+  const initializeCombatState = (units: CombatUnit[]) => {
+    for (const unit of units) {
+      unit.currentShield = unit.shield
+      unit.armorDamage = 0
+    }
+  }
+  initializeCombatState(attackerUnits)
+  initializeCombatState(defenderUnits)
+
+  // 护盾再生函数：每轮战斗后恢复部分护盾
+  const regenerateShields = (units: CombatUnit[]) => {
+    for (const unit of units) {
+      if (unit.currentShield !== undefined && unit.currentShield < unit.shield) {
+        // 恢复最大护盾的70%（但不超过最大值）
+        const regenAmount = unit.shield * COMBAT_EFFECTS.SHIELD_REGEN_RATE
+        unit.currentShield = Math.min(unit.shield, unit.currentShield + regenAmount)
+      }
+    }
+  }
+
   const totalAttackerLosses: Partial<Fleet> = {}
   const totalDefenderShipLosses: Partial<Fleet> = {}
   const totalDefenderDefenseLosses: Partial<Record<DefenseType, number>> = {}
@@ -271,6 +378,10 @@ export const simulateBattle = (
     rounds++
 
     const roundResult = executeRound(attackerUnits, defenderUnits)
+
+    // 每轮结束后护盾再生
+    regenerateShields(attackerUnits)
+    regenerateShields(defenderUnits)
 
     // 保存当前回合详情
     roundDetails.push({

@@ -19,15 +19,17 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v6
 
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+
       - name: 安装 Nodejs
         uses: actions/setup-node@v6
         with:
-          node-version: 20 # 建议使用 LTS 版本
+          node-version: 20
+          cache: 'pnpm'
 
-      - name: 安装 pnpm 并构建前端
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: true
+      - name: 安装依赖
+        run: pnpm install
 
       - name: 构建前端项目
         run: pnpm run build

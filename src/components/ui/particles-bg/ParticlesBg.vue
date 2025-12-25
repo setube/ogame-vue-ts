@@ -68,45 +68,7 @@
     return `${r} ${g} ${b}`
   })
 
-  onMounted(() => {
-    if (canvasRef.value) {
-      context.value = canvasRef.value.getContext('2d')
-    }
-
-    initCanvas()
-    animate()
-    window.addEventListener('resize', initCanvas)
-  })
-
-  onBeforeUnmount(() => {
-    window.removeEventListener('resize', initCanvas)
-  })
-
-  watch([mouseX, mouseY], () => {
-    onMouseMove()
-  })
-
-  function initCanvas() {
-    resizeCanvas()
-    drawParticles()
-  }
-
-  function onMouseMove() {
-    if (canvasRef.value) {
-      const rect = canvasRef.value.getBoundingClientRect()
-      const { w, h } = canvasSize
-      const x = mouseX.value - rect.left - w / 2
-      const y = mouseY.value - rect.top - h / 2
-
-      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
-      if (inside) {
-        mouse.x = x
-        mouse.y = y
-      }
-    }
-  }
-
-  function resizeCanvas() {
+  const resizeCanvas = () => {
     if (canvasContainerRef.value && canvasRef.value && context.value) {
       circles.value.length = 0
       canvasSize.w = canvasContainerRef.value.offsetWidth
@@ -119,7 +81,7 @@
     }
   }
 
-  function circleParams(): Circle {
+  const circleParams = (): Circle => {
     const x = Math.floor(Math.random() * canvasSize.w)
     const y = Math.floor(Math.random() * canvasSize.h)
     const translateX = 0
@@ -144,7 +106,7 @@
     }
   }
 
-  function drawCircle(circle: Circle, update = false) {
+  const drawCircle = (circle: Circle, update = false) => {
     if (context.value) {
       const { x, y, translateX, translateY, size, alpha } = circle
       context.value.translate(translateX, translateY)
@@ -160,13 +122,13 @@
     }
   }
 
-  function clearContext() {
+  const clearContext = () => {
     if (context.value) {
       context.value.clearRect(0, 0, canvasSize.w, canvasSize.h)
     }
   }
 
-  function drawParticles() {
+  const drawParticles = () => {
     clearContext()
     const particleCount = props.quantity
     for (let i = 0; i < particleCount; i++) {
@@ -175,12 +137,32 @@
     }
   }
 
-  function remapValue(value: number, start1: number, end1: number, start2: number, end2: number): number {
+  const initCanvas = () => {
+    resizeCanvas()
+    drawParticles()
+  }
+
+  const onMouseMove = () => {
+    if (canvasRef.value) {
+      const rect = canvasRef.value.getBoundingClientRect()
+      const { w, h } = canvasSize
+      const x = mouseX.value - rect.left - w / 2
+      const y = mouseY.value - rect.top - h / 2
+
+      const inside = x < w / 2 && x > -w / 2 && y < h / 2 && y > -h / 2
+      if (inside) {
+        mouse.x = x
+        mouse.y = y
+      }
+    }
+  }
+
+  const remapValue = (value: number, start1: number, end1: number, start2: number, end2: number): number => {
     const remapped = ((value - start1) * (end2 - start2)) / (end1 - start1) + start2
     return remapped > 0 ? remapped : 0
   }
 
-  function animate() {
+  const animate = () => {
     clearContext()
     circles.value.forEach((circle, i) => {
       // Handle the alpha value
@@ -235,4 +217,22 @@
     })
     window.requestAnimationFrame(animate)
   }
+
+  onMounted(() => {
+    if (canvasRef.value) {
+      context.value = canvasRef.value.getContext('2d')
+    }
+
+    initCanvas()
+    animate()
+    window.addEventListener('resize', initCanvas)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', initCanvas)
+  })
+
+  watch([mouseX, mouseY], () => {
+    onMouseMove()
+  })
 </script>

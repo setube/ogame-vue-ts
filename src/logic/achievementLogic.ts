@@ -14,7 +14,7 @@ import {
 import { ACHIEVEMENTS, ACHIEVEMENT_MAP, getNextTier, getTierIndex } from '@/config/achievementConfig'
 
 // 初始化空的成就统计数据
-export function initializeAchievementStats(): AchievementStats {
+export const initializeAchievementStats = (): AchievementStats => {
   const emptyShipRecord = Object.values(ShipType).reduce((acc, type) => {
     acc[type] = 0
     return acc
@@ -100,7 +100,7 @@ export function initializeAchievementStats(): AchievementStats {
 }
 
 // 初始化所有成就进度
-export function initializeAchievements(): Record<string, AchievementProgress> {
+export const initializeAchievements = (): Record<string, AchievementProgress> => {
   const achievements: Record<string, AchievementProgress> = {}
 
   for (const config of ACHIEVEMENTS) {
@@ -122,7 +122,7 @@ export function initializeAchievements(): Record<string, AchievementProgress> {
 }
 
 // 获取成就的当前值
-function getAchievementValue(stats: AchievementStats, statKey: string, checkType: string): number {
+const getAchievementValue = (stats: AchievementStats, statKey: string, checkType: string): number => {
   // 处理特殊的组合统计键
   if (statKey === 'totalResourcesConsumed') {
     return stats.totalMetalConsumed + stats.totalCrystalConsumed + stats.totalDeuteriumConsumed + stats.totalDarkMatterConsumed
@@ -157,7 +157,7 @@ export interface AchievementUnlock {
   reward: AchievementReward
 }
 
-export function checkAchievements(player: Player): AchievementUnlock[] {
+export const checkAchievements = (player: Player): AchievementUnlock[] => {
   if (!player.achievementStats || !player.achievements) {
     return []
   }
@@ -213,7 +213,7 @@ export function checkAchievements(player: Player): AchievementUnlock[] {
 }
 
 // 应用成就奖励
-export function applyAchievementReward(player: Player, reward: AchievementReward): void {
+export const applyAchievementReward = (player: Player, reward: AchievementReward): void => {
   const firstPlanet = player.planets[0]
   if (reward.darkMatter && firstPlanet) {
     // 奖励添加到第一个星球的资源中
@@ -228,10 +228,10 @@ export function applyAchievementReward(player: Player, reward: AchievementReward
 // ==================== 统计更新函数 ====================
 
 // 更新资源生产统计
-export function updateResourceProductionStats(
+export const updateResourceProductionStats = (
   stats: AchievementStats,
   produced: { metal?: number; crystal?: number; deuterium?: number; darkMatter?: number }
-): void {
+): void => {
   if (produced.metal) stats.totalMetalProduced += produced.metal
   if (produced.crystal) stats.totalCrystalProduced += produced.crystal
   if (produced.deuterium) stats.totalDeuteriumProduced += produced.deuterium
@@ -239,7 +239,7 @@ export function updateResourceProductionStats(
 }
 
 // 更新资源消耗统计
-export function updateResourceConsumptionStats(stats: AchievementStats, consumed: Partial<Resources>): void {
+export const updateResourceConsumptionStats = (stats: AchievementStats, consumed: Partial<Resources>): void => {
   if (consumed.metal) stats.totalMetalConsumed += consumed.metal
   if (consumed.crystal) stats.totalCrystalConsumed += consumed.crystal
   if (consumed.deuterium) stats.totalDeuteriumConsumed += consumed.deuterium
@@ -247,7 +247,7 @@ export function updateResourceConsumptionStats(stats: AchievementStats, consumed
 }
 
 // 更新建筑升级统计
-export function updateBuildingStats(stats: AchievementStats, buildingType: BuildingType, level: number): void {
+export const updateBuildingStats = (stats: AchievementStats, buildingType: BuildingType, level: number): void => {
   stats.buildingsUpgraded += 1
 
   // 更新最高等级记录
@@ -257,7 +257,7 @@ export function updateBuildingStats(stats: AchievementStats, buildingType: Build
 }
 
 // 更新科技研究统计
-export function updateResearchStats(stats: AchievementStats, techType: TechnologyType, level: number): void {
+export const updateResearchStats = (stats: AchievementStats, techType: TechnologyType, level: number): void => {
   stats.researchCompleted += 1
 
   // 更新最高等级记录
@@ -267,19 +267,19 @@ export function updateResearchStats(stats: AchievementStats, techType: Technolog
 }
 
 // 更新舰船生产统计
-export function updateShipProductionStats(stats: AchievementStats, shipType: ShipType, quantity: number): void {
+export const updateShipProductionStats = (stats: AchievementStats, shipType: ShipType, quantity: number): void => {
   stats.shipsProduced[shipType] = (stats.shipsProduced[shipType] || 0) + quantity
   stats.totalShipsProduced += quantity
 }
 
 // 更新防御建造统计
-export function updateDefenseProductionStats(stats: AchievementStats, defenseType: DefenseType, quantity: number): void {
+export const updateDefenseProductionStats = (stats: AchievementStats, defenseType: DefenseType, quantity: number): void => {
   stats.defensesBuilt[defenseType] = (stats.defensesBuilt[defenseType] || 0) + quantity
   stats.totalDefensesBuilt += quantity
 }
 
 // 更新攻击统计（玩家作为攻击者）
-export function updateAttackStats(stats: AchievementStats, battleResult: BattleResult, won: boolean, debrisValue: number): void {
+export const updateAttackStats = (stats: AchievementStats, battleResult: BattleResult, won: boolean, debrisValue: number): void => {
   // 攻击也算飞行任务
   stats.totalFlightMissions += 1
   stats.attacksLaunched += 1
@@ -305,7 +305,7 @@ export function updateAttackStats(stats: AchievementStats, battleResult: BattleR
 }
 
 // 更新防御统计（玩家作为防御者）
-export function updateDefenseStats(stats: AchievementStats, battleResult: BattleResult, won: boolean, debrisValue: number): void {
+export const updateDefenseStats = (stats: AchievementStats, battleResult: BattleResult, won: boolean, debrisValue: number): void => {
   if (won) {
     stats.defensesSuccessful += 1
   } else {
@@ -347,33 +347,33 @@ export function updateDefenseStats(stats: AchievementStats, battleResult: Battle
 }
 
 // 更新飞行任务统计
-export function updateFlightMissionStats(stats: AchievementStats): void {
+export const updateFlightMissionStats = (stats: AchievementStats): void => {
   stats.totalFlightMissions += 1
 }
 
 // 更新运输任务统计
-export function updateTransportStats(stats: AchievementStats, resourcesAmount: number): void {
+export const updateTransportStats = (stats: AchievementStats, resourcesAmount: number): void => {
   stats.transportMissions += 1
   stats.transportedResources += resourcesAmount
 }
 
 // 更新殖民统计
-export function updateColonizationStats(stats: AchievementStats): void {
+export const updateColonizationStats = (stats: AchievementStats): void => {
   stats.colonizations += 1
 }
 
 // 更新侦查统计
-export function updateSpyStats(stats: AchievementStats): void {
+export const updateSpyStats = (stats: AchievementStats): void => {
   stats.spyMissions += 1
 }
 
 // 更新部署统计
-export function updateDeploymentStats(stats: AchievementStats): void {
+export const updateDeploymentStats = (stats: AchievementStats): void => {
   stats.deployments += 1
 }
 
 // 更新探险统计
-export function updateExpeditionStats(stats: AchievementStats, successful: boolean): void {
+export const updateExpeditionStats = (stats: AchievementStats, successful: boolean): void => {
   stats.expeditionsTotal += 1
   if (successful) {
     stats.expeditionsSuccessful += 1
@@ -381,55 +381,55 @@ export function updateExpeditionStats(stats: AchievementStats, successful: boole
 }
 
 // 更新回收统计
-export function updateRecyclingStats(stats: AchievementStats, resourcesAmount: number): void {
+export const updateRecyclingStats = (stats: AchievementStats, resourcesAmount: number): void => {
   stats.recyclingMissions += 1
   stats.recycledResources += resourcesAmount
 }
 
 // 更新行星毁灭统计
-export function updatePlanetDestructionStats(stats: AchievementStats): void {
+export const updatePlanetDestructionStats = (stats: AchievementStats): void => {
   stats.planetDestructions += 1
 }
 
 // 更新燃料消耗统计
-export function updateFuelConsumptionStats(stats: AchievementStats, fuelAmount: number): void {
+export const updateFuelConsumptionStats = (stats: AchievementStats, fuelAmount: number): void => {
   stats.fuelConsumed += fuelAmount
 }
 
 // 更新友好NPC数量
-export function updateFriendlyNPCStats(stats: AchievementStats, count: number): void {
+export const updateFriendlyNPCStats = (stats: AchievementStats, count: number): void => {
   stats.friendlyNPCCount = count
 }
 
 // 更新敌对NPC数量
-export function updateHostileNPCStats(stats: AchievementStats, count: number): void {
+export const updateHostileNPCStats = (stats: AchievementStats, count: number): void => {
   stats.hostileNPCCount = count
 }
 
 // 更新送礼统计
-export function updateGiftStats(stats: AchievementStats, resourcesAmount: number): void {
+export const updateGiftStats = (stats: AchievementStats, resourcesAmount: number): void => {
   stats.giftsSent += 1
   stats.giftResourcesTotal += resourcesAmount
 }
 
 // 更新被NPC攻击统计
-export function updateAttackedByNPCStats(stats: AchievementStats): void {
+export const updateAttackedByNPCStats = (stats: AchievementStats): void => {
   stats.attackedByNPC += 1
 }
 
 // 更新被NPC侦查统计
-export function updateSpiedByNPCStats(stats: AchievementStats): void {
+export const updateSpiedByNPCStats = (stats: AchievementStats): void => {
   stats.spiedByNPC += 1
 }
 
 // 更新被NPC回收残骸统计
-export function updateDebrisRecycledByNPCStats(stats: AchievementStats, resourcesAmount: number): void {
+export const updateDebrisRecycledByNPCStats = (stats: AchievementStats, resourcesAmount: number): void => {
   stats.debrisRecycledByNPC += 1
   stats.debrisResourcesLostToNPC += resourcesAmount
 }
 
 // 获取成就的下一个目标
-export function getNextTarget(achievementId: string, currentTier: AchievementTier | null): number | null {
+export const getNextTarget = (achievementId: string, currentTier: AchievementTier | null): number | null => {
   const config = ACHIEVEMENT_MAP[achievementId]
   if (!config) return null
 
@@ -441,7 +441,7 @@ export function getNextTarget(achievementId: string, currentTier: AchievementTie
 }
 
 // 获取成就进度百分比
-export function getAchievementProgress(achievementId: string, currentValue: number, currentTier: AchievementTier | null): number {
+export const getAchievementProgress = (achievementId: string, currentValue: number, currentTier: AchievementTier | null): number => {
   const config = ACHIEVEMENT_MAP[achievementId]
   if (!config) return 0
 

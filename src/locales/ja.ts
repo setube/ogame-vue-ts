@@ -11,29 +11,11 @@ export default {
   common: {
     confirm: '確認',
     cancel: 'キャンセル',
-    delete: '削除',
-    edit: '編集',
     save: '保存',
     close: '閉じる',
-    back: '戻る',
-    next: '次へ',
-    gotIt: '',
-    previous: '前へ',
-    submit: '送信',
-    reset: 'リセット',
-    search: '検索',
-    filter: 'フィルター',
-    loading: '読み込み中...',
-    noData: 'データなし',
-    error: 'エラー',
-    success: '成功',
-    warning: '警告',
-    info: '情報',
+    gotIt: '了解',
     resourceType: '資源タイプ',
     playerName: '司令官',
-    timeHour: '時間',
-    timeMinute: '分',
-    timeSecond: '秒',
     featureLocked: '機能がロックされています',
     unlockRequired: '建物が必要です',
     requiredBuilding: '必要な建物',
@@ -41,7 +23,6 @@ export default {
     goToBuildings: '建物へ移動',
     locked: 'ロック済み',
     viewRequirements: '必要条件を表示',
-    requirements: '必要条件',
     requirementsNotMet: '必要条件が満たされていません',
     current: '現在',
     level: 'レベル',
@@ -51,7 +32,8 @@ export default {
     viewDetails: '詳細を見る',
     exitConfirmTitle: 'ゲーム終了',
     exitConfirmMessage: 'ゲームを終了しますか？進行状況は自動的に保存されます。',
-    points: 'ポイント'
+    points: 'ポイント',
+    retry: '再試行'
   },
   errors: {
     requirementsNotMet: '前提条件を満たしていません',
@@ -87,6 +69,7 @@ export default {
     simulator: 'シミュレーター',
     galaxy: '銀河',
     diplomacy: '外交',
+    campaign: 'キャンペーン',
     achievements: '実績',
     ranking: 'ランキング',
     messages: 'メッセージ',
@@ -180,8 +163,10 @@ export default {
     sensorPhalanx: 'センサーファランクス',
     jumpGate: 'ジャンプゲート',
     planetDestroyerFactory: '惑星破壊工場',
+    geoResearchStation: '地質研究所',
+    deepDrillingFacility: '深部掘削施設',
     buildTime: '建設時間',
-    build: '',
+    build: '建設',
     production: '生産量',
     consumption: '消費',
     totalCost: '総コスト',
@@ -229,7 +214,9 @@ export default {
     lunarBase: '月の利用可能スペースを増加、レベル毎に+30スペース',
     sensorPhalanx: '周辺星系の艦隊活動を探知',
     jumpGate: '他の月へ艦隊を瞬間移動',
-    planetDestroyerFactory: '惑星を破壊できる究極兵器を建造'
+    planetDestroyerFactory: '惑星を破壊できる究極兵器を建造',
+    geoResearchStation: '地質構造を研究し、鉱脈の自然回復速度を向上。レベル毎に回復速度50%増加',
+    deepDrillingFacility: ''
   },
   ships: {
     lightFighter: '軽戦闘機',
@@ -303,7 +290,16 @@ export default {
     buildQueue: 'Build Queue',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
-    missileCapacity: 'Missile Capacity'
+    missileCapacity: 'Missile Capacity',
+    attackBonus: '攻撃ボーナス',
+    shieldBonus: 'シールドボーナス',
+    armorBonus: '装甲ボーナス',
+    spyLevel: '偵察レベル',
+    researchQueueBonus: '研究キュー',
+    colonySlots: '植民地スロット',
+    forAllPlanets: '(全惑星)',
+    speedBonus: '速度ボーナス',
+    researchSpeedBonus: '研究速度ボーナス'
   },
   technologies: {
     energyTechnology: 'エネルギー技術',
@@ -323,7 +319,8 @@ export default {
     hyperspaceDrive: 'ハイパースペースドライブ',
     darkMatterTechnology: 'ダークマター技術',
     terraformingTechnology: 'テラフォーミング技術',
-    planetDestructionTech: '惑星破壊技術'
+    planetDestructionTech: '惑星破壊技術',
+    miningTechnology: ''
   },
   technologyDescriptions: {
     energyTechnology: 'エネルギー利用効率を向上',
@@ -344,7 +341,8 @@ export default {
     hyperspaceDrive: '高級推進技術',
     darkMatterTechnology: 'ダークマターの性質と応用を研究',
     terraformingTechnology: '惑星地形改造技術を研究、レベル毎に全惑星の利用可能スペース30増加',
-    planetDestructionTech: '惑星全体を破壊する恐怖の技術を研究'
+    planetDestructionTech: '惑星全体を破壊する恐怖の技術を研究',
+    miningTechnology: ''
   },
   officers: {
     commander: '司令官',
@@ -379,8 +377,12 @@ export default {
     cancelResearch: '研究キャンセル',
     confirmCancel: 'キャンセルしますか？資源の50%が返還されます。',
     level: 'レベル',
-    gmModeActivated: '',
+    gmModeActivated: 'GMモードが有効になりました！ナビゲーションメニューを確認してください。',
     upgradeToLevel: 'レベルにアップグレード',
+    buildQueueBonus: '建設キュー',
+    spaceBonus: '空間ボーナス',
+    researchQueueBonus: '研究キュー',
+    quantity: '数量',
     tabs: {
       all: 'すべて',
       buildings: '建物',
@@ -407,7 +409,7 @@ export default {
     fuelConsumption: '燃料消費',
     buildCost: '建設コスト',
     buildTime: '建設時間',
-    build: '',
+    build: '建設',
     perUnit: 'ユニットあたり',
     batchCalculator: '一括計算機',
     quantity: '数量',
@@ -435,7 +437,6 @@ export default {
     usedSpace: '使用済みスペース',
     spaceUsage: 'スペース使用量',
     level: 'レベル',
-    gmModeActivated: '',
     upgradeCost: 'アップグレードコスト',
     buildTime: '建設時間',
     build: '建設',
@@ -466,7 +467,7 @@ export default {
     armor: '装甲',
     buildCost: '建設コスト',
     buildTime: '建設時間',
-    build: '',
+    build: '建設',
     perUnit: 'ユニットあたり',
     batchCalculator: '一括計算機',
     quantity: '数量',
@@ -537,6 +538,7 @@ export default {
     missionInfo: 'ミッション情報',
     fuelConsumption: '燃料消費',
     flightTime: '飛行時間',
+    outOfRange: '射程外',
     attackMission: '攻撃',
     transport: '輸送',
     colonize: '植民',
@@ -578,11 +580,12 @@ export default {
     arrivalTime: '到着時刻',
     returnTime: '帰還時刻',
     recallFleet: '艦隊召還',
-    abortMission: '',
-    abortMissionTitle: '',
-    abortMissionWarning: '',
-    abortMissionSuccess: '',
-    abortMissionSuccessMessage: '',
+    abortMission: 'ミッション中止',
+    abortMissionTitle: 'ミッション中止の確認',
+    abortMissionWarning:
+      '警告: このミッションを中止すると、{ships}隻の艦船と{resources}の資源が永久に失われます！\n\nこの操作は取り消すことができず、艦隊と資源は戻ってきません。',
+    abortMissionSuccess: 'ミッション中止',
+    abortMissionSuccessMessage: 'ミッションが中止され、艦隊と資源は失われました。',
     sendFailed: '派遣失敗',
     sendFailedMessage: '艦隊数、燃料の充足、または積載量の制限を確認してください。',
     recallFailed: '召還失敗',
@@ -637,7 +640,8 @@ export default {
     jumpGateSuccess: 'ジャンプゲート転送成功',
     jumpGateSuccessMessage: '艦隊は{target}へ瞬時に転送されました',
     jumpGateFailed: 'ジャンプゲート転送失敗',
-    jumpGateFailedMessage: 'ジャンプゲートの状態と艦隊構成を確認してください'
+    jumpGateFailedMessage: 'ジャンプゲートの状態と艦隊構成を確認してください',
+    destroy: '破壊'
   },
   officersView: {
     title: '士官',
@@ -709,10 +713,12 @@ export default {
     missileCount: 'ミサイル数',
     availableMissiles: '利用可能なミサイル',
     missileRange: 'ミサイル射程',
-    systems: 'システム',
+    systems: '星系',
     distance: '距離',
     flightTime: '飛行時間',
+    outOfRange: '射程外',
     launchMissile: '発射',
+    missileLaunched: 'ミサイル発射完了',
     cancel: 'キャンセル',
     colonizePlanetMessage: '位置[{coordinates}]を植民しますか？\n\n艦隊ページに移動してコロニーシップを派遣してください。',
     recyclePlanetMessage: '位置[{coordinates}]のデブリを回収しますか？\n\n艦隊ページに移動してリサイクラーを派遣してください。',
@@ -721,6 +727,25 @@ export default {
     giftPlanetTitle: 'ギフト送信',
     giftPlanetMessage: '惑星[{coordinates}]にリソースを贈りますか？\n\n艦隊ページに移動して輸送船を選択し、リソースを積載してください。',
     npcPlanetName: '{name}の惑星',
+    // センサーアレイスキャン
+    phalanxScan: 'センサースキャン',
+    phalanxScanTitle: 'センサーアレイスキャン',
+    phalanxScanDescription: '惑星 [{coordinates}] の艦隊活動をスキャン',
+    phalanxNoMoon: 'センサーアレイを持つ月が必要です',
+    phalanxOutOfRange: 'ターゲットがスキャン範囲外です',
+    phalanxRange: 'スキャン範囲',
+    phalanxCost: 'スキャンコスト',
+    phalanxNoFleets: '艦隊活動が検出されませんでした',
+    phalanxFleetDetected: '{count}隻の艦隊を検出',
+    phalanxMission: 'ミッション',
+    phalanxOrigin: '出発地',
+    phalanxDestination: '目的地',
+    phalanxArrival: '到着時刻',
+    phalanxReturn: '帰還時刻',
+    phalanxStatus: 'ステータス',
+    phalanxStatusOutbound: '往路中',
+    phalanxStatusReturning: '帰還中',
+    phalanxInsufficientDeuterium: '重氢不足',
     intercepted: '迎撃済み',
     defenseLosses: '防衛損失'
   },
@@ -729,12 +754,12 @@ export default {
     battles: '戦闘',
     spy: 'スパイ',
     npc: 'NPC',
-    diplomacy: '',
+    diplomacy: '外交',
     battleReports: '戦闘レポート',
     spyReports: 'スパイレポート',
     noBattleReports: '戦闘レポートなし',
     noSpyReports: 'スパイレポートなし',
-    noDiplomaticReports: '',
+    noDiplomaticReports: '外交レポートなし',
     battleReport: '戦闘レポート',
     spyReport: 'スパイレポート',
     victory: '勝利',
@@ -755,6 +780,8 @@ export default {
     defense: '防衛',
     buildings: '建物',
     unread: '未読',
+    pending: '保留中',
+    invalidData: '無効なデータ',
     targetPlanet: '目標惑星',
     attackerRemaining: '攻撃側残存',
     defenderRemaining: '防御側残存',
@@ -807,36 +834,36 @@ export default {
       polite_decline: '丁重に断りました'
     },
     // Spied notification dialog
-    spiedNotificationDetails: '',
-    spyDetected: '',
-    detectionResult: '',
-    detectionSuccess: '',
-    spiedNotificationMessage: '',
-    spiedNotificationTip: '',
-    viewInGalaxy: '',
+    spiedNotificationDetails: '偵察通知の詳細',
+    spyDetected: 'スパイを検出',
+    detectionResult: '検出結果',
+    detectionSuccess: '敵のスパイを検出しました！',
+    spiedNotificationMessage: '{npc}があなたの惑星{planet}を偵察しようとしました',
+    spiedNotificationTip: 'このNPCが敵対的な場合は、防衛を強化するか反撃を検討してください',
+    viewInGalaxy: '銀河で表示',
     // Mission report dialog
-    missionReportDetails: '',
-    missionSuccess: '',
-    missionFailed: '',
-    origin: '',
-    destination: '',
-    missionDetails: '',
-    transportedResources: '',
-    recycledResources: '',
-    remainingDebris: '',
-    newPlanet: '',
+    missionReportDetails: 'ミッションレポートの詳細',
+    missionSuccess: '成功',
+    missionFailed: '失敗',
+    origin: '出発地',
+    destination: '目的地',
+    missionDetails: 'ミッション詳細',
+    transportedResources: '輸送資源',
+    recycledResources: 'リサイクル資源',
+    remainingDebris: '残りの破片',
+    newPlanet: '新惑星',
     // NPC activity dialog
-    npcActivityDetails: '',
+    npcActivityDetails: 'NPCアクティビティの詳細',
     activityType: {
-      recycle: ''
+      recycle: '破片をリサイクル中'
     },
-    activityLocation: '',
-    position: '',
-    nearPlanet: '',
-    activityDescription: '',
-    npcActivityMessage: '',
-    arrivalTime: '',
-    npcActivityTip: '',
+    activityLocation: 'アクティビティの場所',
+    position: '位置',
+    nearPlanet: '近くの惑星',
+    activityDescription: 'アクティビティの説明',
+    npcActivityMessage: '{npc}が{position}で{activity}',
+    arrivalTime: '到着時刻',
+    npcActivityTip: 'NPCは戦闘の破片を収集することがあります。資源を競いたい場合は、先に現地に到着することを試みてください',
     clearMessages: 'メッセージをクリア',
     clearMessageTypes: 'クリアするメッセージタイプを選択',
     clearBattleReports: '戦闘レポート',
@@ -846,7 +873,11 @@ export default {
     clearNPCActivity: 'NPCアクティビティ',
     clearGiftNotifications: 'ギフト通知',
     clearGiftRejected: '拒否されたギフト',
-    clearNow: '今すぐクリア'
+    clearTradeOffers: '貿易提案',
+    clearIntelReports: '諜報報告',
+    clearJointAttackInvites: '共同攻撃の招待',
+    clearNow: '今すぐクリア',
+    clearSuccess: 'メッセージがクリアされました'
   },
   missionReports: {
     transportSuccess: '輸送ミッションが正常に完了しました',
@@ -978,6 +1009,10 @@ export default {
     github: 'GitHubリポジトリ',
     qqGroup: 'QQグループ',
     privacyPolicy: 'プライバシーポリシー',
+    displaySettings: '表示設定',
+    displaySettingsDesc: 'ゲームの視覚効果を調整',
+    backgroundAnimation: '背景アニメーション',
+    backgroundAnimationDesc: '有効にすると星空/パーティクル背景アニメーションを表示（パフォーマンスに影響する可能性があります）',
     notifications: '通知設定',
     notificationsDesc: 'ゲーム内の通知アラートを管理',
     notificationTypes: '通知タイプ',
@@ -1001,7 +1036,48 @@ export default {
     npcNameUpdateConfirm: '名前を更新',
     npcNameUpdateCancel: '現状維持',
     npcNameUpdateSuccess: '{count}件のNPC名を更新しました',
-    npcNameUpdateSkipped: 'NPC名の更新をスキップしました'
+    npcNameUpdateSkipped: 'NPC名の更新をスキップしました',
+    // WebDAV
+    webdav: {
+      title: 'クラウド同期',
+      desc: 'WebDAVでセーブデータを同期',
+      config: '設定',
+      configTitle: 'WebDAV設定',
+      configDesc: 'クラウド同期のためのWebDAVサーバーを設定',
+      notConfigured: '先にWebDAVサーバーを設定してください',
+      serverUrl: 'サーバーURL',
+      serverUrlPlaceholder: '例: https://dav.example.com',
+      serverUrlHint: 'WebDAVサーバーのアドレスを入力',
+      username: 'ユーザー名',
+      usernamePlaceholder: 'ユーザー名を入力',
+      password: 'パスワード',
+      passwordPlaceholder: 'パスワードを入力',
+      passwordHint: 'パスワードはローカルにのみ保存されます',
+      basePath: '保存パス',
+      basePathPlaceholder: '例: /ogame-saves/',
+      testConnection: '接続テスト',
+      testing: 'テスト中...',
+      testSuccess: '接続成功',
+      testFailed: '接続失敗',
+      save: '保存',
+      clearConfig: 'クリア',
+      configSaved: '設定を保存しました',
+      configCleared: '設定をクリアしました',
+      upload: 'アップロード',
+      uploading: 'アップロード中...',
+      uploadSuccess: 'アップロード成功',
+      uploadFailed: 'アップロード失敗',
+      download: 'ダウンロード',
+      downloadSuccess: 'ダウンロード成功',
+      downloadFailed: 'ダウンロード失敗',
+      selectFile: 'セーブファイルを選択',
+      selectFileDesc: '復元するセーブファイルを選択してください',
+      noFiles: 'セーブファイルが見つかりません',
+      loadFailed: 'ファイル一覧の読み込みに失敗しました',
+      confirmDelete: '"{name}" を削除してもよろしいですか？',
+      deleteSuccess: 'ファイルを削除しました',
+      deleteFailed: '削除に失敗しました'
+    }
   },
   notifications: {
     constructionComplete: '建設完了',
@@ -1023,8 +1099,8 @@ export default {
     officers: '士官',
     modifyResources: '資源を変更',
     resourcesDesc: '惑星の資源を素早く変更',
-    maxAllResources: '',
-    maxAllResourcesSuccess: '',
+    maxAllResources: 'すべて最大化',
+    maxAllResourcesSuccess: 'すべての資源が最大化されました',
     modifyBuildings: '建物を変更',
     buildingsDesc: '建物レベルを素早く設定',
     modifyResearch: '研究を変更',
@@ -1065,10 +1141,11 @@ export default {
     dangerZoneDesc: '以下の操作は元に戻せません',
     resetGame: 'ゲームをリセット',
     resetGameConfirm: 'ゲームをリセットしてもよろしいですか？すべてのデータが削除されます！',
-    completeAllQueues: '',
-    completeAllQueuesDesc: '',
-    completeQueues: '',
-    completeQueuesSuccess: ''
+    completeAllQueues: 'すべてのキューを完了',
+    completeAllQueuesDesc: 'すべての建設、研究、艦船、防衛キューおよび艦隊ミッションを即座に完了',
+    completeQueues: 'キューを完了',
+    completeQueuesSuccess:
+      '{buildingCount}件の建設キュー、{researchCount}件の研究キュー、{missionCount}件の艦隊ミッション、{missileCount}件のミサイル攻撃を完了しました'
   },
   alerts: {
     incomingFleets: '{count}機の敵艦隊が接近中',
@@ -1125,10 +1202,10 @@ export default {
     recentEvents: '最近のイベント',
     recentEventsDescription: '最近の外交活動ログ',
     ago: '前',
-    notifications: '',
-    markAllRead: '',
-    noReports: '',
-    viewAll: '',
+    notifications: '外交通知',
+    markAllRead: 'すべて既読にする',
+    noReports: '外交イベントなし',
+    viewAll: 'すべて表示',
     status: {
       friendly: '友好的',
       neutral: '中立',
@@ -1203,6 +1280,19 @@ export default {
       npcEliminatedMessage: 'あなたは{npcName}のすべての惑星を破壊しました！この勢力は完全に壊滅しました。'
     },
     searchPlaceholder: 'NPC名で検索...',
+    notificationType: {
+      tradeOffer: '貿易提案',
+      intelReport: '諜報報告',
+      jointAttack: '共同攻撃の招待'
+    },
+    notificationBadge: {
+      trade: '貿易',
+      intel: '諜報',
+      jointAttack: '招待'
+    },
+    notificationExtra: {
+      pending: '保留中'
+    },
     viewMode: {
       card: 'カード',
       list: 'リスト'
@@ -1217,6 +1307,21 @@ export default {
         easy: '簡単',
         medium: '普通',
         hard: '難しい'
+      },
+      aiType: 'AIタイプ',
+      aiTypes: {
+        aggressive: '侵略型',
+        defensive: '防御型',
+        trader: '商人型',
+        expansionist: '拡張型',
+        balanced: 'バランス型'
+      },
+      aiTypeDescriptions: {
+        aggressive: '積極的に偵察と攻撃、強烈な反撃',
+        defensive: 'めったに攻撃しない、攻撃されると強く反撃',
+        trader: 'ほとんど攻撃せず、取引と贈り物を好む',
+        expansionist: '発展に注力、攻撃は少ない',
+        balanced: '状況に応じて戦略を動的に調整'
       },
       reputation: '評判',
       spyProbes: '偵察機数',
@@ -1244,27 +1349,11 @@ export default {
         attackCooldown: '攻撃クールダウン中（{min}分{sec}秒）',
         notSpiedYet: '未偵察、先に偵察が必要'
       }
-    },
-    aiType: 'AIタイプ',
-    aiTypes: {
-      aggressive: '攻撃型',
-      defensive: '防御型',
-      trader: '商人型',
-      expansionist: '拡張型',
-      balanced: 'バランス型'
-    },
-    aiTypeDescriptions: {
-      aggressive: '積極的に偵察・攻撃、強い報復',
-      defensive: '滅多に攻撃しない、攻撃されると強く報復',
-      trader: 'ほとんど攻撃しない、取引と贈り物を好む',
-      expansionist: '発展に集中、攻撃性が低い',
-      balanced: '状況に応じて戦略を動的に調整'
     }
   },
   pagination: {
     previous: '前へ',
     next: '次へ',
-    gotIt: '',
     first: '最初',
     last: '最後',
     page: '{page}ページ'
@@ -1328,9 +1417,33 @@ export default {
     seconds: '秒'
   },
   tutorial: {
+    progress: '進捗',
+    previous: '前へ',
+    next: '次へ',
+    gotIt: '了解',
+    completeButton: '完了',
+    skip: 'ガイドをスキップ',
     welcome: {
-      title: 'OGame-Vue-Ts へようこそ',
-      content: 'ようこそ、司令官！基礎から始めて、宇宙帝国を築きましょう。'
+      title: 'OGameへようこそ',
+      content: 'ようこそ、司令官！このチュートリアルでは帝国建設の基礎を学びます。「次へ」をクリックして征服の旅を始めましょう。'
+    },
+    resources: {
+      title: '資源概要',
+      content:
+        'これらがあなたの資源です：金属、クリスタル、デューテリウム。建物の建設と科学技術の研究に不可欠です。エネルギーも重要で、インフラに電力を供給します。'
+    },
+    planet: {
+      title: 'あなたの惑星',
+      content: 'これがあなたの母星です。ここで惑星名、座標を確認でき、帝国を拡張する際に惑星を切り替えることができます。'
+    },
+    navigation: {
+      title: 'ナビゲーションメニュー',
+      content:
+        'このメニューを使用して、建物、研究、艦隊、銀河などの異なるセクション間を移動します。各セクションには独自のゲーム機能があります。'
+    },
+    gotoBuildings: {
+      title: '建物ページへ移動',
+      content: 'まず建物の建設から始めましょう。「建物」メニューをクリックして利用可能な建物を表示します。'
     },
     buildSolarPlant: {
       title: '太陽光発電所を建設',
@@ -1342,16 +1455,108 @@ export default {
       content:
         '建物は建設キューに追加されました。右上のキューアイコンをクリックすると、進行中のすべての建設と研究タスクを確認できます。建設には時間がかかりますが、待機中も作業を続けられます。'
     },
+    buildMetalMine: {
+      title: '金属鉱山を建設',
+      content: 'エネルギーがあれば、金属鉱山を建設できます。金属鉱山は主要な金属源であり、金属はほぼすべての建物と艦船に使用されます。'
+    },
+    buildCrystalMine: {
+      title: 'クリスタル鉱山を建設',
+      content: 'クリスタルはより希少ですが、高度な技術には不可欠です。クリスタル鉱山を建設してこの貴重な資源の収集を開始します。'
+    },
+    buildDeuterium: {
+      title: 'デューテリウム合成器を建設',
+      content: 'デューテリウムは艦船の燃料と高度な研究に必要です。デューテリウム合成器を建設してこの重要な資源の生産を開始します。'
+    },
+    upgradeMines: {
+      title: '資源鉱山をアップグレード',
+      content:
+        '次に、3つの資源鉱山（金属、クリスタル、デューテリウム）をレベル2にアップグレードして、ロボット工場の建設要件を満たす必要があります。資源が十分になったら、アップグレードを続けてください。'
+    },
+    buildRobotics: {
+      title: 'ロボット工場を建設',
+      content:
+        'ロボット工場は建設速度を大幅に向上させます。金属鉱山、クリスタル鉱山、デューテリウム合成器がそれぞれレベル2に達している必要があります。建設して建設効率を向上させましょう！'
+    },
+    upgradeMinesForLab: {
+      title: '資源鉱山のアップグレードを続ける',
+      content:
+        '今度は3つの資源鉱山をレベル3にアップグレードして、研究ラボの建設要件を満たす必要があります。資源生産能力の発展を続けてください。'
+    },
+    buildResearchLab: {
+      title: '研究ラボを建設',
+      content:
+        '研究ラボは技術進歩の基礎です。3つの資源鉱山がそれぞれレベル3に達している必要があります。建設して科学技術研究をアンロックしましょう！'
+    },
+    gotoResearch: {
+      title: '研究ページへ移動',
+      content: '研究ラボができたので、「研究」メニューをクリックして利用可能な技術を表示します。'
+    },
+    researchEnergy: {
+      title: 'エネルギー技術を研究',
+      content: 'エネルギー技術はエネルギー出力を向上させ、高度な建物をアンロックします。これは最も基本的で重要な技術の1つです。'
+    },
+    shipyardIntro: {
+      title: '艦隊と造船所',
+      content:
+        '艦船により銀河を探索し、資源を輸送し、帝国を守ることができます。艦船を建造するには、造船所が必要です（ロボット工場レベル2が必要）。'
+    },
+    gotoBuildingsForShipyard: {
+      title: '建物ページに戻る',
+      content: '建物ページに戻って造船所を建設します。'
+    },
+    buildShipyard: {
+      title: '造船所を建設',
+      content: '造船所では艦船と防御システムを建造できます。これは艦隊作戦に不可欠です。'
+    },
+    fleetIntro: {
+      title: '艦隊作戦',
+      content: '艦船を所有したら、ミッションに派遣できます：資源を輸送、惑星を植民、敵を攻撃、または廃墟場を探索します。'
+    },
+    galaxyIntro: {
+      title: '銀河を探索',
+      content: '銀河ビューには他の惑星、廃墟場、拡張の機会が表示されます。これを使用してターゲットを偵察し、戦略を計画します。'
+    },
+    complete: {
+      title: 'チュートリアル完了！',
+      content:
+        'おめでとうございます、司令官！基礎知識を習得しました。帝国の建設を続け、技術を研究し、銀河を探索してください。覚えておいてください：まずエネルギーを発展させ、次に資源を建設し、その後に工場と研究を！幸運を祈ります！'
+    },
+    // モバイルチュートリアル
     mobile: {
       welcome: {
-        title: 'OGame-Vue-Ts へようこそ（モバイル版）',
+        title: 'OGameへようこそ（モバイル版）',
         content:
           'ようこそ、司令官！これはタッチスクリーン向けに最適化された簡易チュートリアルです。帝国建設を始めるために、コア機能を素早くご紹介します。'
+      },
+      resources: {
+        title: '上部リソースバー',
+        content: '上部にあなたの資源が表示されます：金属、クリスタル、デューテリウム。タップすると詳細な生産情報を表示できます。'
+      },
+      menu: {
+        title: 'ナビゲーションメニューを開く',
+        content: 'このメニューアイコンをタップしてナビゲーションバーを開き、建物、研究、艦隊などのすべての機能にアクセスできます。'
+      },
+      gotoBuildings: {
+        title: '建物ページへ移動',
+        content: 'メニューが開きました！「建物」オプションをタップして、インフラの建設を開始します。'
+      },
+      buildSolarPlant: {
+        title: '太陽光発電所を建設',
+        content: 'まず太陽光発電所を建設しましょう！下にスクロールして見つけ、カードをタップして建設します。エネルギーはすべての基礎です。'
       },
       waitBuild: {
         title: '建設キュー',
         content:
-          '右上のキューアイコンをクリックして建設進度を確認できます。他のページを閲覧し続けることができます。建設はバックグラウンドで進行します。'
+          '右上のキューアイコンをタップして建設進度を確認できます。他のページを閲覧し続けることができます。建設はバックグラウンドで進行します。'
+      },
+      buildMetalMine: {
+        title: '金属鉱山を建設',
+        content: 'エネルギーがあれば、金属鉱山を建設します。下にスクロールして金属鉱山を見つけ、建設をタップします。'
+      },
+      complete: {
+        title: 'クイックチュートリアル完了！',
+        content:
+          '素晴らしい！基本操作をマスターしました。クリスタル鉱山とデューテリウム合成器の建設を続け、他の機能を探索してください。覚えておいてください：まずエネルギー、次に資源！'
       }
     }
   },
@@ -1408,10 +1613,20 @@ export default {
       title: '戦闘シミュレーター',
       message: '攻撃前に戦闘結果をシミュレート。双方の艦隊と技術レベルを入力して、勝敗と損失を予測。'
     },
+    campaign: {
+      title: 'キャンペーンモード',
+      message:
+        '銀河のストーリーキャンペーンを探索！ミッションを完了してリソース報酬を獲得し、新しい挑戦をアンロック。各ノードにはユニークな目標と敵がいます。'
+    },
     achievements: {
       title: '実績システム',
       message:
         'ゲーム目標を達成して実績をアンロックし、ダークマター報酬を獲得！実績には複数のティアがあり、高い目標に挑戦してより良い報酬を手に入れましょう。'
+    },
+    ranking: {
+      title: 'ランキング',
+      message:
+        '他のプレイヤーやNPCと進捗を比較。建物、研究、艦隊、防御のポイントに基づくランキングを確認。ランキング上位を目指しましょう！'
     },
     settings: {
       title: '設定',
@@ -1537,5 +1752,325 @@ export default {
     you: 'あなた',
     scoreBreakdown: 'スコア内訳',
     noData: 'ランキングデータがありません'
+  },
+  // NPC強化行動通知
+  npcBehavior: {
+    tradeOfferReceived: '取引提案を受信',
+    tradeOfferDesc: '{npcName}から取引提案が届きました',
+    attitudeChanged: 'NPC態度変化',
+    becameFriendly: '{npcName}があなたに友好的になりました',
+    becameHostile: '{npcName}があなたに敵対的になりました',
+    intelReceived: '情報を受信',
+    intelReceivedDesc: '{npcName}が敵の情報を共有しました',
+    jointAttackInvite: '共同攻撃への招待',
+    jointAttackInviteDesc: '{npcName}が敵への共同攻撃に招待しています',
+    aidReceived: '援助を受信',
+    aidReceivedDesc: '{npcName}が{amount}の資源を送りました',
+    allyDefense: '同盟防衛',
+    allyDefenseDesc: '{npcName}があなたの惑星を防衛するために艦隊を派遣しています',
+    trade: {
+      title: '取引提案',
+      from: '送信者',
+      offers: '提供',
+      requests: '要求',
+      expiresIn: '有効期限',
+      expired: '期限切れ',
+      accept: '承諾',
+      decline: '拒否',
+      noOffers: '取引提案なし',
+      acceptSuccess: '取引完了！',
+      acceptFailed: '資源不足で取引できません',
+      declined: '取引を拒否しました',
+      ratio: '交換レート'
+    },
+    intel: {
+      title: '情報レポート',
+      from: '情報源',
+      target: '対象NPC',
+      type: '情報タイプ',
+      types: {
+        enemyFleet: '艦隊情報',
+        enemyResources: '資源情報',
+        enemyMovement: '動向情報'
+      },
+      fleetInfo: '艦隊情報',
+      resourceInfo: '資源情報',
+      movementInfo: '動向情報',
+      noReports: '情報レポートなし',
+      markAsRead: '既読にする',
+      content: '情報内容',
+      noFleet: '艦隊は検出されませんでした',
+      noData: 'データなし',
+      targetPosition: '目標座標',
+      missionType: 'ミッションタイプ'
+    },
+    jointAttack: {
+      title: '共同攻撃招待',
+      from: '発起者',
+      target: '対象NPC',
+      targetPlanet: '対象惑星',
+      npcFleet: 'NPC艦隊',
+      lootShare: '戦利品分配',
+      expiresIn: '有効期限',
+      expired: '期限切れ',
+      accept: '攻撃に参加',
+      decline: '拒否',
+      noInvites: '共同攻撃招待なし',
+      acceptSuccess: '共同攻撃に参加しました！',
+      declined: '招待を拒否しました',
+      targetInfo: '攻撃目標',
+      expectedShare: '予想分配',
+      remaining: '残り時間'
+    },
+    aid: {
+      title: '資源援助',
+      from: '送信者',
+      resources: '援助資源',
+      noAid: '援助記録なし'
+    },
+    attitudeChange: {
+      title: '態度変化',
+      npc: 'NPC',
+      previous: '以前',
+      current: '現在',
+      reason: '理由',
+      reasons: {
+        attitude_swing: '態度の変動',
+        gift: '贈り物を受け取った',
+        attack: '攻撃された',
+        naturalSwing: '自然変動',
+        giftReceived: '贈り物を受け取った',
+        attacked: '攻撃された',
+        reputationThreshold: '評判閾値'
+      }
+    },
+    allyAction: {
+      title: '同盟行動',
+      defense: '防衛支援',
+      defenseDesc: '{npcName}が{targetPlanet}の防衛に艦隊を派遣',
+      jointAttackStarted: '共同攻撃開始',
+      jointAttackStartedDesc: '{targetNpc}への共同攻撃が開始されました',
+      reputationBonus: '評判ボーナス',
+      reputationBonusDesc: '同盟の{npcName}が{targetNpc}にあなたのことを良く言っています'
+    }
+  },
+  campaign: {
+    name: 'キャンペーン',
+    description: '神秘的な銀河を探索し、古代の秘密を解き明かす',
+    totalProgress: '総進捗',
+    questsCompleted: 'クエスト完了',
+    chapter: '章',
+    branch: '分岐',
+    startQuest: 'クエスト開始',
+    claimRewards: '報酬を受け取る',
+    objectives: '目標',
+    objectivesLabel: '目標',
+    rewards: '報酬',
+    completed: '完了',
+    inProgress: '進行中',
+    available: '受注可能',
+    locked: 'ロック中',
+    notifications: {
+      questStarted: 'クエスト開始',
+      questCompleted: 'クエスト完了！',
+      rewardsClaimed: '報酬を獲得しました',
+      objectiveCompleted: '目標達成',
+      chapterUnlocked: '新章が解放されました',
+      reputationUp: '{npcName}との評判が{value}上昇しました',
+      reputationDown: '{npcName}との評判が{value}低下しました',
+      branchUnlocked: '新しいストーリー分岐が解放されました！'
+    },
+    dialogue: {
+      skip: 'スキップ',
+      continue: '続ける',
+      finish: '完了',
+      player: '司令官',
+      npc: 'NPC',
+      narrator: 'ナレーター',
+      mysterious: '謎の信号',
+      unknownSource: '不明な発信源',
+      choiceEffect: '選択肢の効果'
+    },
+    chapters: {
+      '1': {
+        title: '起源',
+        description: '故郷を築き、宇宙への第一歩を踏み出す',
+        backgroundStory:
+          'あなたは初めての惑星を手に入れた若き宇宙司令官です。この広大な宇宙で、故郷を築き、技術を発展させ、銀河の深淵を探索していきます...'
+      },
+      '2': {
+        title: '探索',
+        description: '宇宙を探索し、古代遺跡を発見する',
+        backgroundStory:
+          '勢力が拡大するにつれ、深宇宙からの謎の信号があなたの注意を引きます。これらの信号は古代の秘密を指し示し、勇敢な探検者を待っているようです...'
+      },
+      '3': {
+        title: '外交',
+        description: '他の勢力との関係を構築する',
+        backgroundStory:
+          '銀河にはあなただけではありません。他の文明が台頭しています。敵となるか同盟を結ぶか決めなければなりません。外交的知恵があなたの帝国の行く末を決めるでしょう...'
+      },
+      '4': {
+        title: '暗影の台頭',
+        description: '強大な敵に立ち向かい、領土を守る',
+        backgroundStory:
+          '影に危険が潜んでいます。強大な敵対勢力があなたの領土を狙っています。戦争は避けられません。来たる嵐に備えなければなりません...'
+      },
+      '5': {
+        title: '古代の秘密',
+        description: '銀河最深部の秘密を解き明かす',
+        backgroundStory:
+          'すべての手がかりは銀河で最も神秘的な領域を指しています。そこには古代文明が残した究極の秘密が眠っています。すべてを明らかにする準備はできていますか？'
+      }
+    },
+    quests: {
+      '1_1': { title: '故郷建設', description: 'インフラを整備し、惑星の基盤を築く' },
+      '1_2': { title: '技術啓蒙', description: '基礎技術を研究し、技術の旅を始める' },
+      '1_3': { title: '最初の船', description: '最初の戦艦を建造する' },
+      '1_4': { title: '奇妙な隣人', description: '近隣システムの他の勢力を偵察する' },
+      '1_5': { title: 'ファーストコンタクト', description: '近隣のNPC勢力と初期接触を確立する' },
+      '2_1': { title: '開拓植民地', description: '最初の新惑星を植民地化する' },
+      '2_2': { title: '深宇宙遠征', description: '艦隊を遠征ミッションに派遣する' },
+      '2_3': { title: '謎の信号', description: '深宇宙からの謎の信号を調査する' },
+      '2_4': { title: '遺跡調査', description: '発見した古代遺跡を探索する' },
+      '2_5': { title: 'アーカイブ解読', description: '遺跡から得たデータを研究する' },
+      '3_1': { title: '平和の使者', description: '外交でNPCとの関係を改善する' },
+      '3_2': { title: '通商関係', description: '友好勢力と安定した関係を築く' },
+      '3_3': { title: '共通の脅威', description: '潜在的な敵対勢力を発見する' },
+      '3_4': { title: '同盟交渉', description: '友好NPCと正式な同盟を結ぶ' },
+      '3_5': { title: '嵐への備え', description: '防衛施設を建設し、課題に備える' },
+      '4_1': { title: '前哨攻撃', description: '敵対勢力の最初の攻撃を撃退する' },
+      '4_2': { title: '情報収集', description: '敵の軍事配置を偵察する' },
+      '4_3': { title: '反撃', description: '敵への反撃を開始する' },
+      '4_4': { title: '資源争奪', description: '戦場のデブリをリサイクルして資源を得る' },
+      '4_5': { title: '決戦前夜', description: '最終決戦に向けて強力な艦隊を建造する' },
+      '5_1': { title: '遺跡の深部', description: '遺跡の最深部を探索する' },
+      '5_2': { title: '古代技術', description: '古代文明の技術を解放する' },
+      '5_3': { title: '最終対決', description: '謎の敵との最終決戦に臨む' },
+      '5_4': { title: '新時代', description: '新たな植民地を築き、新時代を開く' },
+      '5_5': { title: '遺産継承', description: '発展を続け、より多くのシステムを征服する' }
+    },
+    objectiveTypes: {
+      buildBuilding: '{building}をレベル{level}に建設',
+      researchTech: '{tech}をレベル{level}まで研究',
+      produceShips: '{ship}を{count}隻生産',
+      accumulateResources: '{resource}を{amount}蓄積',
+      defeatNPC: '{npc}を撃破',
+      winBattles: '{count}回戦闘に勝利',
+      recycleDebris: 'デブリを{amount}リサイクル',
+      reachRelation: '{npc}と{level}の関係に到達',
+      sendGift: '{npc}に{count}回贈り物を送る',
+      formAlliance: '{npc}と同盟を結ぶ',
+      colonize: '{count}個の惑星を植民地化',
+      expedition: '{count}回の遠征を完了',
+      spyTarget: '{target}をスパイ'
+    },
+    errors: {
+      questNotFound: 'クエストが見つかりません',
+      questNotAvailable: 'クエストは利用できません',
+      questNotActive: 'クエストはアクティブではありません',
+      questNotCompleted: 'クエスト未完了',
+      rewardsAlreadyClaimed: '報酬は既に受け取り済み',
+      prerequisiteNotMet: '前提クエスト未完了'
+    },
+    speakers: {
+      ancientVoice: '古代の声',
+      neighborNPC: '隣接勢力',
+      mysteriousSignal: '謎の信号',
+      enemyCommander: '敵司令官'
+    },
+    objectiveDescriptions: {
+      buildMetalMine: '金属鉱山をレベル2に建設',
+      buildCrystalMine: 'クリスタル鉱山をレベル2に建設',
+      buildSolarPlant: 'ソーラープラントをレベル2に建設',
+      buildResearchLab: '研究所をレベル1に建設',
+      researchEnergy: 'エネルギー技術をレベル1まで研究',
+      buildShipyard: '造船所をレベル2に建設',
+      researchCombustion: '燃焼ドライブをレベル1まで研究',
+      buildLightFighters: 'ライトファイター5機を建造',
+      researchEspionage: 'スパイ技術をレベル2まで研究',
+      buildSpyProbes: 'スパイプローブ3機を建造',
+      spyAnyNPC: 'NPC惑星をスパイ',
+      sendGiftToNPC: 'NPCに贈り物を送る',
+      researchAstrophysics: '宇宙物理学をレベル1まで研究',
+      buildColonyShip: 'コロニーシップを建造',
+      colonizeNewPlanet: '新惑星を植民地化',
+      completeExpedition: '遠征ミッションを完了',
+      discoverRuins: '古代遺跡を発見',
+      researchComputer: 'コンピュータ技術をレベル4まで研究',
+      improveRelation: 'NPCとの関係を改善',
+      reachFriendly: 'NPCと友好ステータスに到達',
+      spyHostileNPC: '敵対NPCをスパイ',
+      formAlliance: '友好NPCと同盟を結ぶ',
+      buildDefenses: '防衛施設を建設',
+      winDefenseBattle: '防衛戦に勝利',
+      spyEnemyPlanet: '敵惑星をスパイ',
+      attackEnemy: '敵を攻撃',
+      recycleDebris: 'デブリをリサイクル',
+      buildBattleships: 'バトルシップ10隻を建造',
+      exploreDeepRuins: '深部遺跡を探索',
+      researchHyperspace: 'ハイパースペース技術を研究',
+      defeatBoss: '謎の敵を撃破',
+      colonizeSpecial: '特別な場所を植民地化',
+      continueDevelopment: '発展を継続'
+    },
+    dialogues: {
+      '1_1': {
+        prologue_1: '銀河へようこそ、若き司令官。この広大な宇宙があなたの探索を待っています。まずは故郷の惑星を建設しましょう。',
+        prologue_2: '新しい意識が目覚めるのを感じる...興味深い...どこまで行けるか見てみよう...'
+      },
+      '1_2': { prologue_1: '基本インフラが完成しました。次は技術を発展させる時です。研究所を建設し、技術の旅を始めましょう。' },
+      '1_3': { prologue_1: '技術のサポートで艦隊の建造が可能になりました。造船所を建設し、最初の戦艦を生産しましょう。' },
+      '1_4': {
+        prologue_1: '艦隊が形になってきました。周囲の状況を把握しましょう。スパイプローブを送り出し、近隣の勢力を偵察してください。',
+        prologue_2: 'あなたは一人ではない...この銀河には他の文明が存在する...'
+      },
+      '1_5': {
+        prologue_1: '近隣の勢力を発見しました。外交は芸術です。彼らとの接触を試みてください。',
+        epilogue_1: '贈り物をありがとう、司令官。友人になれることを願っています。',
+        epilogue_2: 'よい...繋がりを築くことは、より深い秘密を解き明かす第一歩だ...'
+      },
+      '2_1': {
+        prologue_1: '勢力が確立しました。領土を拡大する時です。宇宙物理学を研究し、コロニーシップを建造して新しい惑星を探索しましょう。',
+        prologue_2: '宇宙は無限...より多くの惑星はより多くの可能性を意味する...'
+      },
+      '2_2': {
+        prologue_1: '植民地化成功！しかし宇宙にはより深い秘密が待っています。艦隊を遠征ミッションに派遣しましょう。',
+        prologue_2: '遠くから微かな信号が...何かがそこであなたを待っている...'
+      },
+      '2_3': {
+        prologue_1: '遠征で異常な信号を発見しました。これらの信号は古代文明からのようです...発信源を調査してください。',
+        epilogue_1: 'これらの記号は...古代文明の遺跡だ！さらに調査して秘密を解き明かそう。'
+      },
+      '2_4': { prologue_1: '古代遺跡の場所を発見しました。艦隊を送り、何が見つかるか探索してください。' },
+      '2_5': { prologue_1: '遺跡でデータアーカイブが見つかりました。このデータを研究すれば、新しい技術が解放できるかもしれません。' },
+      '3_1': { prologue_1: '探索中も外交を忘れないでください。周囲の勢力と良好な関係を維持することは有益です。' },
+      '3_2': { prologue_1: 'いくつかの勢力が友好を示しています。関係を深め続ければ、より多くのサポートを得られるかもしれません。' },
+      '3_3': { prologue_1: '情報によると敵対勢力が影からあなたを監視しています。警戒を怠らず、彼らの動きを偵察してください。' },
+      '3_4': { prologue_1: '友好勢力と正式な同盟を結び、脅威に対してお互いをサポートしましょう。' },
+      '3_5': { prologue_1: '脅威が迫っています。防衛施設を建設し、可能な紛争に備えてください。' },
+      '4_1': {
+        prologue_1: '敵が攻撃を開始しました！惑星を守ってください！',
+        epilogue_1: '敵の第一波を撃退しました。しかしこれは始まりに過ぎません...'
+      },
+      '4_2': { prologue_1: '敵は撤退しましたが、戻ってくるでしょう。彼らの惑星を偵察して戦力を把握してください。' },
+      '4_3': { prologue_1: '反撃の時です。敵の惑星を攻撃し、彼らの戦力を弱めてください。' },
+      '4_4': { prologue_1: '戦場に多くのデブリが残っています。これらの資源をリサイクルして次の戦闘に備えてください。' },
+      '4_5': { prologue_1: '最終決戦が近づいています。強力な艦隊を建造し、究極の挑戦に備えてください。' },
+      '5_1': {
+        prologue_1: 'すべての手がかりは遺跡の最深部を指しています。古代文明の核心的な秘密がそこにあります。',
+        prologue_2: 'ついに到着した...真実がまもなく明かされる...'
+      },
+      '5_2': { prologue_1: '遺跡の深部で失われた古代技術を発見しました。研究してその力を解放してください。' },
+      '5_3': {
+        prologue_1: '謎の敵が現れました。これが最後の挑戦です。撃破してください！',
+        epilogue_1: 'やりました！古代の守護者は倒されました。銀河の秘密は今やあなたに開かれています。'
+      },
+      '5_4': { prologue_1: 'ついに平和が訪れました。この新時代に新しい植民地を築き、帝国を拡大してください。' },
+      '5_5': {
+        prologue_1: 'あなたの伝説は始まったばかりです。さらに探索を続け、より多くの星系を征服してください！',
+        epilogue_1: '銀河は広大で果てしなく、数え切れない秘密があなたを待っています...'
+      }
+    }
   }
 }

@@ -6,13 +6,10 @@
   Vue 3와 TypeScript로 제작된 클래식 OGame을 기반으로 한 현대적인 우주 전략 게임입니다.
 
   [![GitHub Release](https://img.shields.io/github/v/release/setube/ogame-vue-ts?style=flat&logo=github&label=Release)](https://github.com/setube/ogame-vue-ts/releases/latest)
-  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-  [![Vue 3](https://img.shields.io/badge/Vue-3.5-brightgreen.svg)](https://vuejs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
-  [![Vite](https://img.shields.io/badge/Vite-7.2-646CFF.svg)](https://vitejs.dev/)
-  [![Go](https://img.shields.io/badge/Go-1.23-79D4FD.svg)](https://golang.org/)
+  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0)
+  [![Tap Tap](https://img.shields.io/badge/TapTap-OGame%20Vue%20Ts-18d6e0)](https://www.taptap.cn/app/801190)
 
-  [简体中文](README.md) | [English](README-EN.md) | [繁體中文](README-zh-TW.md) | [Deutsch](README-DE.md) | [Русский](README-RU.md) | 한국어
+  [简体中文](README.md) | [繁體中文](README-zh-TW.md) | [English](README-EN.md) | [Deutsch](README-DE.md) | [Русский](README-RU.md) | [Español](README-ES.md) | 한국어 | [日本語](README-JA.md)
 
 </div>
 
@@ -22,7 +19,6 @@ OGame Vue TS는 클래식 OGame에서 영감을 받은 싱글플레이어 브라
 
 ## 주요 기능
 
-- **다국어 지원** - 6개 언어 지원: 영어, 중국어 (간체 및 번체), 독일어, 러시아어, 한국어
 - **건물 관리** - 행성과 달에서 다양한 건물을 건설하고 업그레이드
 - **기술 연구** - 제국을 강화하기 위한 첨단 기술 해금
 - **함대 관리** - 우주선 건조, 미션 파견, 전술적 우주 전투 참여
@@ -37,14 +33,14 @@ OGame Vue TS는 클래식 OGame에서 영감을 받은 싱글플레이어 브라
 
 ## 기술 스택
 
-- **프론트엔드 프레임워크:** [Vue 3](https://vuejs.org/) + Composition API (`<script setup>` 문법)
-- **프로그래밍 언어:** [TypeScript](https://www.typescriptlang.org/) (엄격한 타입 검사 활성화)
-- **빌드 도구:** [Vite](https://vitejs.dev/) (Custom Rolldown-Vite 7.2.5), [Golang](https://golang.org/) (크로스 플랫폼 웹 서버 구축), [Electron](https://www.electronjs.org/) (크로스 플랫폼 데스크톱 애플리케이션 구축)
-- **상태 관리:** [Pinia](https://pinia.vuejs.org/) + 지속성 플러그인
-- **라우팅:** [Vue Router 4](https://router.vuejs.org/)
-- **UI 컴포넌트:** [shadcn-vue](https://www.shadcn-vue.com/) (New York 스타일)
-- **스타일링:** [Tailwind CSS v4](https://tailwindcss.com/) + CSS 변수
-- **아이콘:** [Lucide Vue Next](https://lucide.dev/)
+- **프론트엔드 프레임워크:** [Vue 3](https://vuejs.org) + Composition API (`<script setup>` 문법)
+- **프로그래밍 언어:** [TypeScript](https://www.typescriptlang.org) (엄격한 타입 검사 활성화)
+- **빌드 도구:** [Vite](https://vitejs.dev) (Custom Rolldown-Vite 7.2.5), [Golang](https://golang.org) (크로스 플랫폼 웹 서버 구축), [Electron](https://www.electronjs.org) (크로스 플랫폼 데스크톱 애플리케이션 구축)
+- **상태 관리:** [Pinia](https://pinia.vuejs.org) + 지속성 플러그인
+- **라우팅:** [Vue Router 4](https://router.vuejs.org)
+- **UI 컴포넌트:** [shadcn-vue](https://www.shadcn-vue.com) (New York 스타일)
+- **스타일링:** [Tailwind CSS v4](https://tailwindcss.com) + CSS 변수
+- **아이콘:** [Lucide Vue Next](https://lucide.dev)
 - **애니메이션:** [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
 - **국제화:** 커스텀 i18n 구현
 
@@ -52,9 +48,9 @@ OGame Vue TS는 클래식 OGame에서 영감을 받은 싱글플레이어 브라
 
 ### 요구 사항
 
-- [Node.js](https://nodejs.org/) (버전 18 이상 권장)
-- [pnpm](https://pnpm.io/) (버전 10.13.1 이상)
-- [Go](https://golang.org/) (버전 1.21 이상) (선택 사항)
+- [Node.js](https://nodejs.org) (버전 18 이상 권장)
+- [pnpm](https://pnpm.io) (버전 10.13.1 이상)
+- [Go](https://golang.org) (버전 1.21 이상) (선택 사항)
 
 ### 설치
 
@@ -88,47 +84,6 @@ pnpm build
 pnpm preview
 ```
 
-## 지원 언어
-
-- 简体中文 (중국어 간체)
-- 繁體中文 (중국어 번체)
-- English (영어)
-- Deutsch (독일어)
-- Русский (러시아어)
-- 한국어
-
-## 게임 기능
-
-### 자원 관리
-- **금속** - 기본 건설 재료
-- **크리스탈** - 첨단 기술 부품
-- **중수소** - 연료 및 연구 자원
-- **암흑 물질** - 프리미엄 자원
-- **에너지** - 시설에 전력 공급
-
-### 건물 유형
-- **자원 건물** - 금속 광산, 크리스탈 광산, 중수소 합성기, 태양열 발전소
-- **시설** - 로봇 공장, 조선소, 연구소, 저장 시설
-- **특수 건물** - 나노 로봇 공장, 테라포머 등
-
-### 기술
-- **에너지 기술** - 에너지 효율 향상
-- **레이저 기술** - 무기 시스템 강화
-- **이온 기술** - 고급 추진 및 무기
-- **초공간 기술** - 더 빠른 이동 가능
-- **플라즈마 기술** - 궁극의 무기 시스템
-- 그 외 다수...
-
-### 함선 종류
-- **민간 함선** - 소형/대형 수송선, 식민선, 재활용선
-- **전투 함선** - 경/중 전투기, 순양함, 전함, 폭격기
-- **특수 함선** - 데스스타, 전투순양함, 파괴자
-
-### 방어 시스템
-- 로켓 발사대, 경/중 레이저, 가우스 포
-- 이온 포, 플라즈마 포탑
-- 소형/대형 실드 돔
-
 ## 데이터 보안
 
 모든 게임 데이터는 브라우저의 로컬 스토리지에 저장되기 전에 AES 암호화로 자동 암호화됩니다. 게임 진행 상황은 안전하고 비공개로 유지됩니다.
@@ -143,7 +98,7 @@ pnpm preview
 
 ## 라이선스
 
-이 작품은 [크리에이티브 커먼즈 저작자표시-비영리 4.0 국제 라이선스](https://creativecommons.org/licenses/by-nc/4.0/)에 따라 라이선스가 부여됩니다.
+이 작품은 [크리에이티브 커먼즈 저작자표시-비영리 4.0 국제 라이선스](https://creativecommons.org/licenses/by-nc/4.0)에 따라 라이선스가 부여됩니다.
 
 ### 자유롭게:
 - **공유** — 어떤 매체나 포맷으로든 자료를 복사하고 재배포할 수 있습니다
@@ -155,7 +110,7 @@ pnpm preview
 
 ## 감사의 말
 
-이 프로젝트는 원작 [OGame](https://ogame.org/) 브라우저 게임에서 영감을 받았습니다. 모든 게임 메커니즘과 디자인 요소는 교육 및 오락 목적으로 재구현되었습니다.
+이 프로젝트는 원작 [OGame](https://ogame.org) 브라우저 게임에서 영감을 받았습니다. 모든 게임 메커니즘과 디자인 요소는 교육 및 오락 목적으로 재구현되었습니다.
 
 ## 면책 조항
 

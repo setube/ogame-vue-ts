@@ -130,7 +130,8 @@ export const completeBuildQueue = (
       // 建造完成
       if (item.type === 'building') {
         const oldLevel = planet.buildings[item.itemType as BuildingType] || 0
-        const newLevel = item.targetLevel || 0
+        // 升级完成时，等级+1（而不是直接使用targetLevel，避免在升级过程中被拆除后跳级）
+        const newLevel = oldLevel + 1
         planet.buildings[item.itemType as BuildingType] = newLevel
 
         // 计算并累积积分
@@ -164,7 +165,6 @@ export const completeBuildQueue = (
         }
       } else if (item.type === 'demolish') {
         // 拆除完成，降低建筑等级
-        // 注意：拆除不会扣除积分，积分只增不减
         const buildingType = item.itemType as BuildingType
         const currentLevel = planet.buildings[buildingType] || 0
         planet.buildings[buildingType] = Math.max(0, currentLevel - 1)

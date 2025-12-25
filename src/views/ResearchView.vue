@@ -143,6 +143,10 @@
   const alertDialogRequirements = ref<Array<{ name: string; requiredLevel: number; currentLevel: number; met: boolean }>>([])
   const alertDialogShowRequirements = ref(false)
 
+  // 防抖状态：防止快速点击
+  const isProcessing = ref(false)
+  const DEBOUNCE_DELAY = 300 // 防抖延迟（毫秒）
+
   // 资源类型配置（用于成本显示）
   const costResourceTypes = [
     { key: 'metal' as const },
@@ -252,6 +256,13 @@
 
   // 研究科技
   const handleResearch = (techType: TechnologyType, event: MouseEvent) => {
+    // 防抖：防止快速点击
+    if (isProcessing.value) return
+    isProcessing.value = true
+    setTimeout(() => {
+      isProcessing.value = false
+    }, DEBOUNCE_DELAY)
+
     // 检查前置条件
     if (!checkUpgradeRequirements(techType)) {
       alertDialogTitle.value = t('common.requirementsNotMet')

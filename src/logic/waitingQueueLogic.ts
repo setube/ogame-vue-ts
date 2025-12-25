@@ -340,21 +340,40 @@ const tryExecuteBuildingWaitingItem = (
 ): { success: boolean; queueItem?: BuildQueueItem; message?: string } => {
   const buildingType = item.itemType as BuildingType
   const currentLevel = planet.buildings[buildingType] || 0
-  const targetLevel = item.targetLevel || currentLevel + 1
+  const waitingTargetLevel = item.targetLevel || currentLevel + 1
 
   // 检查目标等级是否仍然正确（可能在等待期间已经升级了）
-  if (currentLevel >= targetLevel) {
+  if (currentLevel >= waitingTargetLevel) {
     return { success: false, message: 'errors.levelAlreadyReached' }
   }
 
-  // 验证升级条件（跳过队列已满检查，因为我们已经检查过了）
+  // 实际执行的目标等级是当前等级+1
+  const actualTargetLevel = currentLevel + 1
+
+  // 验证升级条件
+  // 跳过以下错误，因为它们不影响下一级升级：
+  // - buildQueueFull: 我们已经在外层检查了
+  // - buildingAlreadyInQueue: 同一建筑可能在队列中（等待前一级完成）
+  // - insufficientResources: 我们会在下面单独检查实际需要的资源
   const validation = buildingValidation.validateBuildingUpgrade(planet, buildingType, technologies, officers)
-  if (!validation.valid && validation.reason !== 'errors.buildQueueFull') {
+  if (!validation.valid &&
+      validation.reason !== 'errors.buildQueueFull' &&
+      validation.reason !== 'errors.buildingAlreadyInQueue' &&
+      validation.reason !== 'errors.insufficientResources') {
     return { success: false, message: validation.reason }
   }
 
-  // 重新检查资源（因为validateBuildingUpgrade可能因资源不足失败）
-  const cost = buildingLogic.calculateBuildingCost(buildingType, targetLevel)
+  // 检查同一建筑是否已在正式队列中（等待前一级完成）
+  const existingInQueue = planet.buildQueue.find(
+    q => (q.type === 'building' || q.type === 'demolish') && q.itemType === buildingType
+  )
+  if (existingInQueue) {
+    // 同一建筑已在队列中，暂时不执行，等待完成后再处理
+    return { success: false, message: 'errors.buildingAlreadyInQueue' }
+  }
+
+  // 检查实际需要的资源（下一级的成本，不是等待队列项的目标等级）
+  const cost = buildingLogic.calculateBuildingCost(buildingType, actualTargetLevel)
   if (!resourceLogic.checkResourcesAvailable(planet.resources, cost)) {
     return { success: false, message: 'errors.insufficientResources' }
   }
@@ -374,10 +393,10 @@ const tryExecuteDemolishWaitingItem = (
 ): { success: boolean; queueItem?: BuildQueueItem; message?: string } => {
   const buildingType = item.itemType as BuildingType
   const currentLevel = planet.buildings[buildingType] || 0
-  const targetLevel = item.targetLevel || currentLevel - 1
+  const waitingTargetLevel = item.targetLevel || currentLevel - 1
 
   // 检查等级是否仍然可拆除
-  if (currentLevel <= 0 || currentLevel <= targetLevel) {
+  if (currentLevel <= 0 || currentLevel <= waitingTargetLevel) {
     return { success: false, message: 'errors.buildingLevelZero' }
   }
 
@@ -385,6 +404,15 @@ const tryExecuteDemolishWaitingItem = (
   const validation = buildingValidation.validateBuildingDemolish(planet, buildingType, officers)
   if (!validation.valid && validation.reason !== 'errors.buildQueueFull') {
     return { success: false, message: validation.reason }
+  }
+
+  // 检查同一建筑是否已在正式队列中（等待前一次拆除完成）
+  const existingInQueue = planet.buildQueue.find(
+    q => (q.type === 'building' || q.type === 'demolish') && q.itemType === buildingType
+  )
+  if (existingInQueue) {
+    // 同一建筑已在队列中，暂时不执行，等待完成后再处理
+    return { success: false, message: 'errors.buildingAlreadyInQueue' }
   }
 
   // 执行拆除
@@ -449,21 +477,38 @@ const tryExecuteResearchWaitingItem = (
 ): { success: boolean; queueItem?: BuildQueueItem; message?: string } => {
   const techType = item.itemType as TechnologyType
   const currentLevel = player.technologies[techType] || 0
-  const targetLevel = item.targetLevel || currentLevel + 1
+  const waitingTargetLevel = item.targetLevel || currentLevel + 1
 
   // 检查目标等级是否仍然正确
-  if (currentLevel >= targetLevel) {
+  if (currentLevel >= waitingTargetLevel) {
     return { success: false, message: 'errors.levelAlreadyReached' }
   }
 
+  // 实际执行的目标等级是当前等级+1
+  const actualTargetLevel = currentLevel + 1
+
   // 验证研究条件
+  // 跳过以下错误：
+  // - researchQueueFull: 我们已经在外层检查了
+  // - technologyAlreadyInQueue: 同一科技可能在队列中（等待前一级完成）
+  // - insufficientResources: 我们会在下面单独检查实际需要的资源
   const validation = researchValidation.validateTechnologyResearch(planet, techType, player.technologies, player.researchQueue)
-  if (!validation.valid && validation.reason !== 'errors.researchQueueFull') {
+  if (!validation.valid &&
+      validation.reason !== 'errors.researchQueueFull' &&
+      validation.reason !== 'errors.technologyAlreadyInQueue' &&
+      validation.reason !== 'errors.insufficientResources') {
     return { success: false, message: validation.reason }
   }
 
-  // 重新检查资源
-  const cost = researchLogic.calculateTechnologyCost(techType, targetLevel)
+  // 检查同一科技是否已在研究队列中（等待前一级完成）
+  const existingInQueue = player.researchQueue.find(q => q.itemType === techType)
+  if (existingInQueue) {
+    // 同一科技已在队列中，暂时不执行，等待完成后再处理
+    return { success: false, message: 'errors.technologyAlreadyInQueue' }
+  }
+
+  // 检查实际需要的资源（下一级的成本，不是等待队列项的目标等级）
+  const cost = researchLogic.calculateTechnologyCost(techType, actualTargetLevel)
   if (!resourceLogic.checkResourcesAvailable(planet.resources, cost)) {
     return { success: false, message: 'errors.insufficientResources' }
   }

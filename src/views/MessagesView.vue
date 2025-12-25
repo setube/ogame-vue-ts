@@ -143,13 +143,16 @@
         </Card>
       </TabsContent>
 
-      <!-- NPC相关消息（活动、礼物、被拒绝） -->
+      <!-- NPC相关消息（活动、礼物、被拒绝、贸易提议、情报、联合攻击邀请） -->
       <TabsContent value="npc" class="mt-4 space-y-2 pb-20">
         <Empty
           v-if="
             sortedNPCActivityNotifications.length === 0 &&
             sortedGiftNotifications.length === 0 &&
-            sortedGiftRejectedNotifications.length === 0
+            sortedGiftRejectedNotifications.length === 0 &&
+            sortedTradeOffers.length === 0 &&
+            sortedIntelReports.length === 0 &&
+            sortedJointAttackInvites.length === 0
           "
           class="border rounded-lg"
         >
@@ -158,6 +161,143 @@
             <EmptyDescription>{{ t('messagesView.noNPCActivity') }}</EmptyDescription>
           </EmptyContent>
         </Empty>
+
+        <!-- 贸易提议 -->
+        <Card
+          v-for="offer in sortedTradeOffers"
+          :key="offer.id"
+          @click="openTradeOfferDialog(offer)"
+          class="cursor-pointer hover:shadow-md transition-shadow"
+        >
+          <CardHeader class="pb-3">
+            <div class="flex justify-between items-center gap-2">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <ArrowLeftRight class="h-4 w-4 shrink-0 text-amber-500" />
+                <CardTitle class="text-base sm:text-lg">{{ t('npcBehavior.trade.title') }}</CardTitle>
+                <Badge variant="default" class="text-xs">{{ t('messagesView.pending') }}</Badge>
+                <Badge v-if="isOfferExpired(offer)" variant="destructive" class="text-xs">
+                  {{ t('npcBehavior.trade.expired') }}
+                </Badge>
+              </div>
+              <Button @click.stop="deleteTradeOffer(offer.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
+                <X class="h-4 w-4" />
+              </Button>
+            </div>
+            <CardDescription class="text-xs sm:text-sm">
+              {{ getNpcNameById(offer.npcId) }} · {{ formatDate(offer.timestamp) }}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="space-y-2 text-sm">
+              <div class="flex gap-4">
+                <div class="flex-1 flex items-center gap-1">
+                  <span class="text-green-600 dark:text-green-400">{{ t('npcBehavior.trade.offers') }}:</span>
+                  <template v-if="getResourceInfo(offer.offeredResources)">
+                    <ResourceIcon :type="getResourceInfo(offer.offeredResources)!.type" size="sm" />
+                    <NumberWithTooltip :value="getResourceInfo(offer.offeredResources)!.amount" />
+                  </template>
+                  <span v-else>-</span>
+                </div>
+                <div class="flex-1 flex items-center gap-1">
+                  <span class="text-red-600 dark:text-red-400">{{ t('npcBehavior.trade.requests') }}:</span>
+                  <template v-if="getResourceInfo(offer.requestedResources)">
+                    <ResourceIcon :type="getResourceInfo(offer.requestedResources)!.type" size="sm" />
+                    <NumberWithTooltip :value="getResourceInfo(offer.requestedResources)!.amount" />
+                  </template>
+                  <span v-else>-</span>
+                </div>
+              </div>
+              <div class="flex gap-2 mt-2">
+                <Button
+                  @click.stop="acceptTradeOffer(offer)"
+                  variant="default"
+                  size="sm"
+                  class="flex-1"
+                  :disabled="isOfferExpired(offer) || !canAcceptTrade(offer)"
+                >
+                  {{ t('npcBehavior.trade.accept') }}
+                </Button>
+                <Button @click.stop="declineTradeOffer(offer)" variant="outline" size="sm" class="flex-1">
+                  {{ t('npcBehavior.trade.decline') }}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- 情报报告 -->
+        <Card
+          v-for="intel in sortedIntelReports"
+          :key="intel.id"
+          @click="openIntelReportDialog(intel)"
+          class="cursor-pointer hover:shadow-md transition-shadow"
+        >
+          <CardHeader class="pb-3">
+            <div class="flex justify-between items-center gap-2">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <FileText class="h-4 w-4 shrink-0 text-blue-500" />
+                <CardTitle class="text-base sm:text-lg">{{ t('npcBehavior.intel.title') }}</CardTitle>
+                <Badge v-if="!intel.read" variant="default" class="text-xs">{{ t('messagesView.unread') }}</Badge>
+                <Badge variant="outline" class="text-xs">{{ t(`npcBehavior.intel.types.${intel.intelType}`) }}</Badge>
+              </div>
+              <Button @click.stop="deleteIntelReport(intel.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
+                <X class="h-4 w-4" />
+              </Button>
+            </div>
+            <CardDescription class="text-xs sm:text-sm">
+              {{ t('npcBehavior.intel.from') }}: {{ getNpcNameById(intel.fromNpcId) }} → {{ t('npcBehavior.intel.target') }}:
+              {{ getNpcNameById(intel.targetNpcId) }} ·
+              {{ formatDate(intel.timestamp) }}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
+        <!-- 联合攻击邀请 -->
+        <Card
+          v-for="invite in sortedJointAttackInvites"
+          :key="invite.id"
+          @click="openJointAttackDialog(invite)"
+          class="cursor-pointer hover:shadow-md transition-shadow"
+        >
+          <CardHeader class="pb-3">
+            <div class="flex justify-between items-center gap-2">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <Swords class="h-4 w-4 shrink-0 text-red-500" />
+                <CardTitle class="text-base sm:text-lg">{{ t('npcBehavior.jointAttack.title') }}</CardTitle>
+                <Badge variant="default" class="text-xs">{{ t('messagesView.pending') }}</Badge>
+                <Badge v-if="isInviteExpired(invite)" variant="destructive" class="text-xs">
+                  {{ t('npcBehavior.jointAttack.expired') }}
+                </Badge>
+              </div>
+              <Button @click.stop="deleteJointAttackInvite(invite.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
+                <X class="h-4 w-4" />
+              </Button>
+            </div>
+            <CardDescription class="text-xs sm:text-sm">
+              {{ getNpcNameById(invite.fromNpcId) }} → {{ getNpcNameById(invite.targetNpcId) }} ({{ invite.targetNpcName }}) ·
+              {{ formatDate(invite.timestamp) }}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="space-y-2 text-sm">
+              <div>{{ t('npcBehavior.jointAttack.lootShare') }}: {{ (invite.expectedLootRatio * 100).toFixed(0) }}%</div>
+              <div class="flex gap-2 mt-2">
+                <Button
+                  @click.stop="acceptJointAttack(invite)"
+                  variant="default"
+                  size="sm"
+                  class="flex-1"
+                  :disabled="isInviteExpired(invite)"
+                >
+                  {{ t('npcBehavior.jointAttack.accept') }}
+                </Button>
+                <Button @click.stop="declineJointAttack(invite)" variant="outline" size="sm" class="flex-1">
+                  {{ t('npcBehavior.jointAttack.decline') }}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <!-- NPC活动通知 -->
         <Card
@@ -364,8 +504,25 @@
   import SpiedNotificationDialog from '@/components/dialogs/SpiedNotificationDialog.vue'
   import MissionReportDialog from '@/components/dialogs/MissionReportDialog.vue'
   import NPCActivityDialog from '@/components/dialogs/NPCActivityDialog.vue'
+  import ResourceIcon from '@/components/common/ResourceIcon.vue'
+  import NumberWithTooltip from '@/components/common/NumberWithTooltip.vue'
   import { formatDate } from '@/utils/format'
-  import { X, Sword, Eye, AlertTriangle, Package, Recycle, Gift, Ban, Check, Users, Trash2 } from 'lucide-vue-next'
+  import {
+    X,
+    Sword,
+    Eye,
+    AlertTriangle,
+    Package,
+    Recycle,
+    Gift,
+    Ban,
+    Check,
+    Users,
+    Trash2,
+    ArrowLeftRight,
+    FileText,
+    Swords
+  } from 'lucide-vue-next'
   import { Empty, EmptyContent, EmptyDescription } from '@/components/ui/empty'
   import type {
     BattleResult,
@@ -374,7 +531,10 @@
     NPCActivityNotification,
     MissionReport,
     GiftNotification,
-    GiftRejectedNotification
+    GiftRejectedNotification,
+    TradeOffer,
+    IntelReport,
+    JointAttackInvite
   } from '@/types/game'
   import { MissionType } from '@/types/game'
   import { useNPCStore } from '@/stores/npcStore'
@@ -396,6 +556,9 @@
     | 'npcActivity'
     | 'giftNotifications'
     | 'giftRejected'
+    | 'tradeOffers'
+    | 'intelReports'
+    | 'jointAttackInvites'
   const clearOptions = ref<Record<ClearOptionKey, boolean>>({
     battles: false,
     spyReports: false,
@@ -403,7 +566,10 @@
     missionReports: false,
     npcActivity: false,
     giftNotifications: false,
-    giftRejected: false
+    giftRejected: false,
+    tradeOffers: false,
+    intelReports: false,
+    jointAttackInvites: false
   })
 
   // 清空消息选项配置
@@ -422,7 +588,18 @@
       labelKey: 'clearGiftNotifications',
       count: gameStore.player.giftNotifications?.length || 0
     },
-    { key: 'giftRejected' as ClearOptionKey, labelKey: 'clearGiftRejected', count: gameStore.player.giftRejectedNotifications?.length || 0 }
+    {
+      key: 'giftRejected' as ClearOptionKey,
+      labelKey: 'clearGiftRejected',
+      count: gameStore.player.giftRejectedNotifications?.length || 0
+    },
+    { key: 'tradeOffers' as ClearOptionKey, labelKey: 'clearTradeOffers', count: gameStore.player.tradeOffers?.length || 0 },
+    { key: 'intelReports' as ClearOptionKey, labelKey: 'clearIntelReports', count: gameStore.player.intelReports?.length || 0 },
+    {
+      key: 'jointAttackInvites' as ClearOptionKey,
+      labelKey: 'clearJointAttackInvites',
+      count: gameStore.player.jointAttackInvites?.length || 0
+    }
   ])
 
   // 基础资源字段配置（用于显示资源列表）
@@ -495,6 +672,15 @@
     if (clearOptions.value.giftRejected) {
       gameStore.player.giftRejectedNotifications = []
     }
+    if (clearOptions.value.tradeOffers) {
+      gameStore.player.tradeOffers = []
+    }
+    if (clearOptions.value.intelReports) {
+      gameStore.player.intelReports = []
+    }
+    if (clearOptions.value.jointAttackInvites) {
+      gameStore.player.jointAttackInvites = []
+    }
 
     // 重置选项
     clearOptions.value = {
@@ -504,7 +690,10 @@
       missionReports: false,
       npcActivity: false,
       giftNotifications: false,
-      giftRejected: false
+      giftRejected: false,
+      tradeOffers: false,
+      intelReports: false,
+      jointAttackInvites: false
     }
 
     // 关闭popover
@@ -608,12 +797,33 @@
     return allMissionReports.value.slice(start, end)
   })
 
-  // NPC标签页合并数据（活动通知 + 礼物通知 + 礼物被拒绝通知）
+  // 贸易提议数据
+  const allTradeOffers = computed(() => {
+    if (!gameStore.player.tradeOffers) return []
+    return [...gameStore.player.tradeOffers].sort((a, b) => b.timestamp - a.timestamp)
+  })
+
+  // 情报报告数据
+  const allIntelReports = computed(() => {
+    if (!gameStore.player.intelReports) return []
+    return [...gameStore.player.intelReports].sort((a, b) => b.timestamp - a.timestamp)
+  })
+
+  // 联合攻击邀请数据
+  const allJointAttackInvites = computed(() => {
+    if (!gameStore.player.jointAttackInvites) return []
+    return [...gameStore.player.jointAttackInvites].sort((a, b) => b.timestamp - a.timestamp)
+  })
+
+  // NPC标签页合并数据（活动通知 + 礼物通知 + 礼物被拒绝通知 + 贸易提议 + 情报报告 + 联合攻击邀请）
   const allNPCTabItems = computed(() => {
     const activities = allNPCActivityNotifications.value.map(item => ({ ...item, type: 'activity' as const }))
     const gifts = allGiftNotifications.value.map(item => ({ ...item, type: 'gift' as const }))
     const rejections = allGiftRejectedNotifications.value.map(item => ({ ...item, type: 'rejection' as const }))
-    return [...activities, ...gifts, ...rejections].sort((a, b) => b.timestamp - a.timestamp)
+    const trades = allTradeOffers.value.map(item => ({ ...item, type: 'trade' as const }))
+    const intels = allIntelReports.value.map(item => ({ ...item, type: 'intel' as const }))
+    const jointAttacks = allJointAttackInvites.value.map(item => ({ ...item, type: 'jointAttack' as const }))
+    return [...activities, ...gifts, ...rejections, ...trades, ...intels, ...jointAttacks].sort((a, b) => b.timestamp - a.timestamp)
   })
 
   const npcTabTotalPages = computed(() => Math.ceil(allNPCTabItems.value.length / ITEMS_PER_PAGE))
@@ -634,6 +844,18 @@
 
   const sortedGiftRejectedNotifications = computed(() => {
     return paginatedNPCTabItems.value.filter(item => item.type === 'rejection')
+  })
+
+  const sortedTradeOffers = computed(() => {
+    return paginatedNPCTabItems.value.filter(item => item.type === 'trade')
+  })
+
+  const sortedIntelReports = computed(() => {
+    return paginatedNPCTabItems.value.filter(item => item.type === 'intel')
+  })
+
+  const sortedJointAttackInvites = computed(() => {
+    return paginatedNPCTabItems.value.filter(item => item.type === 'jointAttack')
   })
 
   // 未读战斗报告数量
@@ -686,14 +908,38 @@
     return gameStore.player.giftRejectedNotifications.filter(n => !n.read).length
   })
 
+  // 待处理贸易提议数量（未过期）
+  const pendingTradeOffers = computed(() => {
+    const now = Date.now()
+    return (gameStore.player.tradeOffers || []).filter(o => o.expiresAt > now).length
+  })
+
+  // 未读情报报告数量
+  const unreadIntelReports = computed(() => {
+    return (gameStore.player.intelReports || []).filter(r => !r.read).length
+  })
+
+  // 待处理联合攻击邀请数量（未过期）
+  const pendingJointAttackInvites = computed(() => {
+    const now = Date.now()
+    return (gameStore.player.jointAttackInvites || []).filter(i => i.expiresAt > now).length
+  })
+
   // 合并：侦查相关未读总数（侦查报告 + 被侦查通知）
   const unreadSpyTotal = computed(() => {
     return unreadSpyReports.value + unreadSpiedNotifications.value
   })
 
-  // 合并：NPC相关未读总数（NPC活动 + 礼物通知 + 礼物被拒绝）
+  // 合并：NPC相关未读总数（NPC活动 + 礼物通知 + 礼物被拒绝 + 贸易提议 + 情报 + 联合攻击邀请）
   const unreadNPCTotal = computed(() => {
-    return unreadNPCActivity.value + unreadGiftNotifications.value + unreadGiftRejected.value
+    return (
+      unreadNPCActivity.value +
+      unreadGiftNotifications.value +
+      unreadGiftRejected.value +
+      pendingTradeOffers.value +
+      unreadIntelReports.value +
+      pendingJointAttackInvites.value
+    )
   })
 
   // 标签页配置
@@ -957,6 +1203,187 @@
     const index = gameStore.player.giftRejectedNotifications.findIndex(r => r.id === rejectionId)
     if (index > -1) {
       gameStore.player.giftRejectedNotifications.splice(index, 1)
+    }
+  }
+
+  // ========== 贸易提议相关 ==========
+
+  // 通过 NPC ID 获取名称
+  const getNpcNameById = (npcId: string): string => {
+    const npc = npcStore.npcs.find(n => n.id === npcId)
+    return npc?.name || npcId
+  }
+
+  // 检查贸易提议是否过期
+  const isOfferExpired = (offer: TradeOffer): boolean => {
+    const now = Date.now()
+    return offer.expiresAt <= now
+  }
+
+  // 检查联合攻击邀请是否过期
+  const isInviteExpired = (invite: JointAttackInvite): boolean => {
+    const now = Date.now()
+    return invite.expiresAt <= now
+  }
+
+  // 辅助函数：从资源对象中提取资源信息（兼容新旧格式）
+  // 用于模板显示和逻辑处理
+  const getResourceInfo = (resource: any): { type: 'metal' | 'crystal' | 'deuterium'; amount: number } | null => {
+    if (!resource) return null
+
+    // 新格式：{ type: 'metal', amount: 1000 }
+    if (resource.type && typeof resource.amount === 'number' && !isNaN(resource.amount)) {
+      return { type: resource.type, amount: resource.amount }
+    }
+
+    // 旧格式：{ metal: 1000, crystal: 0, deuterium: 0 }
+    if (typeof resource.metal === 'number' && resource.metal > 0) {
+      return { type: 'metal', amount: resource.metal }
+    }
+    if (typeof resource.crystal === 'number' && resource.crystal > 0) {
+      return { type: 'crystal', amount: resource.crystal }
+    }
+    if (typeof resource.deuterium === 'number' && resource.deuterium > 0) {
+      return { type: 'deuterium', amount: resource.deuterium }
+    }
+
+    return null
+  }
+
+  // 别名，供内部逻辑使用
+  const extractResourceInfo = getResourceInfo
+
+  // 检查是否可以接受贸易
+  const canAcceptTrade = (offer: TradeOffer): boolean => {
+    const planet = gameStore.player.planets[0]
+    if (!planet) return false
+
+    const requested = extractResourceInfo(offer.requestedResources)
+    if (!requested) return false
+
+    return planet.resources[requested.type] >= requested.amount
+  }
+
+  // 打开贸易提议详情对话框（目前直接操作，后续可添加对话框）
+  const openTradeOfferDialog = (_offer: TradeOffer) => {
+    // 目前贸易提议直接在卡片上操作，不需要单独的对话框
+  }
+
+  // 接受贸易提议
+  const acceptTradeOffer = (offer: TradeOffer) => {
+    if (isOfferExpired(offer)) {
+      toast.error(t('npcBehavior.trade.expired'))
+      return
+    }
+    if (!canAcceptTrade(offer)) {
+      toast.error(t('npcBehavior.trade.acceptFailed'))
+      return
+    }
+
+    const planet = gameStore.player.planets[0]
+    if (!planet) return
+
+    const requested = extractResourceInfo(offer.requestedResources)
+    const offered = extractResourceInfo(offer.offeredResources)
+
+    if (!requested || !offered) {
+      toast.error(t('npcBehavior.trade.acceptFailed'))
+      return
+    }
+
+    // 扣除请求的资源
+    planet.resources[requested.type] -= requested.amount
+
+    // 添加获得的资源
+    planet.resources[offered.type] += offered.amount
+
+    // 移除贸易提议
+    deleteTradeOffer(offer.id)
+
+    // 提高与该NPC的好感度（使用 npcStore）
+    const npcRelation = npcStore.npcs.find(n => n.id === offer.npcId)?.relations?.[gameStore.player.id]
+    if (npcRelation) {
+      npcRelation.reputation += 10
+    }
+
+    toast.success(t('npcBehavior.trade.acceptSuccess'))
+  }
+
+  // 拒绝贸易提议
+  const declineTradeOffer = (offer: TradeOffer) => {
+    deleteTradeOffer(offer.id)
+    toast.info(t('npcBehavior.trade.declined'))
+  }
+
+  // 删除贸易提议
+  const deleteTradeOffer = (offerId: string) => {
+    if (!gameStore.player.tradeOffers) return
+    const index = gameStore.player.tradeOffers.findIndex(o => o.id === offerId)
+    if (index > -1) {
+      gameStore.player.tradeOffers.splice(index, 1)
+    }
+  }
+
+  // ========== 情报报告相关 ==========
+
+  // 打开情报报告详情对话框
+  const openIntelReportDialog = (intel: IntelReport) => {
+    // 标记为已读
+    const originalIntel = gameStore.player.intelReports?.find(i => i.id === intel.id)
+    if (originalIntel && !originalIntel.read) {
+      originalIntel.read = true
+    }
+    // 目前情报报告直接显示在卡片上，后续可添加详情对话框
+  }
+
+  // 删除情报报告
+  const deleteIntelReport = (intelId: string) => {
+    if (!gameStore.player.intelReports) return
+    const index = gameStore.player.intelReports.findIndex(i => i.id === intelId)
+    if (index > -1) {
+      gameStore.player.intelReports.splice(index, 1)
+    }
+  }
+
+  // ========== 联合攻击邀请相关 ==========
+
+  // 打开联合攻击邀请详情对话框
+  const openJointAttackDialog = (_invite: JointAttackInvite) => {
+    // 目前联合攻击邀请直接在卡片上操作，后续可添加详情对话框
+  }
+
+  // 接受联合攻击邀请
+  const acceptJointAttack = (invite: JointAttackInvite) => {
+    if (isInviteExpired(invite)) {
+      toast.error(t('npcBehavior.jointAttack.expired'))
+      return
+    }
+
+    // 移除邀请
+    deleteJointAttackInvite(invite.id)
+
+    // 提高与该NPC的好感度（使用 npcStore）
+    const npcRelation = npcStore.npcs.find(n => n.id === invite.fromNpcId)?.relations?.[gameStore.player.id]
+    if (npcRelation) {
+      npcRelation.reputation += 15
+    }
+
+    toast.success(t('npcBehavior.jointAttack.acceptSuccess'))
+    // 后续可以添加实际的联合攻击逻辑
+  }
+
+  // 拒绝联合攻击邀请
+  const declineJointAttack = (invite: JointAttackInvite) => {
+    deleteJointAttackInvite(invite.id)
+    toast.info(t('npcBehavior.jointAttack.declined'))
+  }
+
+  // 删除联合攻击邀请
+  const deleteJointAttackInvite = (inviteId: string) => {
+    if (!gameStore.player.jointAttackInvites) return
+    const index = gameStore.player.jointAttackInvites.findIndex(i => i.id === inviteId)
+    if (index > -1) {
+      gameStore.player.jointAttackInvites.splice(index, 1)
     }
   }
 </script>

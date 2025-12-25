@@ -7,9 +7,9 @@
         <div
           class="w-2 h-2 rounded-full shrink-0"
           :class="{
-            'bg-green-500': status === RelationStatus.Friendly,
-            'bg-red-500': status === RelationStatus.Hostile,
-            'bg-gray-400': status === RelationStatus.Neutral
+            'bg-green-500 dark:bg-green-400': status === RelationStatus.Friendly,
+            'bg-red-500 dark:bg-red-400': status === RelationStatus.Hostile,
+            'bg-gray-400 dark:bg-gray-500': status === RelationStatus.Neutral
           }"
         />
 
@@ -37,8 +37,8 @@
         <!-- 好感度 -->
         <div class="flex items-center gap-2 shrink-0">
           <div class="w-16 h-1.5 bg-muted rounded-full overflow-hidden relative">
-            <div v-if="reputation < 0" class="h-full bg-red-500 absolute right-1/2" :style="{ width: `${Math.abs(reputation) / 2}%` }" />
-            <div v-if="reputation > 0" class="h-full bg-green-500 absolute left-1/2" :style="{ width: `${reputation / 2}%` }" />
+            <div v-if="reputation < 0" class="h-full bg-red-500 dark:bg-red-400 absolute right-1/2" :style="{ width: `${Math.abs(reputation) / 2}%` }" />
+            <div v-if="reputation > 0" class="h-full bg-green-500 dark:bg-green-400 absolute left-1/2" :style="{ width: `${reputation / 2}%` }" />
             <div class="absolute left-1/2 top-0 bottom-0 w-px bg-border" />
           </div>
           <span class="text-sm font-medium w-10 text-right" :class="reputationColor">{{ reputation > 0 ? '+' : '' }}{{ reputation }}</span>
@@ -72,9 +72,9 @@
           <div
             class="w-2 h-2 rounded-full shrink-0"
             :class="{
-              'bg-green-500': status === RelationStatus.Friendly,
-              'bg-red-500': status === RelationStatus.Hostile,
-              'bg-gray-400': status === RelationStatus.Neutral
+              'bg-green-500 dark:bg-green-400': status === RelationStatus.Friendly,
+              'bg-red-500 dark:bg-red-400': status === RelationStatus.Hostile,
+              'bg-gray-400 dark:bg-gray-500': status === RelationStatus.Neutral
             }"
           />
           <div class="flex-1 min-w-0 flex items-center gap-1 flex-wrap">

@@ -6,13 +6,10 @@
   Ein modernes Weltraum-Strategiespiel basierend auf dem klassischen OGame, entwickelt mit Vue 3 und TypeScript.
 
   [![GitHub Release](https://img.shields.io/github/v/release/setube/ogame-vue-ts?style=flat&logo=github&label=Release)](https://github.com/setube/ogame-vue-ts/releases/latest)
-  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-  [![Vue 3](https://img.shields.io/badge/Vue-3.5-brightgreen.svg)](https://vuejs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
-  [![Vite](https://img.shields.io/badge/Vite-7.2-646CFF.svg)](https://vitejs.dev/)
-  [![Go](https://img.shields.io/badge/Go-1.23-79D4FD.svg)](https://golang.org/)
+  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0)
+  [![Tap Tap](https://img.shields.io/badge/TapTap-OGame%20Vue%20Ts-18d6e0)](https://www.taptap.cn/app/801190)
 
-  [简体中文](README.md) | [English](README-EN.md) | [繁體中文](README-zh-TW.md) | Deutsch | [Русский](README-RU.md) | [한국어](README-KO.md)
+  [简体中文](README.md)| [繁體中文](README-zh-TW.md) | [English](README-EN.md)  | Deutsch | [Русский](README-RU.md) | [Español](README-ES.md) | [한국어](README-KO.md) | [日本語](README-JA.md)
 
 </div>
 
@@ -22,7 +19,6 @@ OGame Vue TS ist ein Einzelspieler-Weltraum-Strategiespiel im Browser, inspirier
 
 ## Hauptfunktionen
 
-- **Mehrsprachige Unterstützung** - Verfügbar in 6 Sprachen: Englisch, Chinesisch (vereinfacht & traditionell), Deutsch, Russisch und Koreanisch
 - **Gebäudeverwaltung** - Baue und verbessere verschiedene Gebäude auf Planeten und Monden
 - **Technologieforschung** - Schalte fortschrittliche Technologien frei, um dein Imperium zu stärken
 - **Flottenverwaltung** - Baue Schiffe, sende Missionen und nimm an taktischen Weltraumkämpfen teil
@@ -37,14 +33,14 @@ OGame Vue TS ist ein Einzelspieler-Weltraum-Strategiespiel im Browser, inspirier
 
 ## Technologie-Stack
 
-- **Frontend-Framework:** [Vue 3](https://vuejs.org/) + Composition API (`<script setup>` Syntax)
-- **Programmiersprache:** [TypeScript](https://www.typescriptlang.org/) (mit strikter Typprüfung)
-- **Build-Tool:** [Vite](https://vitejs.dev/) (Custom Rolldown-Vite 7.2.5), [Golang](https://golang.org/) (für plattformübergreifenden Webserver), [Electron](https://www.electronjs.org/) (für plattformübergreifende Desktop-Anwendung)
-- **Zustandsverwaltung:** [Pinia](https://pinia.vuejs.org/) + Persistenz-Plugin
-- **Routing:** [Vue Router 4](https://router.vuejs.org/)
-- **UI-Komponenten:** [shadcn-vue](https://www.shadcn-vue.com/) (New York Stil)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) + CSS-Variablen
-- **Icons:** [Lucide Vue Next](https://lucide.dev/)
+- **Frontend-Framework:** [Vue 3](https://vuejs.org) + Composition API (`<script setup>` Syntax)
+- **Programmiersprache:** [TypeScript](https://www.typescriptlang.org) (mit strikter Typprüfung)
+- **Build-Tool:** [Vite](https://vitejs.dev) (Custom Rolldown-Vite 7.2.5), [Golang](https://golang.org) (für plattformübergreifenden Webserver), [Electron](https://www.electronjs.org) (für plattformübergreifende Desktop-Anwendung)
+- **Zustandsverwaltung:** [Pinia](https://pinia.vuejs.org) + Persistenz-Plugin
+- **Routing:** [Vue Router 4](https://router.vuejs.org)
+- **UI-Komponenten:** [shadcn-vue](https://www.shadcn-vue.com) (New York Stil)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com) + CSS-Variablen
+- **Icons:** [Lucide Vue Next](https://lucide.dev)
 - **Animationen:** [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
 - **Internationalisierung:** Eigene i18n-Implementierung
 
@@ -52,9 +48,9 @@ OGame Vue TS ist ein Einzelspieler-Weltraum-Strategiespiel im Browser, inspirier
 
 ### Voraussetzungen
 
-- [Node.js](https://nodejs.org/) (Version 18 oder höher empfohlen)
-- [pnpm](https://pnpm.io/) (Version 10.13.1 oder höher)
-- [Go](https://golang.org/) (Version 1.21 oder höher) (optional)
+- [Node.js](https://nodejs.org) (Version 18 oder höher empfohlen)
+- [pnpm](https://pnpm.io) (Version 10.13.1 oder höher)
+- [Go](https://golang.org) (Version 1.21 oder höher) (optional)
 
 ### Installation
 
@@ -88,47 +84,6 @@ pnpm build
 pnpm preview
 ```
 
-## Verfügbare Sprachen
-
-- 简体中文 (Vereinfachtes Chinesisch)
-- 繁體中文 (Traditionelles Chinesisch)
-- English (Englisch)
-- Deutsch
-- Русский (Russisch)
-- 한국어 (Koreanisch)
-
-## Spielfunktionen
-
-### Ressourcenverwaltung
-- **Metall** - Primäres Baumaterial
-- **Kristall** - Fortschrittliche Technologiekomponente
-- **Deuterium** - Treibstoff und Forschungsressource
-- **Dunkle Materie** - Premium-Ressource
-- **Energie** - Versorgt deine Anlagen
-
-### Gebäudetypen
-- **Ressourcengebäude** - Metallmine, Kristallmine, Deuterium-Synthesizer, Solarkraftwerk
-- **Anlagen** - Roboterfabrik, Raumschiffwerft, Forschungslabor, Lagereinrichtungen
-- **Spezialgebäude** - Nanitenfabrik, Terraformer und mehr
-
-### Technologien
-- **Energietechnik** - Verbessert die Energieeffizienz
-- **Lasertechnik** - Verbessert Waffensysteme
-- **Ionentechnik** - Fortschrittlicher Antrieb und Waffen
-- **Hyperraumtechnik** - Ermöglicht schnelleres Reisen
-- **Plasmatechnik** - Ultimative Waffensysteme
-- Und vieles mehr...
-
-### Schiffsklassen
-- **Zivilschiffe** - Kleiner/Großer Transporter, Kolonieschiff, Recycler
-- **Kampfschiffe** - Leichter/Schwerer Jäger, Kreuzer, Schlachtschiff, Bomber
-- **Spezialschiffe** - Todesstern, Schlachtkreuzer, Zerstörer
-
-### Verteidigungssysteme
-- Raketenwerfer, Leichtes/Schweres Lasergeschütz, Gaußkanone
-- Ionengeschütz, Plasmawerfer
-- Kleine/Große Schildkuppel
-
 ## Datensicherheit
 
 Alle Spieldaten werden automatisch mit AES-Verschlüsselung verschlüsselt, bevor sie im lokalen Speicher des Browsers gespeichert werden. Dein Spielfortschritt ist sicher und privat.
@@ -143,7 +98,7 @@ Beiträge sind willkommen! Bitte zögere nicht, Issues oder Pull Requests einzur
 
 ## Lizenz
 
-Dieses Werk ist lizenziert unter der [Creative Commons Namensnennung-Nicht kommerziell 4.0 International Lizenz](https://creativecommons.org/licenses/by-nc/4.0/).
+Dieses Werk ist lizenziert unter der [Creative Commons Namensnennung-Nicht kommerziell 4.0 International Lizenz](https://creativecommons.org/licenses/by-nc/4.0).
 
 ### Du darfst:
 - **Teilen** — das Material in jedwedem Format oder Medium vervielfältigen und weiterverbreiten
@@ -155,7 +110,7 @@ Dieses Werk ist lizenziert unter der [Creative Commons Namensnennung-Nicht komme
 
 ## Danksagung
 
-Dieses Projekt wurde vom originalen [OGame](https://ogame.org/) Browserspiel inspiriert. Alle Spielmechaniken und Designelemente wurden zu Bildungs- und Unterhaltungszwecken neu implementiert.
+Dieses Projekt wurde vom originalen [OGame](https://ogame.org) Browserspiel inspiriert. Alle Spielmechaniken und Designelemente wurden zu Bildungs- und Unterhaltungszwecken neu implementiert.
 
 ## Haftungsausschluss
 

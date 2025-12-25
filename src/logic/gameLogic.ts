@@ -223,7 +223,7 @@ export const processGameUpdate = (
   if (onUnlock && player.technologies !== previousTechnologies) {
     const mainPlanet = player.planets.find(p => !p.isMoon)
     if (mainPlanet) {
-      // 注意：这里使用完成后的建筑状态，因为我们只关心科技完成带来的解锁
+      // 这里使用完成后的建筑状态，因为我们只关心科技完成带来的解锁
       const techUnlockedItems = unlockLogic.checkAllNewlyUnlocked(
         mainPlanet,
         player.technologies,

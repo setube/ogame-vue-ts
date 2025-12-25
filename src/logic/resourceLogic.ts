@@ -187,6 +187,12 @@ export const updatePlanetResources = (
 ): void => {
   const timeDiff = (now - planet.lastUpdate) / 1000 // 转换为秒
 
+  // 时间回拨保护：如果时间差为负或为零，跳过资源更新但重置时间戳
+  if (timeDiff <= 0) {
+    planet.lastUpdate = now
+    return
+  }
+
   // 应用游戏速度到时间差（游戏速度影响资源产出速率）
   const effectiveTimeDiff = timeDiff * gameSpeed
 
@@ -224,6 +230,12 @@ export const updatePlanetResources = (
     oreDepositLogic.consumeDeposit(planet.oreDeposits, 'metal', metalProduced)
     oreDepositLogic.consumeDeposit(planet.oreDeposits, 'crystal', crystalProduced)
     oreDepositLogic.consumeDeposit(planet.oreDeposits, 'deuterium', deuteriumProduced)
+
+    // 矿脉缓慢恢复（每次更新时恢复一小部分）
+    // 地质研究站等级影响恢复速度
+    const hoursElapsed = effectiveTimeDiff / 3600
+    const geoStationLevel = planet.buildings[BuildingType.GeoResearchStation] || 0
+    oreDepositLogic.regenerateDeposits(planet.oreDeposits, hoursElapsed, geoStationLevel)
   }
 
   // 更新资源（转换为每秒产量，应用游戏速度）

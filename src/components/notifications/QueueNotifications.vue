@@ -308,10 +308,10 @@ import * as resourceLogic from '@/logic/resourceLogic'
   const getStatusDotClass = (item: BuildQueueItem | WaitingQueueItem): string => {
     // 等待队列项根据资源是否足够显示不同颜色
     if (isWaitingItem(item)) {
-      return isWaitingItemResourcesReady(item) ? 'bg-green-500' : 'bg-yellow-500'
+      return isWaitingItemResourcesReady(item) ? 'bg-green-500 dark:bg-green-400' : 'bg-yellow-500 dark:bg-yellow-400'
     }
     if (item.type === 'demolish') return 'bg-destructive'
-    if (item.type === 'technology') return 'bg-blue-500'
-    return 'bg-green-500'
+    if (item.type === 'technology') return 'bg-blue-500 dark:bg-blue-400'
+    return 'bg-green-500 dark:bg-green-400'
   }
 </script>

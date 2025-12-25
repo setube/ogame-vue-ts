@@ -94,7 +94,7 @@
   // For slot content
   defineSlots()
 
-  function generateStars(count: number, starColor: string) {
+  const generateStars = (count: number, starColor: string) => {
     const shadows: string[] = []
     for (let i = 0; i < count; i++) {
       const x = Math.floor(Math.random() * 4000) - 2000
@@ -110,7 +110,7 @@
   const springX = useSpring(offsetX, props.transition)
   const springY = useSpring(offsetY, props.transition)
 
-  function handleMouseMove(e: MouseEvent) {
+  const handleMouseMove = (e: MouseEvent) => {
     const centerX = window.innerWidth / 2
     const centerY = window.innerHeight / 2
     const newOffsetX = -(e.clientX - centerX) * props.factor

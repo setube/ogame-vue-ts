@@ -11,29 +11,11 @@ export default {
   common: {
     confirm: '확인',
     cancel: '취소',
-    delete: '삭제',
-    edit: '편집',
     save: '저장',
     close: '닫기',
-    back: '돌아가기',
-    next: '다음',
-    gotIt: '',
-    previous: '이전',
-    submit: '제출',
-    reset: '초기화',
-    search: '검색',
-    filter: '필터',
-    loading: '로딩 중...',
-    noData: '데이터 없음',
-    error: '오류',
+    gotIt: '알겠습니다',
     success: '성공',
-    warning: '경고',
-    info: '정보',
     resourceType: '자원 유형',
-    playerName: '사령관',
-    timeHour: '시간',
-    timeMinute: '분',
-    timeSecond: '초',
     featureLocked: '기능 잠김',
     unlockRequired: '건물 필요',
     requiredBuilding: '필요한 건물',
@@ -41,7 +23,6 @@ export default {
     goToBuildings: '건물로 이동',
     locked: '잠김',
     viewRequirements: '요구사항 보기',
-    requirements: '요구사항',
     requirementsNotMet: '요구사항 미충족',
     current: '현재',
     level: '레벨',
@@ -51,7 +32,8 @@ export default {
     viewDetails: '상세 보기',
     exitConfirmTitle: '게임 종료',
     exitConfirmMessage: '게임을 종료하시겠습니까? 진행 상황은 자동으로 저장됩니다.',
-    points: '포인트'
+    points: '포인트',
+    retry: '재시도'
   },
   errors: {
     requirementsNotMet: '전제 조건 미충족',
@@ -88,13 +70,13 @@ export default {
     galaxy: '은하계',
     diplomacy: '외교',
     achievements: '업적',
+    campaign: '캠페인',
     ranking: '랭킹',
     messages: '메시지',
     settings: '설정',
     gm: 'GM'
   },
   sidebar: {
-    language: '언어',
     lightMode: '라이트 모드',
     darkMode: '다크 모드',
     collapse: '메뉴 접기',
@@ -119,9 +101,6 @@ export default {
   },
   energy: {
     lowWarning: '에너지 부족! 자원 생산 중단!',
-    severeWarning: '에너지 부족! 자원 생산 중단!',
-    criticalWarning: '에너지 부족! 자원 생산 중단!',
-    noProduction: '에너지 부족! 자원 생산 중단!',
     deficitDetail: '에너지 부족: {deficit}, 발전소를 더 건설하세요',
     buildSolarPlant: '발전소 건설'
   },
@@ -132,27 +111,20 @@ export default {
     lowResources: '곧 고갈: {resources}'
   },
   planet: {
-    planet: '행성',
     moon: '위성',
-    colony: '식민지',
     position: '위치',
-    coordinates: '좌표',
     switchToMoon: '위성 보기',
     backToPlanet: '모행성으로 돌아가기',
     switchPlanet: '행성 전환',
     currentPlanet: '현재 행성',
-    fields: '필드',
     temperature: '온도',
     homePlanet: '모행성',
     planetPrefix: '행성',
-    moonSuffix: '의 위성',
     colonyPrefix: '식민지',
     renamePlanet: '행성 이름 변경',
     renamePlanetTitle: '행성 이름 변경',
-    newPlanetName: '새 이름',
     planetNamePlaceholder: '새 행성 이름 입력',
-    rename: '이름 변경',
-    renameSuccess: '행성 이름이 {name}(으)로 변경되었습니다'
+    rename: '이름 변경'
   },
   player: {
     points: '총 점수'
@@ -179,13 +151,12 @@ export default {
     sensorPhalanx: '센서 팔랑크스',
     jumpGate: '점프 게이트',
     planetDestroyerFactory: '행성 파괴 공장',
+    geoResearchStation: '지질 연구소',
+    deepDrillingFacility: '심층 시추 시설',
     buildTime: '건설 시간',
-    build: '',
+    build: '건설',
     production: '생산량',
     consumption: '소비',
-    totalCost: '총 비용',
-    totalPoints: '총 점수',
-    levelRange: '레벨 범위',
     capacity: 'Capacity/Effect',
     storageCapacity: 'Capacity',
     energyProduction: 'Energy Production',
@@ -194,7 +165,6 @@ export default {
     buildQueueBonus: '건설 대기열',
     spaceBonus: '공간 보너스',
     buildSpeedBonus: '건설 속도 보너스',
-    researchSpeedBonus: '연구 속도 보너스',
     planetSpace: 'Planet Space',
     moonSpace: 'Moon Space',
     missileCapacity: 'Missile Capacity',
@@ -228,7 +198,9 @@ export default {
     lunarBase: '달 가용 공간 증가, 레벨당 +30 공간',
     sensorPhalanx: '주변 행성계의 함대 활동 감지',
     jumpGate: '다른 위성으로 함대 순간 이동',
-    planetDestroyerFactory: '행성을 파괴할 수 있는 궁극 병기 건조'
+    planetDestroyerFactory: '행성을 파괴할 수 있는 궁극 병기 건조',
+    geoResearchStation: '지질 구조를 연구하여 광맥 자연 회복 속도를 높입니다. 레벨당 회복 속도 50% 증가',
+    deepDrillingFacility: ''
   },
   ships: {
     lightFighter: '경전투기',
@@ -295,14 +267,16 @@ export default {
     totalCost: '총 비용',
     totalPoints: '총 점수',
     levelRange: '레벨 범위',
-    capacity: 'Capacity/Effect',
-    storageCapacity: 'Capacity',
-    energyProduction: 'Energy Production',
-    fleetStorage: 'Fleet Storage',
-    buildQueue: 'Build Queue',
-    planetSpace: 'Planet Space',
-    moonSpace: 'Moon Space',
-    missileCapacity: 'Missile Capacity'
+
+    attackBonus: '공격 보너스',
+    shieldBonus: '실드 보너스',
+    armorBonus: '장갑 보너스',
+    spyLevel: '정찰 레벨',
+    researchQueueBonus: '연구 대기열',
+    colonySlots: '식민지 슬롯',
+    forAllPlanets: '(전역)',
+    speedBonus: '속도 보너스',
+    researchSpeedBonus: '연구 속도 보너스'
   },
   technologies: {
     energyTechnology: '에너지 기술',
@@ -322,7 +296,8 @@ export default {
     hyperspaceDrive: '초공간 엔진',
     darkMatterTechnology: '암흑 물질 기술',
     terraformingTechnology: '지형 변환 기술',
-    planetDestructionTech: '행성 파괴 기술'
+    planetDestructionTech: '행성 파괴 기술',
+    miningTechnology: ''
   },
   technologyDescriptions: {
     energyTechnology: '에너지 이용 효율 향상',
@@ -343,7 +318,8 @@ export default {
     hyperspaceDrive: '고급 추진 기술',
     darkMatterTechnology: '암흑 물질의 성질과 응용 연구',
     terraformingTechnology: '행성 지형 개조 기술 연구, 레벨당 모든 행성의 가용 공간 30 증가',
-    planetDestructionTech: '행성 전체를 파괴하는 공포의 기술 연구'
+    planetDestructionTech: '행성 전체를 파괴하는 공포의 기술 연구',
+    miningTechnology: ''
   },
   officers: {
     commander: '사령관',
@@ -367,8 +343,9 @@ export default {
   queue: {
     title: '진행 중인 작업',
     empty: '활성 대기열 없음',
-    buildQueue: '건설 대기열',
-    researchQueue: '연구 대기열',
+    buildQueueBonus: '건설 대기열',
+    spaceBonus: '공간 보너스',
+    researchQueueBonus: '연구 대기열',
     building: '건설 중',
     researching: '연구 중',
     demolishing: '철거 중',
@@ -378,7 +355,7 @@ export default {
     cancelResearch: '연구 취소',
     confirmCancel: '취소하시겠습니까? 자원의 50%가 환불됩니다.',
     level: '레벨',
-    gmModeActivated: '',
+    quantity: '수량',
     upgradeToLevel: '레벨로 업그레이드',
     tabs: {
       all: '전체',
@@ -397,14 +374,9 @@ export default {
     movedToQueue: '작업이 대기열로 이동되었습니다'
   },
   overview: {
-    title: '행성 개요',
     resourceOverview: '자원 개요',
     fleetInfo: '함대',
     currentShips: '현재 행성의 함선 수',
-    productionSources: '생산 소스',
-    productionSourcesDesc: '상세 자원 생산 및 보너스 정보',
-    consumptionSources: '소비 소스',
-    consumptionSourcesDesc: '건물 에너지 소비 세부 정보',
     totalProduction: '총 생산량',
     totalConsumption: '총 소비량',
     noConsumption: '에너지 소비 없음',
@@ -414,13 +386,8 @@ export default {
   },
   buildingsView: {
     title: '건물',
-    usedSpace: '사용된 공간',
     spaceUsage: '공간 사용',
-    level: '레벨',
-    gmModeActivated: '',
     upgradeCost: '업그레이드 비용',
-    buildTime: '건설 시간',
-    build: '건설',
     upgrade: '업그레이드',
     maxLevelReached: '최대 레벨 도달',
     requirementsNotMet: '요구 사항 미충족',
@@ -430,8 +397,7 @@ export default {
     demolishRefund: '철거 환불',
     demolishFailed: '철거 실패',
     demolishFailedMessage: '이 건물을 철거할 수 없습니다. 건설 대기열이 가득 찼거나 건물 레벨이 0인지 확인하세요.',
-    confirmDemolish: '철거 확인',
-    confirmDemolishMessage: '다음 건물을 철거하시겠습니까?'
+    confirmDemolish: '철거 확인'
   },
   researchView: {
     title: '연구',
@@ -442,26 +408,13 @@ export default {
     researchFailedMessage: '자원이 충분한지, 전제 조건이 충족되었는지, 또는 다른 연구 작업이 있는지 확인하세요.'
   },
   shipyard: {
-    attack: '공격력',
-    missileAttack: '미사일 공격',
-    shield: '쉴드',
-    armor: '장갑',
     speed: '속도',
     cargoCapacity: '화물 용량',
-    fuelConsumption: '연료 소비',
-    buildCost: '건설 비용',
-    buildTime: '건설 시간',
-    build: '',
-    perUnit: '단위당',
-    batchCalculator: '일괄 계산기',
-    quantity: '수량',
-    totalCost: '총 비용',
-    totalTime: '총 시간'
+    fuelConsumption: '연료 소비'
   },
   shipyardView: {
     title: '조선소',
     fleetStorage: '함대 저장소',
-    owned: '보유',
     attack: '공격력',
     missileAttack: '미사일 공격',
     shield: '실드',
@@ -483,7 +436,7 @@ export default {
     armor: '장갑',
     buildCost: '건설 비용',
     buildTime: '건설 시간',
-    build: '',
+    build: '건설',
     perUnit: '단위당',
     batchCalculator: '일괄 계산기',
     quantity: '수량',
@@ -536,6 +489,7 @@ export default {
     missionInfo: '임무 정보',
     fuelConsumption: '연료 소비',
     flightTime: '비행 시간',
+    outOfRange: '사정거리 밖',
     attackMission: '공격',
     transport: '수송',
     colonize: '식민',
@@ -566,6 +520,7 @@ export default {
       }
     },
     recycle: '회수',
+    destroy: '행성 파괴',
     transportResources: '자원 수송',
     totalCargoCapacity: '총 적재량',
     used: '사용됨',
@@ -577,11 +532,12 @@ export default {
     arrivalTime: '도착 시간',
     returnTime: '귀환 시간',
     recallFleet: '함대 소환',
-    abortMission: '',
-    abortMissionTitle: '',
-    abortMissionWarning: '',
-    abortMissionSuccess: '',
-    abortMissionSuccessMessage: '',
+    abortMission: '임무 중단',
+    abortMissionTitle: '임무 중단 확인',
+    abortMissionWarning:
+      '경고: 이 임무를 중단하면 {ships}척의 함선과 {resources}의 자원이 영구적으로 손실됩니다!\n\n이 작업은 되돌릴 수 없으며 함대와 자원은 돌아오지 않습니다.',
+    abortMissionSuccess: '임무 중단됨',
+    abortMissionSuccessMessage: '임무가 중단되었으며, 함대와 자원이 손실되었습니다.',
     sendFailed: '파견 실패',
     sendFailedMessage: '함대 수, 연료 충분 여부 또는 적재량 한계를 확인하세요.',
     recallFailed: '소환 실패',
@@ -650,7 +606,6 @@ export default {
     benefitsBonus: '효과 보너스',
     resourceProduction: '자원 생산량',
     darkMatterProduction: '암흑 물질 생산량',
-    energyProduction: '에너지 생산량',
     buildingSpeed: '건설 속도',
     researchSpeed: '연구 속도',
     fleetSpeed: '함대 속도',
@@ -679,14 +634,11 @@ export default {
     selectGalaxy: '은하계 선택',
     system: '행성계',
     selectSystem: '행성계 선택',
-    view: '보기',
-    myPlanet: '내 행성',
     myPlanets: '내 행성계 보기',
     npcPlanets: 'NPC 행성들',
     selectPlanetToView: '행성을 선택하여 행성계 보기',
     totalPositions: '총 10개 행성 위치',
     mine: '내 것',
-    hostile: '적대',
     emptySlot: '빈 자리 - 식민 가능',
     scout: '정찰',
     attack: '공격',
@@ -709,10 +661,12 @@ export default {
     missileCount: '미사일 수량',
     availableMissiles: '사용 가능한 미사일',
     missileRange: '미사일 사정거리',
-    systems: '시스템',
+    systems: '성계',
     distance: '거리',
     flightTime: '비행 시간',
+    outOfRange: '사정거리 밖',
     launchMissile: '발사',
+    missileLaunched: '미사일이 발사되었습니다',
     cancel: '취소',
     colonizePlanetMessage: '위치 [{coordinates}]을(를) 식민하시겠습니까?\n\n함대 페이지로 이동하여 식민선을 파견하세요.',
     recyclePlanetMessage: '위치 [{coordinates}]의 잔해를 회수하시겠습니까?\n\n함대 페이지로 이동하여 회수선을 파견하세요.',
@@ -722,6 +676,20 @@ export default {
     giftPlanetMessage:
       '행성 [{coordinates}]에 자원을 선물로 보내시겠습니까?\n\n함대 페이지로 이동하여 수송선을 선택하고 자원을 적재하세요.',
     npcPlanetName: '{name}의 행성',
+    phalanxScan: '센서 스캔',
+    phalanxScanTitle: '센서 팔랑크스 스캔',
+    phalanxScanDescription: '행성 [{coordinates}]의 함대 활동 스캔',
+    phalanxNoMoon: '스캔하려면 센서 팔랑크스가 있는 위성이 필요합니다',
+    phalanxCost: '스캔 비용',
+    phalanxNoFleets: '함대 활동 감지되지 않음',
+    phalanxFleetDetected: '{count}개의 함대 감지됨',
+    phalanxOrigin: '출발지',
+    phalanxDestination: '목적지',
+    phalanxArrival: '도착 시간',
+    phalanxReturn: '귀환 시간',
+    phalanxStatusOutbound: '이동 중',
+    phalanxStatusReturning: '귀환 중',
+    phalanxInsufficientDeuterium: '중수소 부족',
     intercepted: '요격됨',
     defenseLosses: '방어 손실'
   },
@@ -730,12 +698,12 @@ export default {
     battles: '전투',
     spy: '정찰',
     npc: 'NPC',
-    diplomacy: '',
+    diplomacy: '외교',
     battleReports: '전투 보고서',
     spyReports: '정찰 보고서',
     noBattleReports: '전투 보고서 없음',
     noSpyReports: '정찰 보고서 없음',
-    noDiplomaticReports: '',
+    noDiplomaticReports: '외교 보고서 없음',
     battleReport: '전투 보고서',
     spyReport: '정찰 보고서',
     victory: '승리',
@@ -756,6 +724,8 @@ export default {
     defense: '방어',
     buildings: '건물',
     unread: '읽지 않음',
+    pending: '대기 중',
+    invalidData: '잘못된 데이터',
     targetPlanet: '목표 행성',
     attackerRemaining: '공격자 잔여',
     defenderRemaining: '방어자 잔여',
@@ -808,36 +778,36 @@ export default {
       polite_decline: '정중하게 거절했습니다'
     },
     // Spied notification dialog
-    spiedNotificationDetails: '',
-    spyDetected: '',
-    detectionResult: '',
-    detectionSuccess: '',
-    spiedNotificationMessage: '',
-    spiedNotificationTip: '',
-    viewInGalaxy: '',
+    spiedNotificationDetails: '정찰 알림 상세',
+    spyDetected: '스파이 탐지됨',
+    detectionResult: '탐지 결과',
+    detectionSuccess: '적의 스파이를 탐지했습니다!',
+    spiedNotificationMessage: '{npc}가 당신의 행성 {planet}을 정찰하려 했습니다',
+    spiedNotificationTip: '이 NPC가 적대적이라면 방어를 강화하거나 반격을 고려하세요',
+    viewInGalaxy: '은하에서 보기',
     // Mission report dialog
-    missionReportDetails: '',
-    missionSuccess: '',
-    missionFailed: '',
-    origin: '',
-    destination: '',
-    missionDetails: '',
-    transportedResources: '',
-    recycledResources: '',
-    remainingDebris: '',
-    newPlanet: '',
+    missionReportDetails: '임무 보고서 상세',
+    missionSuccess: '성공',
+    missionFailed: '실패',
+    origin: '출발지',
+    destination: '목적지',
+    missionDetails: '임무 상세',
+    transportedResources: '운송된 자원',
+    recycledResources: '재활용된 자원',
+    remainingDebris: '남은 잔해',
+    newPlanet: '새 행성',
     // NPC activity dialog
-    npcActivityDetails: '',
+    npcActivityDetails: 'NPC 활동 상세',
     activityType: {
-      recycle: ''
+      recycle: '잔해 재활용 중'
     },
-    activityLocation: '',
-    position: '',
-    nearPlanet: '',
-    activityDescription: '',
-    npcActivityMessage: '',
-    arrivalTime: '',
-    npcActivityTip: '',
+    activityLocation: '활동 위치',
+    position: '위치',
+    nearPlanet: '근처 행성',
+    activityDescription: '활동 설명',
+    npcActivityMessage: '{npc}가 {position}에서 {activity}',
+    arrivalTime: '도착 시간',
+    npcActivityTip: 'NPC가 전투 잔해를 수집할 수 있습니다. 자원을 경쟁하려면 먼저 현장에 도착하세요',
     clearMessages: '메시지 삭제',
     clearMessageTypes: '삭제할 메시지 유형 선택',
     clearBattleReports: '전투 보고서',
@@ -847,7 +817,11 @@ export default {
     clearNPCActivity: 'NPC 활동',
     clearGiftNotifications: '선물 알림',
     clearGiftRejected: '거절된 선물',
-    clearNow: '지금 삭제'
+    clearTradeOffers: '무역 제안',
+    clearIntelReports: '정보 보고서',
+    clearJointAttackInvites: '공동 공격 초대',
+    clearNow: '지금 삭제',
+    clearSuccess: '메시지가 삭제되었습니다'
   },
   missionReports: {
     transportSuccess: '수송 임무가 성공적으로 완료되었습니다',
@@ -955,7 +929,6 @@ export default {
     resume: '재개',
     gamePaused: '게임이 일시정지되었습니다',
     gameResumed: '게임이 재개되었습니다',
-    playerName: '플레이어 이름',
     gameSpeed: '자원 생산 속도',
     gameSpeedDesc: '현재 자원 생산 속도 배율',
     speedChanged: '자원 생산 속도가 {speed}x로 변경되었습니다',
@@ -963,22 +936,23 @@ export default {
     reset: '재설정',
     about: '정보',
     version: '버전',
-    latestVersion: '최신 버전',
     checkUpdate: '업데이트 확인',
     checking: '확인 중...',
     newVersionAvailable: '새 버전 {version} 사용 가능',
     upToDate: '이미 최신 버전입니다',
-    checkUpdateCooldown: '나중에 다시 시도해주세요 (5분 쿨다운)',
     checkUpdateFailed: '업데이트 확인 실패, 네트워크 연결을 확인하세요',
     viewUpdate: '업데이트 보기',
     updateAvailable: '새 버전이 사용 가능합니다. 릴리스 노트를 보려면 클릭하세요.',
     download: '다운로드',
-    goToDownload: '다운로드로 이동',
     buildDate: '빌드 날짜',
     community: '커뮤니티',
     github: 'GitHub 저장소',
     qqGroup: 'QQ 그룹',
     privacyPolicy: '개인정보처리방침',
+    displaySettings: '디스플레이 설정',
+    displaySettingsDesc: '게임 시각 효과 조정',
+    backgroundAnimation: '배경 애니메이션',
+    backgroundAnimationDesc: '별하늘/입자 배경 애니메이션 표시 (성능에 영향을 줄 수 있음)',
     notifications: '알림 설정',
     notificationsDesc: '게임 내 알림 관리',
     notificationTypes: '알림 유형',
@@ -996,13 +970,53 @@ export default {
     expandTypes: '세부 정보 펼치기',
     collapseTypes: '세부 정보 접기',
     // NPC 이름 업데이트
-    npcNameUpdate: 'NPC 이름 업데이트',
-    npcNameUpdateTitle: '이전 형식 NPC 이름 감지됨',
-    npcNameUpdateMessage: '{count}개의 NPC가 이전 형식의 이름을 사용 중입니다. 새로운 현지화된 이름으로 업데이트하시겠습니까?',
+    npcNameUpdateTitle: '이전 NPC 이름 감지됨',
+    npcNameUpdateMessage: '이전 이름 형식을 사용하는 {count}개의 NPC가 발견되었습니다. 새로운 현지화 이름으로 업데이트하시겠습니까?',
     npcNameUpdateConfirm: '이름 업데이트',
     npcNameUpdateCancel: '현재 유지',
-    npcNameUpdateSuccess: '{count}개의 NPC 이름이 업데이트되었습니다',
-    npcNameUpdateSkipped: 'NPC 이름 업데이트 건너뜀'
+    npcNameUpdateSuccess: '{count}개의 NPC 이름이 성공적으로 업데이트되었습니다',
+    npcNameUpdateSkipped: 'NPC 이름 업데이트 건너뜀',
+    // WebDAV
+    webdav: {
+      title: '클라우드 동기화',
+      desc: 'WebDAV를 통해 세이브 파일 동기화',
+      config: '설정',
+      configTitle: 'WebDAV 설정',
+      configDesc: '클라우드 동기화를 위한 WebDAV 서버 설정',
+      notConfigured: '먼저 WebDAV 서버를 설정하세요',
+      serverUrl: '서버 URL',
+      serverUrlPlaceholder: '예: https://dav.example.com',
+      serverUrlHint: 'WebDAV 서버 주소를 입력하세요',
+      username: '사용자 이름',
+      usernamePlaceholder: '사용자 이름 입력',
+      password: '비밀번호',
+      passwordPlaceholder: '비밀번호 입력',
+      passwordHint: '비밀번호는 로컬에만 저장됩니다',
+      basePath: '저장 경로',
+      basePathPlaceholder: '예: /ogame-saves/',
+      testConnection: '연결 테스트',
+      testing: '테스트 중...',
+      testSuccess: '연결 성공',
+      testFailed: '연결 실패',
+      save: '저장',
+      clearConfig: '지우기',
+      configSaved: '설정이 저장되었습니다',
+      configCleared: '설정이 삭제되었습니다',
+      upload: '업로드',
+      uploading: '업로드 중...',
+      uploadSuccess: '업로드 성공',
+      uploadFailed: '업로드 실패',
+      download: '다운로드',
+      downloadSuccess: '다운로드 성공',
+      downloadFailed: '다운로드 실패',
+      selectFile: '세이브 파일 선택',
+      selectFileDesc: '복원할 세이브 파일을 선택하세요',
+      noFiles: '세이브 파일을 찾을 수 없습니다',
+      loadFailed: '파일 목록 로드 실패',
+      confirmDelete: '"{name}"을(를) 삭제하시겠습니까?',
+      deleteSuccess: '파일이 삭제되었습니다',
+      deleteFailed: '삭제 실패'
+    }
   },
   notifications: {
     constructionComplete: '건설 완료',
@@ -1024,8 +1038,8 @@ export default {
     officers: '장교',
     modifyResources: '자원 수정',
     resourcesDesc: '행성 자원을 빠르게 수정',
-    maxAllResources: '',
-    maxAllResourcesSuccess: '',
+    maxAllResources: '모두 최대화',
+    maxAllResourcesSuccess: '모든 자원이 최대화되었습니다',
     modifyBuildings: '건물 수정',
     buildingsDesc: '건물 레벨을 빠르게 설정',
     modifyResearch: '연구 수정',
@@ -1066,10 +1080,11 @@ export default {
     dangerZoneDesc: '다음 작업은 되돌릴 수 없습니다',
     resetGame: '게임 초기화',
     resetGameConfirm: '게임을 초기화하시겠습니까? 모든 데이터가 삭제됩니다!',
-    completeAllQueues: '',
-    completeAllQueuesDesc: '',
-    completeQueues: '',
-    completeQueuesSuccess: ''
+    completeAllQueues: '모든 대기열 완료',
+    completeAllQueuesDesc: '모든 건설, 연구, 함선, 방어 대기열 및 함대 임무를 즉시 완료',
+    completeQueues: '대기열 완료',
+    completeQueuesSuccess:
+      '{buildingCount}개의 건설 대기열, {researchCount}개의 연구 대기열, {missionCount}개의 함대 임무, {missileCount}개의 미사일 공격을 완료했습니다'
   },
   alerts: {
     incomingFleets: '{count}개의 적 함대 접근 중',
@@ -1123,13 +1138,11 @@ export default {
     noFriendlyNpcs: '우호적인 NPC 없음',
     noNeutralNpcs: '중립적인 NPC 없음',
     noHostileNpcs: '적대적인 NPC 없음',
-    recentEvents: '최근 이벤트',
-    recentEventsDescription: '최근 외교 활동 로그',
     ago: '전',
-    notifications: '',
-    markAllRead: '',
-    noReports: '',
-    viewAll: '',
+    notifications: '외교 알림',
+    markAllRead: '모두 읽음으로 표시',
+    noReports: '외교 이벤트 없음',
+    viewAll: '모두 보기',
     status: {
       friendly: '우호적',
       neutral: '중립',
@@ -1148,7 +1161,6 @@ export default {
     },
     note: '메모',
     notePlaceholder: '메모 입력...',
-    noteEmpty: '메모 없음',
     lastEvent: '최근 이벤트',
     reportDetails: '외교 보고서 상세',
     eventDescription: '이벤트 설명',
@@ -1204,6 +1216,19 @@ export default {
       npcEliminatedMessage: '당신은 {npcName}의 모든 행성을 파괴했습니다! 이 세력은 완전히 소멸되었습니다.'
     },
     searchPlaceholder: 'NPC 이름 검색...',
+    notificationType: {
+      tradeOffer: '무역 제안',
+      intelReport: '정보 보고서',
+      jointAttack: '공동 공격 초대'
+    },
+    notificationBadge: {
+      trade: '무역',
+      intel: '정보',
+      jointAttack: '초대'
+    },
+    notificationExtra: {
+      pending: '대기 중'
+    },
     viewMode: {
       card: '카드',
       list: '목록'
@@ -1218,6 +1243,21 @@ export default {
         easy: '쉬움',
         medium: '보통',
         hard: '어려움'
+      },
+      aiType: 'AI 유형',
+      aiTypes: {
+        aggressive: '공격형',
+        defensive: '방어형',
+        trader: '상인형',
+        expansionist: '확장형',
+        balanced: '균형형'
+      },
+      aiTypeDescriptions: {
+        aggressive: '적극적으로 정찰하고 공격하며, 반격이 격렬함',
+        defensive: '거의 공격하지 않지만, 공격받으면 강력하게 반격함',
+        trader: '거의 공격하지 않으며, 무역과 선물을 선호함',
+        expansionist: '발전에 집중하며, 공격은 적음',
+        balanced: '상황에 따라 전략을 동적으로 조정함'
       },
       reputation: '평판',
       spyProbes: '정찰기 수',
@@ -1245,27 +1285,11 @@ export default {
         attackCooldown: '공격 쿨다운 중 ({min}분 {sec}초)',
         notSpiedYet: '아직 정찰하지 않음, 먼저 정찰 필요'
       }
-    },
-    aiType: 'AI 유형',
-    aiTypes: {
-      aggressive: '공격형',
-      defensive: '방어형',
-      trader: '상인형',
-      expansionist: '확장형',
-      balanced: '균형형'
-    },
-    aiTypeDescriptions: {
-      aggressive: '적극적으로 정찰 및 공격, 강한 보복',
-      defensive: '거의 공격하지 않음, 공격받으면 강하게 보복',
-      trader: '거의 공격하지 않음, 거래와 선물 선호',
-      expansionist: '발전에 집중, 공격성 낮음',
-      balanced: '상황에 따라 전략을 동적으로 조정'
     }
   },
   pagination: {
     previous: '이전',
     next: '다음',
-    gotIt: '',
     first: '처음',
     last: '마지막',
     page: '{page}페이지'
@@ -1329,30 +1353,144 @@ export default {
     seconds: '초'
   },
   tutorial: {
+    progress: '진행률',
+    previous: '이전',
+    next: '다음',
+    gotIt: '알겠습니다',
+    completeButton: '완료',
+    skip: '튜토리얼 건너뛰기',
     welcome: {
       title: 'OGame에 오신 것을 환영합니다',
-      content: '환영합니다, 사령관! 기초부터 시작하여 우주 제국을 건설해 봅시다.'
+      content: '환영합니다, 사령관! 이 튜토리얼은 제국 건설의 기초를 안내합니다. "다음"을 클릭하여 여정을 시작하세요.'
+    },
+    resources: {
+      title: '자원 개요',
+      content:
+        '이것은 당신의 자원입니다: 금속, 크리스탈, 중수소. 건물 건설과 기술 연구에 필수적입니다. 에너지도 중요하며, 인프라에 전력을 공급합니다.'
+    },
+    planet: {
+      title: '당신의 행성',
+      content: '이것은 당신의 모행성입니다. 여기서 행성 이름, 좌표를 확인하고, 제국이 확장되면 행성을 전환할 수 있습니다.'
+    },
+    navigation: {
+      title: '탐색 메뉴',
+      content: '이 메뉴를 사용하여 다양한 섹션을 탐색하세요: 건물, 연구, 함대, 은하계 등. 각 섹션은 고유한 게임 기능을 제공합니다.'
+    },
+    gotoBuildings: {
+      title: '건물 페이지로 이동',
+      content: '몇 가지 건물을 건설해 봅시다. "건물" 메뉴 항목을 클릭하여 사용 가능한 건물을 확인하세요.'
     },
     buildSolarPlant: {
       title: '태양광 발전소 건설',
       content:
-        '먼저 태양광 발전소를 건설하세요! 행성에 에너지를 공급합니다. 에너지가 없으면 다른 자원 건물이 작동할 수 없습니다. 가장 중요한 첫 단계입니다.'
+        '먼저 태양광 발전소를 건설하세요! 행성에 에너지를 제공합니다. 에너지가 없으면 다른 자원 건물이 작동할 수 없습니다. 가장 중요한 첫 단계입니다.'
     },
     waitBuild: {
       title: '건설 대기열',
       content:
-        '건물이 건설 대기열에 추가되었습니다. 오른쪽 상단의 대기열 아이콘을 클릭하면 진행 중인 모든 건설 및 연구 작업을 확인할 수 있습니다. 건설에는 시간이 걸리지만 대기하는 동안 계속 작업할 수 있습니다.'
+        '건물이 이제 건설 대기열에 있습니다. 오른쪽 상단의 대기열 아이콘을 클릭하여 진행 중인 모든 건설 및 연구 작업을 확인할 수 있습니다. 건설에는 시간이 걸리지만 대기하는 동안 계속 작업할 수 있습니다.'
+    },
+    buildMetalMine: {
+      title: '금속 광산 건설',
+      content:
+        '이제 에너지가 있으니 금속 광산을 건설할 수 있습니다. 금속 광산은 주요 금속 공급원이며, 금속은 거의 모든 건물과 함선에 사용됩니다.'
+    },
+    buildCrystalMine: {
+      title: '크리스탈 광산 건설',
+      content: '크리스탈은 더 희귀하지만 고급 기술에 필수적입니다. 크리스탈 광산을 건설하여 이 귀중한 자원을 수집하기 시작하세요.'
+    },
+    buildDeuterium: {
+      title: '중수소 합성기 건설',
+      content: '중수소는 함선 연료와 고급 연구에 필수적입니다. 중수소 합성기를 건설하여 이 핵심 자원을 생산하기 시작하세요.'
+    },
+    upgradeMines: {
+      title: '자원 광산 업그레이드',
+      content:
+        '다음으로, 로봇 공장 건설 요구 사항을 충족하기 위해 세 가지 자원 광산(금속, 크리스탈, 중수소)을 2레벨로 업그레이드해야 합니다. 자원이 충분하면 계속 업그레이드하세요.'
+    },
+    buildRobotics: {
+      title: '로봇 공장 건설',
+      content:
+        '로봇 공장은 건설 속도를 크게 높일 수 있습니다. 금속 광산, 크리스탈 광산, 중수소 합성기가 각각 2레벨이어야 합니다. 건설 효율을 높이기 위해 건설하세요!'
+    },
+    upgradeMinesForLab: {
+      title: '자원 광산 계속 업그레이드',
+      content:
+        '이제 연구 실험실 건설 요구 사항을 충족하기 위해 세 가지 자원 광산을 3레벨로 업그레이드해야 합니다. 자원 생산 능력을 계속 발전시키세요.'
+    },
+    buildResearchLab: {
+      title: '연구 실험실 건설',
+      content: '연구 실험실은 기술 발전의 기초입니다. 세 가지 자원 광산이 각각 3레벨이어야 합니다. 기술 연구를 해제하기 위해 건설하세요!'
+    },
+    gotoResearch: {
+      title: '연구 페이지로 이동',
+      content: '이제 연구 실험실이 있으니 "연구" 메뉴를 클릭하여 사용 가능한 기술을 확인하세요.'
+    },
+    researchEnergy: {
+      title: '에너지 기술 연구',
+      content: '에너지 기술은 에너지 생산을 높이고 고급 건물을 해제합니다. 가장 기본적이고 중요한 기술 중 하나입니다.'
+    },
+    shipyardIntro: {
+      title: '함대와 조선소',
+      content:
+        '함선을 통해 은하계를 탐험하고, 자원을 운송하고, 제국을 방어할 수 있습니다. 함선을 건조하려면 조선소(로봇 공장 2레벨 필요)가 필요합니다.'
+    },
+    gotoBuildingsForShipyard: {
+      title: '건물 페이지로 돌아가기',
+      content: '조선소를 건설하기 위해 건물 페이지로 돌아가세요.'
+    },
+    buildShipyard: {
+      title: '조선소 건설',
+      content: '조선소를 통해 함선과 방어 시스템을 건조할 수 있습니다. 함대 작전에 필수적입니다.'
+    },
+    fleetIntro: {
+      title: '함대 작전',
+      content: '함선을 보유하면 임무를 수행할 수 있습니다: 자원 운송, 행성 식민, 적 공격 또는 잔해장 탐험.'
+    },
+    galaxyIntro: {
+      title: '은하계 탐험',
+      content: '은하계 뷰는 다른 행성, 잔해장, 확장 기회를 보여줍니다. 목표를 정찰하고 전략을 계획하는 데 사용하세요.'
+    },
+    complete: {
+      title: '튜토리얼 완료!',
+      content:
+        '축하합니다, 사령관! 이제 기본 사항을 이해했습니다. 계속해서 제국을 건설하고, 기술을 연구하고, 은하계를 탐험하세요. 기억하세요: 먼저 에너지를 개발하고, 그다음 자원, 그다음 공장과 연구입니다! 행운을 빕니다!'
     },
     mobile: {
       welcome: {
         title: 'OGame에 오신 것을 환영합니다 (모바일)',
         content:
-          '환영합니다, 사령관! 터치스크린용으로 설계된 간소화된 튜토리얼입니다. 제국 건설을 시작할 수 있도록 핵심 기능을 빠르게 소개하겠습니다.'
+          '환영합니다, 사령관! 터치스크린을 위해 설계된 간소화된 튜토리얼입니다. 핵심 기능을 빠르게 소개하여 제국 건설을 시작하겠습니다.'
+      },
+      resources: {
+        title: '상단 자원 바',
+        content: '상단에 자원이 표시됩니다: 금속, 크리스탈, 중수소. 클릭하여 자세한 생산 정보를 확인하세요.'
+      },
+      menu: {
+        title: '탐색 메뉴 열기',
+        content: '이 메뉴 아이콘을 클릭하여 탐색 바를 열면 건물, 연구, 함대 등 모든 기능에 액세스할 수 있습니다.'
+      },
+      gotoBuildings: {
+        title: '건물 페이지로 이동',
+        content: '메뉴가 열렸습니다! 이제 "건물" 옵션을 클릭하여 인프라 건설을 시작하세요.'
+      },
+      buildSolarPlant: {
+        title: '태양광 발전소 건설',
+        content: '먼저 태양광 발전소를 건설하세요! 아래로 스크롤하여 찾아 카드를 클릭하여 건설하세요. 에너지는 모든 것의 기초입니다.'
       },
       waitBuild: {
         title: '건설 대기열',
         content:
-          '오른쪽 상단의 대기열 아이콘을 클릭하여 건설 진행 상황을 확인하세요. 다른 페이지를 계속 탐색할 수 있으며, 건설은 백그라운드에서 진행됩니다.'
+          '오른쪽 상단의 대기열 아이콘을 클릭하여 건설 진행 상황을 확인하세요. 다른 페이지를 계속 탐색할 수 있으며 건설은 백그라운드에서 진행됩니다.'
+      },
+      buildMetalMine: {
+        title: '금속 광산 건설',
+        content: '에너지가 있으면 금속 광산을 건설하세요. 아래로 스크롤하여 금속 광산을 찾아 건설을 클릭하세요.'
+      },
+      complete: {
+        title: '빠른 튜토리얼 완료!',
+        content:
+          '잘하셨습니다! 이제 기본 작업을 익혔습니다. 계속해서 크리스탈 광산과 중수소 합성기를 건설한 다음 다른 기능을 탐험하세요. 기억하세요: 먼저 에너지, 그다음 자원!'
       }
     }
   },
@@ -1409,10 +1547,20 @@ export default {
       title: '전투 시뮬레이터',
       message: '공격 전에 전투 결과를 시뮬레이션하세요. 양측 함대와 기술 레벨을 입력하여 승패와 손실을 예측.'
     },
+    campaign: {
+      title: '캠페인 모드',
+      message:
+        '은하계 스토리 캠페인을 탐험하세요! 미션을 완료하여 자원 보상을 획득하고 새로운 도전을 해제하세요. 각 노드에는 고유한 목표와 적이 있습니다.'
+    },
     achievements: {
       title: '업적 시스템',
       message:
         '게임 목표를 완료하여 업적을 해제하고 암흑 물질 보상을 획득하세요! 업적은 여러 등급이 있으며, 더 높은 도전으로 더 좋은 보상을 받으세요.'
+    },
+    ranking: {
+      title: '랭킹',
+      message:
+        '다른 플레이어 및 NPC와 진행도를 비교하세요. 건물, 연구, 함대, 방어 점수에 따른 순위를 확인하세요. 리더보드 상위권을 목표로 하세요!'
     },
     settings: {
       title: '설정',
@@ -1538,5 +1686,323 @@ export default {
     you: '나',
     scoreBreakdown: '점수 상세',
     noData: '랭킹 데이터 없음'
+  },
+  // NPC 강화 행동 알림
+  npcBehavior: {
+    tradeOfferReceived: '거래 제안 수신',
+    tradeOfferDesc: '{npcName}이(가) 거래 제안을 보냈습니다',
+    attitudeChanged: 'NPC 태도 변화',
+    becameFriendly: '{npcName}이(가) 당신에게 우호적으로 변했습니다',
+    becameHostile: '{npcName}이(가) 당신에게 적대적으로 변했습니다',
+    intelReceived: '정보 수신',
+    intelReceivedDesc: '{npcName}이(가) 적 정보를 공유했습니다',
+    jointAttackInvite: '공동 공격 초대',
+    jointAttackInviteDesc: '{npcName}이(가) 적에 대한 공동 공격에 초대합니다',
+    aidReceived: '지원 수신',
+    aidReceivedDesc: '{npcName}이(가) {amount} 자원을 보냈습니다',
+    allyDefense: '동맹 방어',
+    allyDefenseDesc: '{npcName}이(가) 당신의 행성 방어를 위해 함대를 보내고 있습니다',
+    trade: {
+      title: '거래 제안',
+      from: '발신자',
+      offers: '제공',
+      requests: '요청',
+      expiresIn: '만료까지',
+      expired: '만료됨',
+      accept: '수락',
+      decline: '거절',
+      noOffers: '거래 제안 없음',
+      acceptSuccess: '거래 완료!',
+      acceptFailed: '자원 부족으로 거래할 수 없습니다',
+      declined: '거래를 거절했습니다',
+      ratio: '교환 비율'
+    },
+    intel: {
+      title: '정보 보고서',
+      from: '정보원',
+      target: '대상 NPC',
+      type: '정보 유형',
+      types: {
+        enemyFleet: '함대 정보',
+        enemyResources: '자원 정보',
+        enemyMovement: '동향 정보'
+      },
+      fleetInfo: '함대 정보',
+      resourceInfo: '자원 정보',
+      movementInfo: '동향 정보',
+      noReports: '정보 보고서 없음',
+      markAsRead: '읽음으로 표시',
+      content: '정보 내용',
+      noFleet: '함대가 감지되지 않음',
+      noData: '데이터 없음',
+      targetPosition: '목표 좌표',
+      missionType: '임무 유형'
+    },
+    jointAttack: {
+      title: '공동 공격 초대',
+      from: '발기자',
+      target: '대상 NPC',
+      targetPlanet: '대상 행성',
+      npcFleet: 'NPC 함대',
+      lootShare: '전리품 분배',
+      expiresIn: '만료까지',
+      expired: '만료됨',
+      accept: '공격 참여',
+      decline: '거절',
+      noInvites: '공동 공격 초대 없음',
+      acceptSuccess: '공동 공격에 참여했습니다!',
+      declined: '초대를 거절했습니다',
+      targetInfo: '공격 대상',
+      expectedShare: '예상 분배',
+      remaining: '남은 시간'
+    },
+    aid: {
+      title: '자원 지원',
+      from: '발신자',
+      resources: '지원 자원',
+      noAid: '지원 기록 없음'
+    },
+    attitudeChange: {
+      title: '태도 변화',
+      npc: 'NPC',
+      previous: '이전',
+      current: '현재',
+      reason: '이유',
+      reasons: {
+        attitude_swing: '태도 변동',
+        gift: '선물 수령',
+        attack: '공격 받음'
+      }
+    },
+    allyAction: {
+      title: '동맹 행동',
+      defense: '방어 지원',
+      defenseDesc: '{npcName}이(가) {targetPlanet} 방어를 위해 함대 파견',
+      jointAttackStarted: '공동 공격 시작',
+      jointAttackStartedDesc: '{targetNpc}에 대한 공동 공격이 시작되었습니다',
+      reputationBonus: '평판 보너스',
+      reputationBonusDesc: '동맹 {npcName}이(가) {targetNpc}에게 당신을 좋게 말하고 있습니다'
+    }
+  },
+  campaign: {
+    name: '캠페인',
+    description: '신비로운 은하를 탐험하고 고대의 비밀을 밝혀내세요',
+    totalProgress: '총 진행률',
+    questsCompleted: '퀘스트 완료',
+    chapter: '챕터',
+    branch: '분기',
+    startQuest: '퀘스트 시작',
+    claimRewards: '보상 받기',
+    objectives: '목표',
+    rewards: '보상',
+    completed: '완료',
+    inProgress: '진행 중',
+    available: '수락 가능',
+    locked: '잠김',
+    notifications: {
+      questStarted: '퀘스트 시작',
+      questCompleted: '퀘스트 완료!',
+      rewardsClaimed: '보상을 받았습니다',
+      objectiveCompleted: '목표 달성',
+      chapterUnlocked: '새 챕터가 해금되었습니다',
+      reputationUp: '{npcName}와(과)의 평판이 {value} 상승했습니다',
+      reputationDown: '{npcName}와(과)의 평판이 {value} 하락했습니다',
+      branchUnlocked: '새로운 스토리 분기가 해금되었습니다!'
+    },
+    dialogue: {
+      skip: '건너뛰기',
+      continue: '계속',
+      finish: '완료',
+      player: '사령관',
+      npc: 'NPC',
+      narrator: '내레이터',
+      mysterious: '신비한 신호',
+      unknownSource: '알 수 없는 출처',
+      choiceEffect: '선택지 효과'
+    },
+    chapters: {
+      '1': {
+        title: '기원',
+        description: '고향을 건설하고 우주로 첫 발을 내딛으세요',
+        backgroundStory:
+          '당신은 첫 행성을 얻은 젊은 우주 사령관입니다. 이 광활한 우주에서 고향을 건설하고, 기술을 발전시키며, 은하의 깊은 곳을 탐험하게 됩니다...'
+      },
+      '2': {
+        title: '탐험',
+        description: '우주를 탐험하고 고대 유적을 발견하세요',
+        backgroundStory:
+          '세력이 커짐에 따라 심우주에서 오는 신비한 신호가 당신의 주의를 끕니다. 이 신호들은 고대의 비밀을 가리키며, 용감한 탐험가를 기다리고 있는 것 같습니다...'
+      },
+      '3': {
+        title: '외교',
+        description: '다른 세력과 관계를 구축하세요',
+        backgroundStory:
+          '은하에 당신만 있는 것은 아닙니다. 다른 문명들이 부상하고 있습니다. 그들의 적이 될지 동맹을 맺을지 결정해야 합니다. 외교적 지혜가 제국의 운명을 결정할 것입니다...'
+      },
+      '4': {
+        title: '그림자의 부상',
+        description: '강력한 적에 맞서고 영토를 방어하세요',
+        backgroundStory:
+          '그림자 속에 위험이 도사리고 있습니다. 강력한 적대 세력이 당신의 영토를 노리고 있습니다. 전쟁은 불가피합니다. 다가오는 폭풍에 대비해야 합니다...'
+      },
+      '5': {
+        title: '고대의 비밀',
+        description: '은하 깊은 곳의 비밀을 밝혀내세요',
+        backgroundStory:
+          '모든 단서가 은하에서 가장 신비로운 지역을 가리킵니다. 그곳에는 고대 문명이 남긴 궁극의 비밀이 잠들어 있습니다. 모든 것을 밝힐 준비가 되었습니까?'
+      }
+    },
+    quests: {
+      '1_1': { title: '고향 건설', description: '기반 시설을 구축하여 행성의 토대를 마련하세요' },
+      '1_2': { title: '기술 계몽', description: '기초 기술을 연구하여 기술 여정을 시작하세요' },
+      '1_3': { title: '첫 번째 함선', description: '첫 전함을 건조하세요' },
+      '1_4': { title: '낯선 이웃', description: '인근 시스템의 다른 세력을 정찰하세요' },
+      '1_5': { title: '첫 접촉', description: '인근 NPC 세력과 초기 접촉을 확립하세요' },
+      '2_1': { title: '개척 식민지', description: '첫 번째 새 행성을 식민지화하세요' },
+      '2_2': { title: '심우주 탐험', description: '함대를 탐험 임무에 보내세요' },
+      '2_3': { title: '신비한 신호', description: '심우주에서 오는 신비한 신호를 조사하세요' },
+      '2_4': { title: '유적 조사', description: '발견한 고대 유적을 탐험하세요' },
+      '2_5': { title: '아카이브 해독', description: '유적에서 얻은 데이터를 연구하세요' },
+      '3_1': { title: '평화의 사절', description: '외교로 NPC와의 관계를 개선하세요' },
+      '3_2': { title: '무역 관계', description: '우호 세력과 안정적인 관계를 구축하세요' },
+      '3_3': { title: '공통의 위협', description: '잠재적인 적대 세력을 발견하세요' },
+      '3_4': { title: '동맹 협상', description: '우호 NPC와 공식 동맹을 맺으세요' },
+      '3_5': { title: '폭풍 대비', description: '방어 시설을 건설하여 도전에 대비하세요' },
+      '4_1': { title: '전초 기지 공격', description: '적대 세력의 첫 공격을 격퇴하세요' },
+      '4_2': { title: '정보 수집', description: '적의 군사 배치를 정찰하세요' },
+      '4_3': { title: '반격', description: '적에게 반격을 시작하세요' },
+      '4_4': { title: '자원 쟁탈', description: '전장 잔해를 재활용하여 자원을 얻으세요' },
+      '4_5': { title: '결전 전야', description: '최종 전투를 위한 강력한 함대를 건조하세요' },
+      '5_1': { title: '유적의 깊은 곳', description: '유적의 가장 깊은 곳을 탐험하세요' },
+      '5_2': { title: '고대 기술', description: '고대 문명의 기술을 해금하세요' },
+      '5_3': { title: '최종 대결', description: '신비한 적과의 최종 전투에 임하세요' },
+      '5_4': { title: '새 시대', description: '새 식민지를 세우고 새 시대를 열으세요' },
+      '5_5': { title: '유산 계승', description: '계속 발전하고 더 많은 시스템을 정복하세요' }
+    },
+    objectiveTypes: {
+      buildBuilding: '{building}을(를) 레벨 {level}로 건설',
+      researchTech: '{tech}을(를) 레벨 {level}까지 연구',
+      produceShips: '{ship} {count}대 생산',
+      accumulateResources: '{resource}을(를) {amount} 축적',
+      defeatNPC: '{npc} 격파',
+      winBattles: '{count}회 전투 승리',
+      recycleDebris: '잔해 {amount} 재활용',
+      reachRelation: '{npc}와 {level} 관계 도달',
+      sendGift: '{npc}에게 {count}회 선물 보내기',
+      formAlliance: '{npc}와 동맹 체결',
+      colonize: '행성 {count}개 식민지화',
+      expedition: '탐험 {count}회 완료',
+      spyTarget: '{target} 정찰'
+    },
+    errors: {
+      questNotFound: '퀘스트를 찾을 수 없습니다',
+      questNotAvailable: '퀘스트를 이용할 수 없습니다',
+      questNotActive: '퀘스트가 활성화되지 않았습니다',
+      questNotCompleted: '퀘스트 미완료',
+      rewardsAlreadyClaimed: '이미 보상을 받았습니다',
+      prerequisiteNotMet: '선행 퀘스트 미완료'
+    },
+    speakers: {
+      ancientVoice: '고대의 목소리',
+      neighborNPC: '인접 세력',
+      mysteriousSignal: '신비한 신호',
+      enemyCommander: '적 사령관'
+    },
+    objectiveDescriptions: {
+      buildMetalMine: '금속 광산을 레벨 2로 건설',
+      buildCrystalMine: '크리스탈 광산을 레벨 2로 건설',
+      buildSolarPlant: '태양열 발전소를 레벨 2로 건설',
+      buildResearchLab: '연구소를 레벨 1로 건설',
+      researchEnergy: '에너지 기술을 레벨 1까지 연구',
+      buildShipyard: '조선소를 레벨 2로 건설',
+      researchCombustion: '연소 드라이브를 레벨 1까지 연구',
+      buildLightFighters: '경전투기 5대 건조',
+      researchEspionage: '스파이 기술을 레벨 2까지 연구',
+      buildSpyProbes: '스파이 탐사선 3대 건조',
+      spyAnyNPC: 'NPC 행성 정찰',
+      sendGiftToNPC: 'NPC에게 선물 보내기',
+      researchAstrophysics: '천체물리학을 레벨 1까지 연구',
+      buildColonyShip: '식민선 건조',
+      colonizeNewPlanet: '새 행성 식민지화',
+      completeExpedition: '탐험 임무 완료',
+      discoverRuins: '고대 유적 발견',
+      researchComputer: '컴퓨터 기술을 레벨 4까지 연구',
+      improveRelation: 'NPC와의 관계 개선',
+      reachFriendly: 'NPC와 우호 상태 도달',
+      spyHostileNPC: '적대 NPC 정찰',
+      formAlliance: '우호 NPC와 동맹 체결',
+      buildDefenses: '방어 시설 건설',
+      winDefenseBattle: '방어전 승리',
+      spyEnemyPlanet: '적 행성 정찰',
+      attackEnemy: '적 공격',
+      recycleDebris: '잔해 재활용',
+      buildBattleships: '전함 10대 건조',
+      exploreDeepRuins: '깊은 유적 탐험',
+      researchHyperspace: '하이퍼스페이스 기술 연구',
+      defeatBoss: '신비한 적 격파',
+      colonizeSpecial: '특별한 장소 식민지화',
+      continueDevelopment: '개발 계속'
+    },
+    dialogues: {
+      '1_1': {
+        prologue_1:
+          '은하에 오신 것을 환영합니다, 젊은 사령관. 이 광활한 우주가 당신의 탐험을 기다리고 있습니다. 먼저 고향 행성을 건설합시다.',
+        prologue_2: '새로운 의식이 깨어나는 것을 느낀다... 흥미롭군... 어디까지 갈 수 있는지 보자...'
+      },
+      '1_2': { prologue_1: '기본 인프라가 완성되었습니다. 이제 기술을 발전시킬 시간입니다. 연구소를 건설하고 기술 여정을 시작하세요.' },
+      '1_3': { prologue_1: '기술 지원으로 함대 건조가 가능해졌습니다. 조선소를 건설하고 첫 전함을 생산하세요.' },
+      '1_4': {
+        prologue_1: '함대가 형태를 갖추고 있습니다. 주변 상황을 파악합시다. 스파이 탐사선을 보내 인근 세력을 정찰하세요.',
+        prologue_2: '당신은 혼자가 아니다... 이 은하에는 다른 문명이 존재한다...'
+      },
+      '1_5': {
+        prologue_1: '인근 세력을 발견했습니다. 외교는 예술입니다. 그들과의 접촉을 시도하세요.',
+        epilogue_1: '선물에 감사합니다, 사령관. 친구가 될 수 있기를 바랍니다.',
+        epilogue_2: '좋아... 연결을 구축하는 것은 더 깊은 비밀을 밝히는 첫 단계다...'
+      },
+      '2_1': {
+        prologue_1: '세력이 확립되었습니다. 영토를 확장할 시간입니다. 천체물리학을 연구하고, 식민선을 건조하여 새 행성을 탐험하세요.',
+        prologue_2: '우주는 무한하다... 더 많은 행성은 더 많은 가능성을 의미한다...'
+      },
+      '2_2': {
+        prologue_1: '식민지화 성공! 하지만 우주에는 더 깊은 비밀이 기다리고 있습니다. 함대를 탐험 임무에 보내세요.',
+        prologue_2: '저 멀리서 희미한 신호가... 무언가 그곳에서 당신을 기다리고 있다...'
+      },
+      '2_3': {
+        prologue_1: '탐험에서 이상한 신호를 발견했습니다. 이 신호들은 고대 문명에서 온 것 같습니다... 출처를 조사하세요.',
+        epilogue_1: '이 기호들은... 고대 문명의 유적이다! 계속 조사하여 비밀을 밝히세요.'
+      },
+      '2_4': { prologue_1: '고대 유적의 위치를 발견했습니다. 함대를 보내 무엇을 발견할 수 있는지 탐험하세요.' },
+      '2_5': { prologue_1: '유적에서 데이터 아카이브가 발견되었습니다. 이 데이터를 연구하면 새 기술을 해금할 수 있을지도 모릅니다.' },
+      '3_1': { prologue_1: '탐험 중에도 외교를 잊지 마세요. 주변 세력과 좋은 관계를 유지하는 것이 유익합니다.' },
+      '3_2': { prologue_1: '일부 세력이 우호를 보이고 있습니다. 관계를 계속 깊게 하면 더 많은 지원을 받을 수 있을지도 모릅니다.' },
+      '3_3': {
+        prologue_1: '정보에 따르면 적대 세력이 그림자에서 당신을 감시하고 있습니다. 경계를 늦추지 말고 그들의 움직임을 정찰하세요.'
+      },
+      '3_4': { prologue_1: '우호 세력과 공식 동맹을 맺어 위협에 대해 서로를 지원하세요.' },
+      '3_5': { prologue_1: '위협이 다가오고 있습니다. 방어 시설을 건설하고 가능한 충돌에 대비하세요.' },
+      '4_1': {
+        prologue_1: '적이 공격을 시작했습니다! 행성을 방어하세요!',
+        epilogue_1: '적의 첫 번째 파도를 성공적으로 격퇴했습니다. 하지만 이것은 시작에 불과합니다...'
+      },
+      '4_2': { prologue_1: '적이 후퇴했지만 돌아올 것입니다. 그들의 행성을 정찰하여 전력을 파악하세요.' },
+      '4_3': { prologue_1: '반격할 시간입니다. 적 행성을 공격하여 그들의 전력을 약화시키세요.' },
+      '4_4': { prologue_1: '전장에 많은 잔해가 남아 있습니다. 이 자원을 재활용하여 다음 전투에 대비하세요.' },
+      '4_5': { prologue_1: '최종 전투가 다가오고 있습니다. 강력한 함대를 건조하고 궁극의 도전에 대비하세요.' },
+      '5_1': {
+        prologue_1: '모든 단서가 유적의 가장 깊은 곳을 가리킵니다. 고대 문명의 핵심 비밀이 그곳에 있습니다.',
+        prologue_2: '드디어 도착했다... 진실이 곧 밝혀질 것이다...'
+      },
+      '5_2': { prologue_1: '유적 깊은 곳에서 잃어버린 고대 기술을 발견했습니다. 연구하여 그 힘을 해방하세요.' },
+      '5_3': {
+        prologue_1: '신비한 적이 나타났습니다. 이것이 마지막 도전입니다. 격파하세요!',
+        epilogue_1: '해냈습니다! 고대의 수호자가 쓰러졌습니다. 은하의 비밀이 이제 당신에게 열려 있습니다.'
+      },
+      '5_4': { prologue_1: '마침내 평화가 찾아왔습니다. 이 새 시대에 새 식민지를 세우고 제국을 확장하세요.' },
+      '5_5': {
+        prologue_1: '당신의 전설은 이제 막 시작되었습니다. 계속 탐험하고 더 많은 성계를 정복하세요!',
+        epilogue_1: '은하는 광대하고 끝이 없으며, 셀 수 없는 비밀이 당신을 기다리고 있습니다...'
+      }
+    }
   }
 }

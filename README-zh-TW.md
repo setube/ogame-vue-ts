@@ -6,13 +6,10 @@
   一個基於 Vue 3 和 TypeScript 構建的現代化 OGame 太空策略遊戲。
 
   [![GitHub Release](https://img.shields.io/github/v/release/setube/ogame-vue-ts?style=flat&logo=github&label=Release)](https://github.com/setube/ogame-vue-ts/releases/latest)
-  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-  [![Vue 3](https://img.shields.io/badge/Vue-3.5-brightgreen.svg)](https://vuejs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
-  [![Vite](https://img.shields.io/badge/Vite-7.2-646CFF.svg)](https://vitejs.dev/)
-  [![Go](https://img.shields.io/badge/Go-1.23-79D4FD.svg)](https://golang.org/)
+  [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0)
+  [![Tap Tap](https://img.shields.io/badge/TapTap-OGame%20Vue%20Ts-18d6e0)](https://www.taptap.cn/app/801190)
   
-  [简体中文](README.md) | [English](README-EN.md) | 繁體中文 | [Deutsch](README-DE.md) | [Русский](README-RU.md) | [한국어](README-KO.md)
+  [简体中文](README.md) | 繁體中文 | [English](README-EN.md) | [Deutsch](README-DE.md) | [Русский](README-RU.md) | [Español](README-ES.md) | [한국어](README-KO.md) | [日本語](README-JA.md)
 
 </div>
 
@@ -22,7 +19,6 @@ OGame Vue TS 是一款受經典 OGame 遊戲啟發的單機版、基於瀏覽器
 
 ## 核心特性
 
-- **多語言支援** - 支援 6 種語言：英語、簡體中文、繁體中文、德語、俄語和韓語
 - **建築管理** - 在行星和月球上建造和升級各種建築
 - **科技研究** - 解鎖先進科技來增強你的帝國
 - **艦隊管理** - 建造艦船、派遣任務、參與戰術太空戰鬥
@@ -37,14 +33,14 @@ OGame Vue TS 是一款受經典 OGame 遊戲啟發的單機版、基於瀏覽器
 
 ## 技術棧
 
-- **前端框架:** [Vue 3](https://vuejs.org/) + Composition API (`<script setup>` 語法)
-- **開發語言:** [TypeScript](https://www.typescriptlang.org/) (啟用嚴格類型檢查)
-- **構建工具:** [Vite](https://vitejs.dev/) (自定義 Rolldown-Vite 7.2.5)、[Golang](https://golang.org/)(構建跨平台的Web服務端)、[Electron](https://www.electronjs.org/)(構建跨平台可視化介面)
-- **狀態管理:** [Pinia](https://pinia.vuejs.org/) + 持久化插件
-- **路由管理:** [Vue Router 4](https://router.vuejs.org/)
-- **UI 組件:** [shadcn-vue](https://www.shadcn-vue.com/) (New York 風格)
-- **樣式方案:** [Tailwind CSS v4](https://tailwindcss.com/) + CSS 變數
-- **圖標庫:** [Lucide Vue Next](https://lucide.dev/)
+- **前端框架:** [Vue 3](https://vuejs.org) + Composition API (`<script setup>` 語法)
+- **開發語言:** [TypeScript](https://www.typescriptlang.org) (啟用嚴格類型檢查)
+- **構建工具:** [Vite](https://vitejs.dev) (自定義 Rolldown-Vite 7.2.5)、[Golang](https://golang.org)(構建跨平台的Web服務端)、[Electron](https://www.electronjs.org)(構建跨平台可視化介面)
+- **狀態管理:** [Pinia](https://pinia.vuejs.org) + 持久化插件
+- **路由管理:** [Vue Router 4](https://router.vuejs.org)
+- **UI 組件:** [shadcn-vue](https://www.shadcn-vue.com) (New York 風格)
+- **樣式方案:** [Tailwind CSS v4](https://tailwindcss.com) + CSS 變數
+- **圖標庫:** [Lucide Vue Next](https://lucide.dev)
 - **動畫效果:** [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
 - **國際化:** 自定義 i18n 實現
 
@@ -52,9 +48,9 @@ OGame Vue TS 是一款受經典 OGame 遊戲啟發的單機版、基於瀏覽器
 
 ### 環境要求
 
-- [Node.js](https://nodejs.org/) (推薦 18 或更高版本)
-- [pnpm](https://pnpm.io/) (版本 10.13.1 或更高)
-- [Go](https://golang.org/) (版本 1.21 或更高版本)(可選)
+- [Node.js](https://nodejs.org) (推薦 18 或更高版本)
+- [pnpm](https://pnpm.io) (版本 10.13.1 或更高)
+- [Go](https://golang.org) (版本 1.21 或更高版本)(可選)
 
 ### 安裝
 
@@ -88,47 +84,6 @@ pnpm build
 pnpm preview
 ```
 
-## 支援的語言
-
-- 简体中文
-- 繁體中文
-- English (英語)
-- Deutsch (德語)
-- Русский (俄語)
-- 한국어 (韓語)
-
-## 遊戲特性
-
-### 資源管理
-- **金屬** - 主要建築材料
-- **晶體** - 高級科技組件
-- **重氫** - 燃料和研究資源
-- **暗物質** - 高級資源
-- **能量** - 為設施供電
-
-### 建築類型
-- **資源建築** - 金屬礦、晶體礦、重氫合成器、太陽能發電廠
-- **設施建築** - 機器人工廠、船塢、研究實驗室、倉儲設施
-- **特殊建築** - 納米機器人工廠、行星改造器等
-
-### 科技系統
-- **能量技術** - 提高能量效率
-- **激光技術** - 增強武器系統
-- **離子技術** - 高級推進和武器
-- **超空間技術** - 實現更快的旅行
-- **等離子技術** - 終極武器系統
-- 還有更多...
-
-### 艦船類別
-- **民用艦船** - 小型/大型貨船、殖民船、回收船
-- **戰鬥艦船** - 輕型/重型戰鬥機、巡洋艦、戰列艦、轟炸機
-- **特殊艦船** - 死星、戰列巡洋艦、毀滅者
-
-### 防禦系統
-- 火箭發射器、輕型/重型激光炮、高斯炮
-- 離子炮、等離子炮塔
-- 小型/大型防護罩
-
 ## 數據安全
 
 所有遊戲數據在儲存到瀏覽器的本地存儲之前都會使用 AES 加密自動加密。您的遊戲進度是安全且私密的。
@@ -143,7 +98,7 @@ pnpm preview
 
 ## 許可證
 
-本作品採用 [創用CC 姓名標示-非商業性 4.0 國際 授權條款](https://creativecommons.org/licenses/by-nc/4.0/) 授權。
+本作品採用 [創用CC 姓名標示-非商業性 4.0 國際 授權條款](https://creativecommons.org/licenses/by-nc/4.0) 授權。
 
 ### 您可以自由地：
 - **分享** — 以任何媒介或格式重製及散布本素材
@@ -155,7 +110,7 @@ pnpm preview
 
 ## 致謝
 
-本專案受原版 [OGame](https://ogame.org/) 瀏覽器遊戲啟發。所有遊戲機制和設計元素都是為了教育和娛樂目的而重新實現的。
+本專案受原版 [OGame](https://ogame.org) 瀏覽器遊戲啟發。所有遊戲機制和設計元素都是為了教育和娛樂目的而重新實現的。
 
 ## 免責聲明
 

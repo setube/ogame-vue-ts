@@ -55,8 +55,8 @@
                 class="transition-all duration-300"
               />
               <!-- 流动动画点（激活状态） -->
-              <circle v-if="connection.isActive" r="3" :fill="'hsl(var(--primary))'" class="animate-flow">
-                <animateMotion :dur="'2s'" repeatCount="indefinite" :path="connection.path" />
+              <circle v-if="connection.isActive" r="3" fill="#CDD1D7" class="animate-flow">
+                <animateMotion dur="2s" repeatCount="indefinite" :path="connection.path" />
               </circle>
             </template>
           </g>
@@ -87,7 +87,7 @@
     <!-- 图例 -->
     <div class="absolute top-4 left-4 flex flex-wrap gap-3 text-xs">
       <div class="flex items-center gap-1">
-        <div class="w-3 h-3 rounded-full bg-green-500" />
+        <div class="w-3 h-3 rounded-full bg-green-500 dark:bg-green-400" />
         <span class="text-muted-foreground">{{ t('campaign.completed') }}</span>
       </div>
       <div class="flex items-center gap-1">
@@ -95,7 +95,7 @@
         <span class="text-muted-foreground">{{ t('campaign.inProgress') }}</span>
       </div>
       <div class="flex items-center gap-1">
-        <div class="w-3 h-3 rounded-full bg-blue-400 animate-pulse" />
+        <div class="w-3 h-3 rounded-full bg-blue-400 dark:bg-blue-300 animate-pulse" />
         <span class="text-muted-foreground">{{ t('campaign.available') }}</span>
       </div>
       <div class="flex items-center gap-1">

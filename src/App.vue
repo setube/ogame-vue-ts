@@ -604,7 +604,7 @@
   const showUpdateDialog = ref(false)
   const updateInfo = ref<VersionInfo | null>(null)
   // 所有可用的语言选项
-  const locales: Locale[] = ['zh-CN', 'zh-TW', 'en', 'de', 'ru', 'ko', 'ja']
+  const locales: Locale[] = ['zh-CN', 'zh-TW', 'en', 'de', 'ru', 'es-LA', 'ko', 'ja']
   // 侧边栏状态（不持久化，根据屏幕尺寸初始化）
   // PC端（≥1024px）默认打开，移动端默认关闭
   const sidebarOpen = ref(window.innerWidth >= 1024)
@@ -714,7 +714,21 @@
     const unreadNPCActivity = gameStore.player.npcActivityNotifications?.filter(n => !n.read).length || 0
     const unreadGifts = gameStore.player.giftNotifications?.filter(n => !n.read).length || 0
     const unreadGiftRejected = gameStore.player.giftRejectedNotifications?.filter(n => !n.read).length || 0
-    return unreadBattles + unreadSpies + unreadSpied + unreadMissions + unreadNPCActivity + unreadGifts + unreadGiftRejected
+    const unreadTradeOffers = gameStore.player.tradeOffers?.filter(o => !o.read).length || 0
+    const unreadIntelReports = gameStore.player.intelReports?.filter(r => !r.read).length || 0
+    const unreadJointAttacks = gameStore.player.jointAttackInvites?.filter(i => !i.read).length || 0
+    return (
+      unreadBattles +
+      unreadSpies +
+      unreadSpied +
+      unreadMissions +
+      unreadNPCActivity +
+      unreadGifts +
+      unreadGiftRejected +
+      unreadTradeOffers +
+      unreadIntelReports +
+      unreadJointAttacks
+    )
   })
 
   // 正在执行的舰队任务数量（包括飞行中的导弹）
@@ -1972,6 +1986,87 @@
           })
         }
       })
+
+      // 处理增强NPC行为（中立和友好NPC的特殊行为）
+      const relation = npc.relations?.[gameStore.player.id]
+      if (relation?.status === 'neutral') {
+        const neutralResult = npcBehaviorLogic.updateNeutralNPCBehavior(npc, npcStore.npcs, gameStore.player, now)
+
+        // 处理贸易提议
+        if (neutralResult.tradeOffer) {
+          if (!gameStore.player.tradeOffers) {
+            gameStore.player.tradeOffers = []
+          }
+          gameStore.player.tradeOffers.push(neutralResult.tradeOffer)
+          toast.info(t('npcBehavior.tradeOfferReceived'), {
+            description: t('npcBehavior.tradeOfferDesc', { npcName: neutralResult.tradeOffer.npcName })
+          })
+        }
+
+        // 处理态度摇摆
+        if (neutralResult.swingDirection) {
+          if (!gameStore.player.attitudeChangeNotifications) {
+            gameStore.player.attitudeChangeNotifications = []
+          }
+          gameStore.player.attitudeChangeNotifications.push({
+            id: `attitude_${Date.now()}_${npc.id}`,
+            timestamp: now,
+            npcId: npc.id,
+            npcName: npc.name,
+            previousStatus: 'neutral',
+            newStatus: neutralResult.swingDirection,
+            reason: 'attitude_swing',
+            read: false
+          })
+          const statusKey = neutralResult.swingDirection === 'friendly' ? 'npcBehavior.becameFriendly' : 'npcBehavior.becameHostile'
+          toast.info(t('npcBehavior.attitudeChanged'), {
+            description: t(statusKey, { npcName: npc.name })
+          })
+        }
+      } else if (relation?.status === 'friendly') {
+        const friendlyResult = npcBehaviorLogic.updateFriendlyNPCBehavior(npc, npcStore.npcs, gameStore.player, now)
+
+        // 处理情报报告
+        if (friendlyResult.intelReport) {
+          if (!gameStore.player.intelReports) {
+            gameStore.player.intelReports = []
+          }
+          gameStore.player.intelReports.push(friendlyResult.intelReport)
+          toast.info(t('npcBehavior.intelReceived'), {
+            description: t('npcBehavior.intelReceivedDesc', { npcName: friendlyResult.intelReport.fromNpcName })
+          })
+        }
+
+        // 处理联合攻击邀请
+        if (friendlyResult.jointAttackInvite) {
+          if (!gameStore.player.jointAttackInvites) {
+            gameStore.player.jointAttackInvites = []
+          }
+          gameStore.player.jointAttackInvites.push(friendlyResult.jointAttackInvite)
+          toast.info(t('npcBehavior.jointAttackInvite'), {
+            description: t('npcBehavior.jointAttackInviteDesc', { npcName: friendlyResult.jointAttackInvite.fromNpcName })
+          })
+        }
+
+        // 处理资源援助
+        if (friendlyResult.aidProvided) {
+          if (!gameStore.player.aidNotifications) {
+            gameStore.player.aidNotifications = []
+          }
+          gameStore.player.aidNotifications.push({
+            id: `aid_${Date.now()}_${npc.id}`,
+            timestamp: now,
+            npcId: npc.id,
+            npcName: npc.name,
+            aidResources: friendlyResult.aidProvided,
+            read: false
+          })
+          const totalAid = friendlyResult.aidProvided.metal + friendlyResult.aidProvided.crystal + friendlyResult.aidProvided.deuterium
+          toast.success(t('npcBehavior.aidReceived'), {
+            description: t('npcBehavior.aidReceivedDesc', { npcName: npc.name, amount: totalAid.toLocaleString() })
+          })
+        }
+      }
     })
 
     npcBehaviorCounter.value = 0

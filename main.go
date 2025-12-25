@@ -75,7 +75,7 @@ func main() {
 
 	// --- 4. 控制台信息展示 ---
 	fmt.Println("=======================================")
-	fmt.Printf("OGame 服务启动成功！\n")
+	fmt.Printf("OGame Vue Ts 服务启动成功！\n")
 	fmt.Printf("启动时间: %s\n", time.Now().Format("2006-01-02 15:04:05"))
 	fmt.Printf("本地访问: %s\n", localUrl)
 	fmt.Printf("局域网访问: %s\n", lanUrl)

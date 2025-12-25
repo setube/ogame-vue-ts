@@ -542,12 +542,12 @@ export const TIER_ORDER: AchievementTier[] = [
 ]
 
 // 获取等级索引
-export function getTierIndex(tier: AchievementTier): number {
+export const getTierIndex = (tier: AchievementTier): number => {
   return TIER_ORDER.indexOf(tier)
 }
 
 // 获取下一个等级
-export function getNextTier(tier: AchievementTier | null): AchievementTier | null {
+export const getNextTier = (tier: AchievementTier | null): AchievementTier | null => {
   if (tier === null) return AchievementTier.Bronze
   const index = getTierIndex(tier)
   if (index >= TIER_ORDER.length - 1) return null

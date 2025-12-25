@@ -18,7 +18,7 @@
       </div>
 
       <!-- 分支标记 -->
-      <div v-if="quest.isBranch" class="absolute -top-1 -left-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+      <div v-if="quest.isBranch" class="absolute -top-1 -left-1 w-5 h-5 bg-blue-500 dark:bg-blue-400 rounded-full flex items-center justify-center">
         <GitBranch class="w-3 h-3 text-white" />
       </div>
 
@@ -50,7 +50,7 @@
     </div>
 
     <!-- 脉冲动画（可用状态） -->
-    <div v-if="status === QuestStatus.Available" class="absolute inset-0 w-14 h-14 rounded-full animate-ping bg-blue-400/30" />
+    <div v-if="status === QuestStatus.Available" class="absolute inset-0 w-14 h-14 rounded-full animate-ping bg-blue-400/30 dark:bg-blue-300/30" />
   </div>
 </template>
 

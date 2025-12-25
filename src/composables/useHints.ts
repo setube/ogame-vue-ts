@@ -107,11 +107,27 @@ const hints: Hint[] = [
     delay: 500
   },
   {
+    id: 'campaign_intro',
+    route: '/campaign',
+    titleKey: 'hints.campaign.title',
+    messageKey: 'hints.campaign.message',
+    icon: 'map',
+    delay: 500
+  },
+  {
     id: 'achievements_intro',
     route: '/achievements',
     titleKey: 'hints.achievements.title',
     messageKey: 'hints.achievements.message',
     icon: 'trophy',
+    delay: 500
+  },
+  {
+    id: 'ranking_intro',
+    route: '/ranking',
+    titleKey: 'hints.ranking.title',
+    messageKey: 'hints.ranking.message',
+    icon: 'medal',
     delay: 500
   },
   {
@@ -138,7 +154,7 @@ const isHintVisible = ref(false)
 
 let hintTimeout: ReturnType<typeof setTimeout> | null = null
 
-export function useHints() {
+export const useHints = () => {
   const router = useRouter()
   const gameStore = useGameStore()
 

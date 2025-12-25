@@ -427,11 +427,11 @@ export const generateNPCResources = (npc: NPC, deltaSeconds: number, config: Dyn
   const deuteriumLevel = planet.buildings[BuildingType.DeuteriumSynthesizer] || 0
   const darkMatterLevel = planet.buildings[BuildingType.DarkMatterCollector] || 0
 
-  // 简化的资源产量计算(每秒产量)
-  const metalProduction = 30 * metalMineLevel * Math.pow(1.1, metalMineLevel) * config.resourceGrowthRate
-  const crystalProduction = 20 * crystalMineLevel * Math.pow(1.1, crystalMineLevel) * config.resourceGrowthRate
-  const deuteriumProduction = 10 * deuteriumLevel * Math.pow(1.1, deuteriumLevel) * config.resourceGrowthRate
-  const darkMatterProduction = ((25 * darkMatterLevel * Math.pow(1.5, darkMatterLevel)) / 3600) * config.resourceGrowthRate
+  // 简化的资源产量计算(每秒产量) - 提升3倍让NPC更富有
+  const metalProduction = 90 * metalMineLevel * Math.pow(1.1, metalMineLevel) * config.resourceGrowthRate
+  const crystalProduction = 60 * crystalMineLevel * Math.pow(1.1, crystalMineLevel) * config.resourceGrowthRate
+  const deuteriumProduction = 30 * deuteriumLevel * Math.pow(1.1, deuteriumLevel) * config.resourceGrowthRate
+  const darkMatterProduction = ((75 * darkMatterLevel * Math.pow(1.5, darkMatterLevel)) / 3600) * config.resourceGrowthRate
 
   // 应用游戏速度倍率到时间
   const effectiveDeltaSeconds = deltaSeconds * gameSpeed
@@ -541,11 +541,11 @@ export const initializeNPCStartingPower = (
   npc.technologies[TechnologyType.ArmourTechnology] = Math.floor(targetTechLevel * 0.7)
   npc.technologies[TechnologyType.CombustionDrive] = Math.floor(targetTechLevel * 0.6)
 
-  // 给予起始资源
-  planet.resources.metal = 100000 * config.powerRatio
-  planet.resources.crystal = 50000 * config.powerRatio
-  planet.resources.deuterium = 20000 * config.powerRatio
-  planet.resources.darkMatter = 1000 * config.powerRatio
+  // 给予起始资源 - 大幅提升以让NPC更富有
+  planet.resources.metal = 500000 * config.powerRatio
+  planet.resources.crystal = 250000 * config.powerRatio
+  planet.resources.deuterium = 100000 * config.powerRatio
+  planet.resources.darkMatter = 5000 * config.powerRatio
 
   // 给予起始舰队（确保NPC能够立即侦查和攻击）
   // 使用平方根函数来平滑舰队数量增长，避免初期过于强大
@@ -586,8 +586,6 @@ export const ensureNPCSpyProbes = (npcs: NPC[]): void => {
       const config = NPC_GROWTH_CONFIG[npc.difficulty]
       const fleetRatio = Math.sqrt(config.powerRatio)
       planet.fleet[ShipType.EspionageProbe] = Math.max(5, Math.floor(10 * fleetRatio))
-
-      console.log(`[NPC Migration] Added ${planet.fleet[ShipType.EspionageProbe]} spy probes to NPC ${npc.name}`)
     }
   })
 }
@@ -761,17 +759,32 @@ export const ensureAllNPCsAIType = (npcs: NPC[]): void => {
  * 基于距离难度初始化NPC星球
  * 替代旧的 initializeNPCStartingPower
  *
- * 建筑等级上限：30
- * 科技等级上限：20
- * 资源上限：基于仓储建筑等级计算 (10000 * 2^level)
- * 舰队数量：基于船坞等级和难度等级合理计算
+ * 设计原则：
+ * 1. 只设置行星可建造的建筑（不设置月球专属建筑）
+ * 2. 建筑空间不超出 maxSpace 限制
+ * 3. 舰队仓储不超出限制（基于船坞+机库+计算机技术计算）
+ * 4. 建筑和科技等级合理，不是随机的，与难度成正比
+ *
+ * 空间占用（每级）：
+ * - 金属矿/晶体矿: 1, 重氢合成器: 2, 太阳能电站: 2
+ * - 聚变反应堆: 4, 金属/晶体/重氢仓库: 1
+ * - 机器人工厂: 4, 造船厂: 5, 研究实验室: 3, 机库: 3
+ * - 纳米工厂: 8, 导弹发射井: 6, 地形改造器: 5
+ * - 暗物质收集器: 5, 暗物质储罐: 2, 地质研究站: 6, 深钻设施: 15
+ *
+ * 舰队仓储容量 = 1000 + 船坞×1000 + 机库×1500 + 计算机技术×500
+ *
+ * 舰船仓储占用：
+ * - 轻型战斗机: 5, 重型战斗机: 10, 巡洋舰: 15, 战列舰: 25
+ * - 战列巡洋舰: 20, 轰炸机: 35, 驱逐舰: 12
+ * - 小型运输: 10, 大型运输: 20, 殖民船: 40, 回收船: 30
+ * - 间谍探测器: 2, 太阳能卫星: 1, 暗物质收集船: 50, 死星: 100
  */
 export const initializeNPCByDistance = (npc: NPC, homeworldPosition: { galaxy: number; system: number; position: number }): void => {
   const planet = npc.planets[0]
   if (!planet) return
 
   const distance = calculateDistanceToHomeworld(planet.position, homeworldPosition)
-  const multipliers = calculateDistanceDifficultyMultiplier(distance)
 
   // 保存距离和难度等级到NPC
   npc.distanceToHomeworld = distance
@@ -780,88 +793,197 @@ export const initializeNPCByDistance = (npc: NPC, homeworldPosition: { galaxy: n
   // 分配随机 AI 类型（如果还没有）
   ensureNPCAIType(npc)
 
-  // 基础等级 * 倍率，并限制上限
-  const baseLevel = 5
-  const MAX_BUILDING_LEVEL = 30
-  const MAX_TECH_LEVEL = 20
-
-  const targetBuildingLevel = Math.min(MAX_BUILDING_LEVEL, Math.max(1, Math.floor(baseLevel * multipliers.buildingMultiplier)))
-  const targetTechLevel = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(baseLevel * multipliers.techMultiplier)))
-
-  // 设置资源建筑（上限30）
-  planet.buildings[BuildingType.MetalMine] = Math.min(MAX_BUILDING_LEVEL, targetBuildingLevel)
-  planet.buildings[BuildingType.CrystalMine] = Math.min(MAX_BUILDING_LEVEL, Math.max(1, Math.floor(targetBuildingLevel * 0.8)))
-  planet.buildings[BuildingType.DeuteriumSynthesizer] = Math.min(MAX_BUILDING_LEVEL, Math.max(1, Math.floor(targetBuildingLevel * 0.6)))
-  planet.buildings[BuildingType.SolarPlant] = Math.min(MAX_BUILDING_LEVEL, targetBuildingLevel + 2)
-
-  // 设置设施建筑
-  planet.buildings[BuildingType.RoboticsFactory] = Math.min(15, Math.max(1, Math.floor(targetBuildingLevel * 0.5)))
-  planet.buildings[BuildingType.Shipyard] = Math.min(12, Math.max(1, Math.floor(targetBuildingLevel * 0.4)))
-  planet.buildings[BuildingType.ResearchLab] = Math.min(12, Math.max(1, Math.floor(targetBuildingLevel * 0.4)))
-
-  // 设置仓储（上限10级，对应10000*2^10=10,240,000容量）
-  const storageLevel = Math.min(10, Math.max(1, Math.floor(targetBuildingLevel * 0.3)))
-  planet.buildings[BuildingType.MetalStorage] = storageLevel
-  planet.buildings[BuildingType.CrystalStorage] = storageLevel
-  planet.buildings[BuildingType.DeuteriumTank] = storageLevel
-
-  // 设置科技（上限20）
-  npc.technologies[TechnologyType.EnergyTechnology] = Math.min(MAX_TECH_LEVEL, targetTechLevel)
-  npc.technologies[TechnologyType.ComputerTechnology] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.8)))
-  npc.technologies[TechnologyType.WeaponsTechnology] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.7)))
-  npc.technologies[TechnologyType.ShieldingTechnology] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.7)))
-  npc.technologies[TechnologyType.ArmourTechnology] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.7)))
-  npc.technologies[TechnologyType.CombustionDrive] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.6)))
-  npc.technologies[TechnologyType.EspionageTechnology] = Math.min(MAX_TECH_LEVEL, Math.max(1, Math.floor(targetTechLevel * 0.5)))
-
-  // 计算舰队仓储容量（船坞每级+1000）
-  const shipyardLevel = planet.buildings[BuildingType.Shipyard] || 1
-  const fleetStorageCapacity = shipyardLevel * 1000
-
-  // 基于难度等级和船坞容量计算舰队数量
-  // 难度等级1-7对应不同的舰队规模
+  // 难度等级 1-7+，有效等级 = 难度等级 + 2
   const difficultyLevel = npc.difficultyLevel || 1
-  const fleetScale = Math.min(1, difficultyLevel / 7) // 0.14 ~ 1.0
+  const effectiveLevel = difficultyLevel + 2 // 实力提升两档
 
-  // 设置舰队（基于船坞容量和难度等级）
-  // 总舰队数量不超过船坞容量的80%
-  const maxTotalFleet = Math.floor(fleetStorageCapacity * 0.8)
-  const baseFleetCount = Math.floor(maxTotalFleet * fleetScale)
+  // ========== 第一步：设置建筑等级（确保不超出空间限制）==========
+  // maxSpace 默认为 200，需要合理分配
 
-  // 分配舰队比例
-  planet.fleet[ShipType.EspionageProbe] = Math.max(5, Math.floor(baseFleetCount * 0.05))
-  planet.fleet[ShipType.LightFighter] = Math.floor(baseFleetCount * 0.35)
-  planet.fleet[ShipType.HeavyFighter] = Math.floor(baseFleetCount * 0.2)
-  planet.fleet[ShipType.Cruiser] = Math.floor(baseFleetCount * 0.15)
-  planet.fleet[ShipType.Battleship] = Math.floor(baseFleetCount * 0.05)
-  planet.fleet[ShipType.SmallCargo] = Math.floor(baseFleetCount * 0.1)
-  planet.fleet[ShipType.Recycler] = Math.floor(baseFleetCount * 0.1)
+  // 根据effectiveLevel计算建筑等级上限
+  // effectiveLevel: 3,4,5,6,7,8,9 对应不同的建筑配置
 
-  // 设置防御设施（基于难度等级，合理范围）
-  const defenseScale = difficultyLevel * 5
-  planet.defense[DefenseType.RocketLauncher] = Math.floor(defenseScale * 2)
-  planet.defense[DefenseType.LightLaser] = Math.floor(defenseScale * 1.5)
-  planet.defense[DefenseType.HeavyLaser] = Math.floor(defenseScale * 0.8)
-  planet.defense[DefenseType.GaussCannon] = Math.floor(defenseScale * 0.3)
-  planet.defense[DefenseType.IonCannon] = Math.floor(defenseScale * 0.3)
-  // 高级防御设施只有高难度NPC才有
-  if (difficultyLevel >= 4) {
-    planet.defense[DefenseType.PlasmaTurret] = Math.floor(defenseScale * 0.1)
-    planet.defense[DefenseType.SmallShieldDome] = 1
+  // 资源建筑（空间占用较低，优先配置）
+  const metalMineLevel = Math.min(25, Math.floor(10 + effectiveLevel * 2)) // 16-28级
+  const crystalMineLevel = Math.min(23, Math.floor(9 + effectiveLevel * 1.8)) // 14-25级
+  const deutLevel = Math.min(20, Math.floor(8 + effectiveLevel * 1.5)) // 12-21级
+  const solarPlantLevel = Math.min(28, Math.floor(12 + effectiveLevel * 2)) // 18-30级
+
+  planet.buildings[BuildingType.MetalMine] = metalMineLevel // 空间: 16-28
+  planet.buildings[BuildingType.CrystalMine] = crystalMineLevel // 空间: 14-25
+  planet.buildings[BuildingType.DeuteriumSynthesizer] = deutLevel // 空间: 24-42
+  planet.buildings[BuildingType.SolarPlant] = solarPlantLevel // 空间: 36-60
+
+  // 仓储建筑（空间占用低，每级1）
+  const storageLevel = Math.min(10, Math.floor(4 + effectiveLevel * 0.8)) // 6-11级
+  planet.buildings[BuildingType.MetalStorage] = storageLevel // 空间: 6-11
+  planet.buildings[BuildingType.CrystalStorage] = storageLevel // 空间: 6-11
+  planet.buildings[BuildingType.DeuteriumTank] = storageLevel // 空间: 6-11
+
+  // 关键设施建筑（决定舰队仓储容量）
+  const shipyardLevel = Math.min(16, Math.floor(6 + effectiveLevel * 1.2)) // 10-17级
+  const hangarLevel = Math.min(20, Math.floor(8 + effectiveLevel * 1.5)) // 12-21级
+  const roboticsLevel = Math.min(14, Math.floor(5 + effectiveLevel)) // 8-14级
+  const researchLabLevel = Math.min(14, Math.floor(5 + effectiveLevel)) // 8-14级
+
+  planet.buildings[BuildingType.Shipyard] = shipyardLevel // 空间: 50-85
+  planet.buildings[BuildingType.Hangar] = hangarLevel // 空间: 36-63
+  planet.buildings[BuildingType.RoboticsFactory] = roboticsLevel // 空间: 32-56
+  planet.buildings[BuildingType.ResearchLab] = researchLabLevel // 空间: 24-42
+
+  // 其他设施
+  planet.buildings[BuildingType.MissileSilo] = Math.min(8, effectiveLevel) // 3-9级, 空间: 18-54
+  planet.buildings[BuildingType.FusionReactor] = Math.min(10, effectiveLevel) // 3-9级, 空间: 12-36
+
+  // 高级设施（根据effectiveLevel逐步解锁）
+  if (effectiveLevel >= 4) {
+    planet.buildings[BuildingType.NaniteFactory] = Math.min(5, effectiveLevel - 3) // 1-6级, 空间: 8-48
   }
-  if (difficultyLevel >= 6) {
-    planet.defense[DefenseType.LargeShieldDome] = 1
+  if (effectiveLevel >= 5) {
+    planet.buildings[BuildingType.DarkMatterCollector] = Math.min(4, effectiveLevel - 4) // 1-5级, 空间: 5-25
+    planet.buildings[BuildingType.DarkMatterTank] = Math.min(5, effectiveLevel - 4) // 1-5级, 空间: 2-10
+    planet.buildings[BuildingType.GeoResearchStation] = Math.min(3, effectiveLevel - 4) // 1-5级, 空间: 6-30
+  }
+  if (effectiveLevel >= 7) {
+    planet.buildings[BuildingType.Terraformer] = Math.min(3, effectiveLevel - 6) // 1-3级, 空间: 5-15
+    planet.buildings[BuildingType.DeepDrillingFacility] = Math.min(2, effectiveLevel - 6) // 1-3级, 空间: 15-45
   }
 
-  // 设置资源（基于仓储建筑等级计算容量上限）
-  // 容量公式：10000 * 2^level
+  // 计算并更新maxSpace（基于地形改造器）
+  const terraformerLevel = planet.buildings[BuildingType.Terraformer] || 0
+  planet.maxSpace = 200 + terraformerLevel * 10 // 地形改造器每级+10空间
+
+  // ========== 第二步：设置科技等级（基于研究实验室等级）==========
+  // 科技等级与研究实验室等级相关，不应超过实验室等级太多
+  const baseTechLevel = Math.min(20, researchLabLevel + effectiveLevel) // 实验室+难度
+
+  npc.technologies[TechnologyType.EnergyTechnology] = baseTechLevel
+  npc.technologies[TechnologyType.ComputerTechnology] = Math.min(10, Math.floor(baseTechLevel * 0.6)) // 计算机技术上限10
+  npc.technologies[TechnologyType.WeaponsTechnology] = Math.floor(baseTechLevel * 0.9)
+  npc.technologies[TechnologyType.ShieldingTechnology] = Math.floor(baseTechLevel * 0.85)
+  npc.technologies[TechnologyType.ArmourTechnology] = Math.floor(baseTechLevel * 0.85)
+  npc.technologies[TechnologyType.CombustionDrive] = Math.floor(baseTechLevel * 0.8)
+  npc.technologies[TechnologyType.ImpulseDrive] = Math.floor(baseTechLevel * 0.7)
+  npc.technologies[TechnologyType.EspionageTechnology] = Math.floor(baseTechLevel * 0.7)
+  npc.technologies[TechnologyType.LaserTechnology] = Math.floor(baseTechLevel * 0.8)
+  npc.technologies[TechnologyType.Astrophysics] = Math.floor(baseTechLevel * 0.5)
+  npc.technologies[TechnologyType.IonTechnology] = Math.min(10, effectiveLevel)
+  npc.technologies[TechnologyType.HyperspaceTechnology] = Math.min(10, effectiveLevel)
+  npc.technologies[TechnologyType.HyperspaceDrive] = Math.min(8, Math.max(0, effectiveLevel - 1))
+
+  if (effectiveLevel >= 4) {
+    npc.technologies[TechnologyType.PlasmaTechnology] = Math.min(10, effectiveLevel - 2)
+  }
+  if (effectiveLevel >= 5) {
+    npc.technologies[TechnologyType.DarkMatterTechnology] = Math.min(6, effectiveLevel - 4)
+    npc.technologies[TechnologyType.TerraformingTechnology] = Math.min(4, effectiveLevel - 4)
+  }
+  if (effectiveLevel >= 8) {
+    npc.technologies[TechnologyType.GravitonTechnology] = 1
+  }
+
+  // ========== 第三步：计算舰队仓储容量 ==========
+  // 舰队仓储 = 基础1000 + 船坞×1000 + 机库×1500 + 计算机技术×500
+  const computerTechLevel = npc.technologies[TechnologyType.ComputerTechnology] || 0
+  const maxFleetStorage = 1000 + shipyardLevel * 1000 + hangarLevel * 1500 + computerTechLevel * 500
+  // effectiveLevel 3: 1000 + 10×1000 + 12×1500 + 6×500 = 1000+10000+18000+3000 = 32000
+  // effectiveLevel 9: 1000 + 17×1000 + 21×1500 + 10×500 = 1000+17000+31500+5000 = 54500
+
+  // ========== 第四步：设置舰队（确保不超出仓储限制）==========
+  // 先清空舰队
+  Object.values(ShipType).forEach(shipType => {
+    planet.fleet[shipType] = 0
+  })
+
+  // 计算每种舰船的仓储占用
+  const shipStorage: Record<ShipType, number> = {
+    [ShipType.LightFighter]: 5,
+    [ShipType.HeavyFighter]: 10,
+    [ShipType.Cruiser]: 15,
+    [ShipType.Battleship]: 25,
+    [ShipType.Battlecruiser]: 20,
+    [ShipType.Bomber]: 35,
+    [ShipType.Destroyer]: 12,
+    [ShipType.SmallCargo]: 10,
+    [ShipType.LargeCargo]: 20,
+    [ShipType.ColonyShip]: 40,
+    [ShipType.Recycler]: 30,
+    [ShipType.EspionageProbe]: 2,
+    [ShipType.SolarSatellite]: 1,
+    [ShipType.DarkMatterHarvester]: 50,
+    [ShipType.Deathstar]: 100
+  }
+
+  // 根据 effectiveLevel 计算舰队基数
+  // effectiveLevel 3: fleetMultiplier = 1, effectiveLevel 9: fleetMultiplier = 4
+  const fleetMultiplier = Math.pow(effectiveLevel / 3, 2) // 1, 1.78, 2.78, 4, 5.44, 7.11, 9
+
+  // 按优先级分配舰队（战斗舰优先）
+  let usedStorage = 0
+
+  // 辅助函数：添加舰船并追踪仓储使用
+  const addShips = (shipType: ShipType, baseCount: number) => {
+    const count = Math.floor(baseCount * fleetMultiplier)
+    const availableStorage = maxFleetStorage - usedStorage
+    const maxAffordable = Math.floor(availableStorage / shipStorage[shipType])
+    const actualCount = Math.min(count, maxAffordable)
+    if (actualCount > 0) {
+      planet.fleet[shipType] = actualCount
+      usedStorage += actualCount * shipStorage[shipType]
+    }
+  }
+
+  // 主力战斗舰队
+  addShips(ShipType.LightFighter, 800) // 800-7200
+  addShips(ShipType.HeavyFighter, 400) // 400-3600
+  addShips(ShipType.Cruiser, 200) // 200-1800
+  addShips(ShipType.Battleship, 100) // 100-900
+  addShips(ShipType.Battlecruiser, 80) // 80-720
+  addShips(ShipType.Destroyer, 60) // 60-540
+  addShips(ShipType.Bomber, 40) // 40-360
+
+  // 辅助舰队
+  addShips(ShipType.SmallCargo, 150) // 150-1350
+  addShips(ShipType.LargeCargo, 60) // 60-540
+  addShips(ShipType.Recycler, 50) // 50-450
+  addShips(ShipType.EspionageProbe, 100) // 100-900
+  addShips(ShipType.SolarSatellite, 200) // 200-1800
+
+  // 特殊舰船
+  if (effectiveLevel >= 4) {
+    addShips(ShipType.ColonyShip, 3) // 3-27
+  }
+  if (effectiveLevel >= 5) {
+    addShips(ShipType.DarkMatterHarvester, 10) // 10-90
+  }
+  if (effectiveLevel >= 8) {
+    addShips(ShipType.Deathstar, 2) // 2-18
+  }
+
+  // ========== 第五步：设置防御设施 ==========
+  // 防御不受仓储限制，使用 effectiveLevel 的平方增长
+  const defenseMultiplier = effectiveLevel * effectiveLevel // 9, 16, 25, 36, 49, 64, 81
+
+  planet.defense[DefenseType.RocketLauncher] = defenseMultiplier * 50 // 450-4050
+  planet.defense[DefenseType.LightLaser] = defenseMultiplier * 40 // 360-3240
+  planet.defense[DefenseType.HeavyLaser] = defenseMultiplier * 20 // 180-1620
+  planet.defense[DefenseType.GaussCannon] = defenseMultiplier * 8 // 72-648
+  planet.defense[DefenseType.IonCannon] = defenseMultiplier * 8 // 72-648
+  planet.defense[DefenseType.PlasmaTurret] = defenseMultiplier * 4 // 36-324
+  planet.defense[DefenseType.SmallShieldDome] = 1
+  planet.defense[DefenseType.LargeShieldDome] = effectiveLevel >= 4 ? 1 : 0
+  planet.defense[DefenseType.AntiBallisticMissile] = defenseMultiplier * 3 // 27-243
+  planet.defense[DefenseType.InterplanetaryMissile] = effectiveLevel >= 4 ? defenseMultiplier : 0 // 0-81
+  planet.defense[DefenseType.PlanetaryShield] = effectiveLevel >= 6 ? 1 : 0
+
+  // ========== 第六步：设置资源 ==========
+  // 基于仓储建筑等级计算容量上限，资源填充70-100%
   const metalCapacity = 10000 * Math.pow(2, planet.buildings[BuildingType.MetalStorage] || 0)
   const crystalCapacity = 10000 * Math.pow(2, planet.buildings[BuildingType.CrystalStorage] || 0)
   const deuteriumCapacity = 10000 * Math.pow(2, planet.buildings[BuildingType.DeuteriumTank] || 0)
   const darkMatterCapacity = 1000 * Math.pow(2, planet.buildings[BuildingType.DarkMatterTank] || 0)
 
-  // 资源设置为容量的50%-80%（基于难度等级）
-  const resourceFillRate = 0.5 + (difficultyLevel / 7) * 0.3
+  const resourceFillRate = 0.7 + (difficultyLevel / 10) * 0.3
   planet.resources.metal = Math.floor(metalCapacity * resourceFillRate)
   planet.resources.crystal = Math.floor(crystalCapacity * resourceFillRate)
   planet.resources.deuterium = Math.floor(deuteriumCapacity * resourceFillRate)
@@ -984,11 +1106,11 @@ export const generateNPCResourcesByDistance = (
   const deuteriumLevel = planet.buildings[BuildingType.DeuteriumSynthesizer] || 0
   const darkMatterLevel = planet.buildings[BuildingType.DarkMatterCollector] || 0
 
-  // 简化的资源产量计算(每秒产量)
-  const metalProduction = 30 * metalMineLevel * Math.pow(1.1, metalMineLevel) * config.resourceGrowthRate
-  const crystalProduction = 20 * crystalMineLevel * Math.pow(1.1, crystalMineLevel) * config.resourceGrowthRate
-  const deuteriumProduction = 10 * deuteriumLevel * Math.pow(1.1, deuteriumLevel) * config.resourceGrowthRate
-  const darkMatterProduction = ((25 * darkMatterLevel * Math.pow(1.5, darkMatterLevel)) / 3600) * config.resourceGrowthRate
+  // 简化的资源产量计算(每秒产量) - 提升3倍让NPC更富有
+  const metalProduction = 90 * metalMineLevel * Math.pow(1.1, metalMineLevel) * config.resourceGrowthRate
+  const crystalProduction = 60 * crystalMineLevel * Math.pow(1.1, crystalMineLevel) * config.resourceGrowthRate
+  const deuteriumProduction = 30 * deuteriumLevel * Math.pow(1.1, deuteriumLevel) * config.resourceGrowthRate
+  const darkMatterProduction = ((75 * darkMatterLevel * Math.pow(1.5, darkMatterLevel)) / 3600) * config.resourceGrowthRate
 
   // 应用游戏速度倍率到时间
   const effectiveDeltaSeconds = deltaSeconds * gameSpeed
