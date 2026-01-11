@@ -389,6 +389,7 @@
   import { saveAs } from 'file-saver'
   import { toast } from 'vue-sonner'
   import { Capacitor } from '@capacitor/core'
+  import { decryptData, encryptData } from '@/utils/crypto'
   import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
   import pkg from '../../package.json'
   import { checkLatestVersion, canCheckVersion } from '@/utils/versionCheck'
@@ -648,6 +649,15 @@
           const result = e.target?.result
           if (typeof result === 'string') {
             const importData = JSON.parse(result)
+
+            if (importData.data) {
+              const data = decryptData(importData.data)
+              localStorage.setItem(pkg.name, encryptData(data.game))
+              localStorage.setItem(`${pkg.name}-universe`, encryptData(data.universe))
+              localStorage.setItem(`${pkg.name}-npcs`, encryptData(data.npcs))
+              setTimeout(() => window.location.reload(), 1000)
+              return
+            }
 
             // 兼容旧版本：如果是旧格式（直接是字符串），只导入游戏数据
             if (typeof importData === 'string' || !importData.game) {

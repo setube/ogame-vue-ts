@@ -1395,7 +1395,7 @@ export const MOON_CONFIG = {
   maxChance: 20, // 最大20%概率（需要2M残骸）
   chancePerDebris: 100000, // 每10万资源增加1%概率
   baseFields: 1, // 月球初始空间（OGame规则：初始只有1格）
-  lunarBaseFieldsBonus: 3, // 每级月球基地增加的空间（每级+3格，占用1格，净增2格）
+  lunarBaseFieldsBonus: 30, // 每级月球基地增加的空间（每级+3格，占用1格，净增2格）
   minDiameter: 3476, // 最小月球直径(km)，1%概率时
   maxDiameter: 8944, // 最大月球直径(km)，20%概率时保证>8000km
   baseDiameter: 3000, // 基础直径(km)

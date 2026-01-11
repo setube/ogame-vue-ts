@@ -237,7 +237,7 @@ export const createMoon = (
 
 /**
  * 计算月球空间上限
- * OGame规则：月球初始1格，月球基地每级+3格（但月球基地本身占用1格，净增2格）
+ * OGame规则：月球初始1格，月球基地每级+30格
  */
 export const calculateMoonMaxSpace = (moon: Planet): number => {
   if (!moon.isMoon) return 0
