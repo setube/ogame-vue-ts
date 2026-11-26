@@ -90,6 +90,15 @@
               </div>
             </div>
 
+            <div v-if="missingUpgradeRequirements[buildingType]?.length" class="space-y-1 text-xs text-destructive">
+              <p class="font-medium">{{ t('common.requirementsNotMet') }}</p>
+              <ul class="space-y-1">
+                <li v-for="requirement in missingUpgradeRequirements[buildingType]" :key="requirement.name">
+                  {{ requirement.name }} Lv {{ requirement.requiredLevel }} ({{ t('common.current') }}: Lv {{ requirement.currentLevel }})
+                </li>
+              </ul>
+            </div>
+
             <!-- 升级按钮 -->
             <Button @click="handleUpgrade(buildingType, $event)" :disabled="!canUpgrade(buildingType)" class="w-full">
               {{ getUpgradeButtonText(buildingType) }}
@@ -350,23 +359,16 @@
       return t('buildingsView.maxLevelReached') // "等级已满"
     }
 
-    // 0级为建造，1级及以上为升级
-    const buttonTextKey = currentLevel === 0 ? 'buildingsView.build' : 'buildingsView.upgrade'
-
-    if (planet.value.buildQueue.length > 0) return t(buttonTextKey)
-
-    // 检查前置条件
-    if (!checkUpgradeRequirements(buildingType)) {
-      return t('buildingsView.requirementsNotMet')
-    }
-
-    return t(buttonTextKey)
+    return t(currentLevel === 0 ? 'buildingsView.build' : 'buildingsView.upgrade')
   }
 
   // 获取前置条件列表
   const getRequirementsList = (
     buildingType: BuildingType
   ): Array<{ name: string; requiredLevel: number; currentLevel: number; met: boolean }> => {
+    const currentPlanet = planet.value
+    if (!currentPlanet) return []
+
     const config = BUILDINGS.value[buildingType]
     const currentLevel = getBuildingLevel(buildingType)
     const targetLevel = currentLevel + 1
@@ -374,14 +376,14 @@
     // 获取目标等级的所有前置条件（包括等级门槛）
     const requirements = publicLogic.getLevelRequirements(config, targetLevel)
 
-    if (!requirements || !planet.value) return []
-
     const items: Array<{ name: string; requiredLevel: number; currentLevel: number; met: boolean }> = []
     for (const [key, requiredLevel] of Object.entries(requirements)) {
       // 检查是否为建筑类型
       if (Object.values(BuildingType).includes(key as BuildingType)) {
         const bt = key as BuildingType
-        const currentLevel = planet.value.buildings[bt] || 0
+        if (currentPlanet.isMoon && BUILDINGS.value[bt].planetOnly) continue
+
+        const currentLevel = currentPlanet.buildings[bt] || 0
         const name = BUILDINGS.value[bt]?.name || bt
         items.push({ name, requiredLevel, currentLevel, met: currentLevel >= requiredLevel })
       }
@@ -395,6 +397,18 @@
     }
     return items
   }
+
+  const missingUpgradeRequirements = computed(() => {
+    const requirementsByBuilding: Partial<Record<BuildingType, ReturnType<typeof getRequirementsList>>> = {}
+    for (const buildingType of availableBuildings.value) {
+      const currentLevel = getBuildingLevel(buildingType)
+      const maxLevel = BUILDINGS.value[buildingType].maxLevel
+      if (currentLevel === 0 || (maxLevel !== undefined && currentLevel >= maxLevel)) continue
+
+      requirementsByBuilding[buildingType] = getRequirementsList(buildingType).filter(requirement => !requirement.met)
+    }
+    return requirementsByBuilding
+  })
 
   // 检查是否可以升级
   const canUpgrade = (buildingType: BuildingType): boolean => {
