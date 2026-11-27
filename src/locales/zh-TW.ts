@@ -1931,6 +1931,7 @@ export default {
     allyDefense: '盟友協防',
     allyDefenseDesc: '{npcName}派遣艦隊協助防禦你的星球',
     trade: {
+      receivingCapacityExceeded: '收貨空間不足，無法接受這筆報價。',
       title: '貿易提議',
       from: '來自',
       offers: '提供',

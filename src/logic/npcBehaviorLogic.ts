@@ -2725,7 +2725,7 @@ export const updateHostileNPCBehavior = (
 /**
  * 检查中立NPC是否应该提议贸易
  */
-export const shouldNPCOfferTrade = (npc: NPC, player: Player, currentTime: number): boolean => {
+export const shouldNPCOfferTrade = (npc: NPC, player: Player, currentTime: number, reservedOffers = 0): boolean => {
   const { NEUTRAL_BEHAVIOR_CONFIG } = DIPLOMATIC_CONFIG
   const tradeConfig = NEUTRAL_BEHAVIOR_CONFIG.TRADE
 
@@ -2734,7 +2734,7 @@ export const shouldNPCOfferTrade = (npc: NPC, player: Player, currentTime: numbe
   }
 
   const activeOfferCount = player.tradeOffers?.filter(offer => offer.expiresAt > currentTime).length ?? 0
-  if (activeOfferCount >= tradeConfig.MAX_PENDING_OFFERS) {
+  if (activeOfferCount + reservedOffers >= tradeConfig.MAX_PENDING_OFFERS) {
     return false
   }
 
@@ -2825,6 +2825,22 @@ export const createTradeOffer = (npc: NPC, player: Player): TradeOffer | null =>
   ;(npc as any).lastTradeOfferTime = now
 
   return offer
+}
+
+/**
+ * 保存新报价，只清理超出保留上限的过期报价。
+ */
+export const addTradeOffer = (player: Player, offer: TradeOffer, currentTime: number): void => {
+  const offers = (player.tradeOffers ??= [])
+  offers.push(offer)
+
+  const expiredOffers = offers.filter(item => item.expiresAt <= currentTime)
+  const limit = DIPLOMATIC_CONFIG.NEUTRAL_BEHAVIOR_CONFIG.TRADE.MAX_EXPIRED_OFFERS
+  if (expiredOffers.length <= limit) return
+
+  expiredOffers.sort((a, b) => b.expiresAt - a.expiresAt)
+  const removedOffers = new Set(expiredOffers.slice(limit))
+  player.tradeOffers = offers.filter(item => !removedOffers.has(item))
 }
 
 /**
@@ -3336,7 +3352,8 @@ export const updateNeutralNPCBehavior = (
   npc: NPC,
   _allNpcs: NPC[],
   player: Player,
-  currentTime: number
+  currentTime: number,
+  reservedOffers = 0
 ): {
   tradeOffer?: TradeOffer
   swingDirection?: 'friendly' | 'hostile'
@@ -3353,7 +3370,7 @@ export const updateNeutralNPCBehavior = (
   }
 
   // 1. 检查贸易提议
-  if (shouldNPCOfferTrade(npc, player, currentTime)) {
+  if (shouldNPCOfferTrade(npc, player, currentTime, reservedOffers)) {
     const offer = createTradeOffer(npc, player)
     if (offer) {
       result.tradeOffer = offer
@@ -3443,6 +3460,7 @@ export const updateAllNPCBehaviors = (
   const neutralResults = new Map<string, ReturnType<typeof updateNeutralNPCBehavior>>()
   const friendlyResults = new Map<string, ReturnType<typeof updateFriendlyNPCBehavior>>()
   let newSiegeCoordination: SiegeCoordination | undefined
+  let reservedOffers = 0
 
   for (const npc of npcs) {
     const relation = npc.relations?.[player.id]
@@ -3456,7 +3474,8 @@ export const updateAllNPCBehaviors = (
       }
     } else if (relation?.status === RelationStatus.Neutral) {
       // 中立NPC
-      const result = updateNeutralNPCBehavior(npc, npcs, player, currentTime)
+      const result = updateNeutralNPCBehavior(npc, npcs, player, currentTime, reservedOffers)
+      if (result.tradeOffer) reservedOffers++
       neutralResults.set(npc.id, result)
     } else if (relation?.status === RelationStatus.Friendly) {
       // 友好NPC

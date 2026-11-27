@@ -1836,6 +1836,7 @@ export default {
     allyDefense: 'Verbündete Verteidigung',
     allyDefenseDesc: '{npcName} sendet eine Flotte, um deinen Planeten zu verteidigen',
     trade: {
+      receivingCapacityExceeded: 'Für die erhaltenen Ressourcen fehlt Lagerplatz.',
       title: 'Handelsangebote',
       from: 'Von',
       offers: 'Bietet',

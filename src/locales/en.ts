@@ -2226,6 +2226,7 @@ export default {
     allyDefenseDesc: '{npcName} is sending a fleet to help defend your planet',
     // Trade related
     trade: {
+      receivingCapacityExceeded: 'There is not enough storage for the resources you would receive.',
       title: 'Trade Offers',
       from: 'From',
       offers: 'Offers',

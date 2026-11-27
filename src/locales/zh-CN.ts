@@ -1397,6 +1397,7 @@ export default {
     allyDefenseDesc: '{npcName}派遣舰队协助防御你的星球',
     // 贸易相关
     trade: {
+      receivingCapacityExceeded: '收货空间不足，无法接受这笔报价。',
       title: '贸易提议',
       from: '来自',
       offers: '提供',

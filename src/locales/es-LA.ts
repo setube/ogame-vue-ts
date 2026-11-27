@@ -2217,6 +2217,7 @@ export default {
     allyDefenseDesc: '{npcName} está enviando una flota para ayudar a defender tu planeta',
     // Trade related
     trade: {
+      receivingCapacityExceeded: 'No hay espacio suficiente para los recursos que recibirías.',
       title: 'Ofertas Comerciales',
       from: 'De',
       offers: 'Ofrece',

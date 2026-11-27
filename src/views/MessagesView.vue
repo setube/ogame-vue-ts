@@ -253,6 +253,7 @@
                   </p>
                   <p v-if="payment.exceedsCapacity">{{ t('npcBehavior.trade.overStorageCapacity') }}</p>
                 </div>
+                <p v-if="payment?.exceedsReceivingCapacity" class="text-destructive">{{ t('npcBehavior.trade.receivingCapacityExceeded') }}</p>
               </div>
               <div class="flex gap-2 mt-2">
                 <Button
@@ -260,7 +261,7 @@
                   variant="default"
                   size="sm"
                   class="flex-1"
-                  :disabled="isOfferExpired(offer) || !canAcceptTrade(offer)"
+                  :disabled="isOfferExpired(offer) || !payment || payment.shortfall > 0 || payment.exceedsReceivingCapacity"
                 >
                   {{ t('npcBehavior.trade.accept') }}
                 </Button>
@@ -1325,30 +1326,28 @@
   const getTradePayment = (offer: TradeOffer) => {
     const planet = tradePaymentPlanet.value
     const requested = extractResourceInfo(offer.requestedResources)
-    if (!planet || !requested) return null
+    const offered = extractResourceInfo(offer.offeredResources)
+    const capacities = tradePaymentCapacity.value
+    if (!planet || !requested || !offered || !capacities) return null
 
     const balance = planet.resources[requested.type]
-    const capacity = tradePaymentCapacity.value?.[requested.type]
-    if (balance === undefined || capacity === undefined) return null
+    const capacity = capacities[requested.type]
+    const receivingBalance = planet.resources[offered.type]
+    const receivingCapacity = capacities[offered.type]
+    if (![balance, capacity, receivingBalance, receivingCapacity].every(Number.isFinite)) return null
+    const sameResourcePayment = requested.type === offered.type ? requested.amount : 0
 
     return {
+      planet,
       planetName: planet.name,
+      requested,
+      offered,
       balance,
       capacity,
       shortfall: Math.max(0, Math.ceil(requested.amount - balance)),
-      exceedsCapacity: requested.amount > capacity
+      exceedsCapacity: requested.amount > capacity,
+      exceedsReceivingCapacity: receivingBalance + offered.amount - sameResourcePayment > receivingCapacity
     }
-  }
-
-  // 检查是否可以接受贸易
-  const canAcceptTrade = (offer: TradeOffer): boolean => {
-    const planet = tradePaymentPlanet.value
-    if (!planet) return false
-
-    const requested = extractResourceInfo(offer.requestedResources)
-    if (!requested) return false
-
-    return planet.resources[requested.type] >= requested.amount
   }
 
   // 打开贸易提议详情对话框（目前直接操作，后续可添加对话框）
@@ -1362,22 +1361,17 @@
       toast.error(t('npcBehavior.trade.expired'))
       return
     }
-    if (!canAcceptTrade(offer)) {
+    const payment = getTradePayment(offer)
+    if (!payment || payment.shortfall > 0) {
       toast.error(t('npcBehavior.trade.acceptFailed'))
       return
     }
-
-    const planet = tradePaymentPlanet.value
-    if (!planet) return
-
-    const requested = extractResourceInfo(offer.requestedResources)
-    const offered = extractResourceInfo(offer.offeredResources)
-
-    if (!requested || !offered) {
-      toast.error(t('npcBehavior.trade.acceptFailed'))
+    if (payment.exceedsReceivingCapacity) {
+      toast.error(t('npcBehavior.trade.receivingCapacityExceeded'))
       return
     }
 
+    const { planet, requested, offered } = payment
     // 扣除请求的资源
     planet.resources[requested.type] -= requested.amount
 

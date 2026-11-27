@@ -1837,6 +1837,7 @@ export default {
     allyDefense: 'Союзная оборона',
     allyDefenseDesc: '{npcName} отправляет флот для защиты вашей планеты',
     trade: {
+      receivingCapacityExceeded: 'Недостаточно места для получаемых ресурсов.',
       title: 'Торговые предложения',
       from: 'От',
       offers: 'Предлагает',

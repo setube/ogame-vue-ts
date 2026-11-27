@@ -1604,6 +1604,7 @@ export const DIPLOMATIC_CONFIG = {
       PROBABILITY: 0.05,
       // 玩家最多同时收到的有效贸易提议数量
       MAX_PENDING_OFFERS: 5,
+      MAX_EXPIRED_OFFERS: 20,
       // 汇率配置：NPC出售资源的汇率
       EXCHANGE_RATES: {
         // 金属:晶体:重氢 基准比例 3:2:1

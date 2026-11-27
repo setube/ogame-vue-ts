@@ -403,12 +403,15 @@
   const getSimulationBlocker = (allowUndefended: boolean) => {
     const attackerUnits = Object.values(drafts.value.attacker.fleet)
     const defenderUnits = [...Object.values(drafts.value.defender.fleet), ...Object.values(defenderDefense.value)]
-    const tech = sides.flatMap(side => Object.values(getEffectiveTech(side)))
     if ([...attackerUnits, ...defenderUnits].some(count => !Number.isSafeInteger(count) || count < 0)) return 'simulatorView.invalidCount'
     if (!attackerUnits.some(count => count > 0)) return 'simulatorView.attackerRequired'
+
+    const hasDefenders = defenderUnits.some(count => count > 0)
+    const tech = Object.values(getEffectiveTech('attacker'))
+    if (hasDefenders) tech.push(...Object.values(getEffectiveTech('defender')))
     if (tech.some(level => level === undefined)) return 'simulatorView.techUnknown'
     if (tech.some(level => !Number.isSafeInteger(level) || (level ?? 0) < 0)) return 'simulatorView.invalidCount'
-    if (!allowUndefended && !defenderUnits.some(count => count > 0)) return 'simulatorView.defenderRequired'
+    if (!allowUndefended && !hasDefenders) return 'simulatorView.defenderRequired'
     return ''
   }
   const simulationBlocker = computed(() => getSimulationBlocker(false))

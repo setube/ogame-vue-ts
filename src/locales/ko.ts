@@ -1785,6 +1785,7 @@ export default {
     allyDefense: '동맹 방어',
     allyDefenseDesc: '{npcName}이(가) 당신의 행성 방어를 위해 함대를 보내고 있습니다',
     trade: {
+      receivingCapacityExceeded: '받을 자원을 저장할 공간이 부족합니다.',
       title: '거래 제안',
       from: '발신자',
       offers: '제공',

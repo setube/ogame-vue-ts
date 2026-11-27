@@ -1840,6 +1840,7 @@ export default {
     allyDefense: '同盟防衛',
     allyDefenseDesc: '{npcName}があなたの惑星を防衛するために艦隊を派遣しています',
     trade: {
+      receivingCapacityExceeded: '受け取る資源を保管する空きがありません。',
       title: '取引提案',
       from: '送信者',
       offers: '提供',
