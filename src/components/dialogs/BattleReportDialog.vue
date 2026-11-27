@@ -44,37 +44,45 @@
           <!-- 战斗双方信息 -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- 攻击方星球 -->
-            <div class="p-4 bg-muted/50 rounded-lg border">
+            <div class="p-4 rounded-lg border" :class="getSideResultStyle('attacker')">
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-background rounded-full border">
                   <Sword class="h-5 w-5" />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="font-semibold">{{ t('simulatorView.attacker') }}</p>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <p class="font-semibold">{{ t('simulatorView.attacker') }}</p>
+                    <Badge v-if="playerSide === 'attacker'" variant="secondary">{{ t('simulatorView.you') }}</Badge>
+                    <span class="text-xs font-medium">{{ getSideResultLabel('attacker') }}</span>
+                  </div>
                   <p v-if="attackerPlanet" class="text-sm text-muted-foreground truncate">
                     {{ attackerPlanet.name }} [{{ attackerPlanet.position.galaxy }}:{{ attackerPlanet.position.system }}:{{
                       attackerPlanet.position.position
                     }}]
                   </p>
-                  <p v-else class="text-sm text-muted-foreground">{{ report.attackerPlanetId }}</p>
+                  <p v-else-if="!playerSide" class="text-sm text-muted-foreground">{{ report.attackerPlanetId }}</p>
                 </div>
               </div>
             </div>
 
             <!-- 防守方星球 -->
-            <div class="p-4 bg-muted/50 rounded-lg border">
+            <div class="p-4 rounded-lg border" :class="getSideResultStyle('defender')">
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-background rounded-full border">
                   <ShieldIcon class="h-5 w-5" />
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="font-semibold">{{ t('simulatorView.defender') }}</p>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <p class="font-semibold">{{ t('simulatorView.defender') }}</p>
+                    <Badge v-if="playerSide === 'defender'" variant="secondary">{{ t('simulatorView.you') }}</Badge>
+                    <span class="text-xs font-medium">{{ getSideResultLabel('defender') }}</span>
+                  </div>
                   <p v-if="defenderPlanet" class="text-sm text-muted-foreground truncate">
                     {{ defenderPlanet.name }} [{{ defenderPlanet.position.galaxy }}:{{ defenderPlanet.position.system }}:{{
                       defenderPlanet.position.position
                     }}]
                   </p>
-                  <p v-else class="text-sm text-muted-foreground">{{ report.defenderPlanetId }}</p>
+                  <p v-else-if="!playerSide" class="text-sm text-muted-foreground">{{ report.defenderPlanetId }}</p>
                 </div>
               </div>
             </div>
@@ -414,6 +422,7 @@
   const props = defineProps<{
     report: BattleResult | null
     open: boolean
+    playerSide?: 'attacker' | 'defender'
   }>()
 
   const emit = defineEmits<{
@@ -457,6 +466,7 @@
 
   // 判断玩家是攻击方还是防守方
   const isPlayerAttacker = computed(() => {
+    if (props.playerSide) return props.playerSide === 'attacker'
     if (!props.report) return false
     return gameStore.player.planets.some(p => p.id === props.report!.attackerPlanetId)
   })
@@ -495,15 +505,22 @@
     emit('update:open', newValue)
   })
 
-  // 获取玩家战斗结果样式
-  const getPlayerResultStyle = () => {
-    if (!props.report) return 'bg-gray-50 dark:bg-gray-950/30 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300'
-    if (props.report.winner === 'draw')
+  const getSideResultLabel = (side: 'attacker' | 'defender') => {
+    const winner = props.report?.winner
+    if (winner === 'draw') return t('messagesView.draw')
+    return t(winner === side ? 'messagesView.victory' : 'messagesView.defeat')
+  }
+
+  const getSideResultStyle = (side: 'attacker' | 'defender') => {
+    const winner = props.report?.winner
+    if (!winner || winner === 'draw')
       return 'bg-gray-50 dark:bg-gray-950/30 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300'
-    if (isPlayerVictory.value)
+    if (winner === side)
       return 'bg-green-50 dark:bg-green-950/30 border-green-300 dark:border-green-800 text-green-700 dark:text-green-300'
     return 'bg-red-50 dark:bg-red-950/30 border-red-300 dark:border-red-800 text-red-700 dark:text-red-300'
   }
+
+  const getPlayerResultStyle = () => getSideResultStyle(isPlayerAttacker.value ? 'attacker' : 'defender')
 
   // 获取攻击方损失总数
   const getTotalLossCount = (losses: Record<string, number>): number => {
