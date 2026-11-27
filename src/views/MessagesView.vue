@@ -145,6 +145,26 @@
 
       <!-- NPC相关消息（活动、礼物、被拒绝、贸易提议、情报、联合攻击邀请） -->
       <TabsContent value="npc" class="mt-4 space-y-2 pb-20">
+        <section v-if="tradePaymentSummary" aria-labelledby="trade-payment-summary" class="space-y-2 rounded-lg border bg-muted/50 px-4 py-3">
+          <h2 id="trade-payment-summary" class="break-words text-sm font-medium">
+            <span class="text-muted-foreground">{{ t('npcBehavior.trade.paymentPlanet') }}</span>
+            · {{ tradePaymentSummary.planet.name }}
+          </h2>
+          <dl class="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm">
+            <div v-for="res in basicResourceFields" :key="res.key" class="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <dt class="flex items-center gap-1.5 text-muted-foreground">
+                <ResourceIcon :type="res.key" size="sm" />
+                {{ t(`resources.${res.key}`) }}
+              </dt>
+              <dd class="flex items-center gap-1 tabular-nums">
+                <NumberWithTooltip :value="tradePaymentSummary.planet.resources[res.key]" />
+                <span class="text-muted-foreground">/</span>
+                <NumberWithTooltip :value="tradePaymentSummary.capacity[res.key]" />
+              </dd>
+            </div>
+          </dl>
+        </section>
+
         <Empty
           v-if="
             sortedNPCActivityNotifications.length === 0 &&
@@ -164,7 +184,7 @@
 
         <!-- 贸易提议 -->
         <Card
-          v-for="offer in sortedTradeOffers"
+          v-for="{ offer, payment } in sortedTradeOffers"
           :key="offer.id"
           @click="openTradeOfferDialog(offer)"
           class="cursor-pointer hover:shadow-md transition-shadow"
@@ -174,10 +194,10 @@
               <div class="flex items-center gap-2 min-w-0 flex-1">
                 <ArrowLeftRight class="h-4 w-4 shrink-0 text-amber-500" />
                 <CardTitle class="text-base sm:text-lg">{{ t('npcBehavior.trade.title') }}</CardTitle>
-                <Badge variant="default" class="text-xs">{{ t('messagesView.pending') }}</Badge>
                 <Badge v-if="isOfferExpired(offer)" variant="destructive" class="text-xs">
                   {{ t('npcBehavior.trade.expired') }}
                 </Badge>
+                <Badge v-else variant="default" class="text-xs">{{ t('messagesView.pending') }}</Badge>
               </div>
               <Button @click.stop="deleteTradeOffer(offer.id)" variant="ghost" size="icon" class="h-8 w-8 shrink-0">
                 <X class="h-4 w-4" />
@@ -205,6 +225,33 @@
                     <NumberWithTooltip :value="getResourceInfo(offer.requestedResources)!.amount" />
                   </template>
                   <span v-else>-</span>
+                </div>
+              </div>
+              <div v-if="!isOfferExpired(offer)" class="space-y-2 rounded-md bg-muted/50 p-3">
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-2 break-words">
+                  <div v-if="payment">
+                    <dt class="text-xs text-muted-foreground">{{ t('npcBehavior.trade.paymentPlanet') }}</dt>
+                    <dd class="break-words">{{ payment.planetName }}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-xs text-muted-foreground">{{ t('npcBehavior.trade.expiresIn') }}</dt>
+                    <dd class="tabular-nums">{{ formatTime(Math.ceil((offer.expiresAt - tradeTime) / 1000)) }}</dd>
+                  </div>
+                  <div v-if="payment">
+                    <dt class="text-xs text-muted-foreground">{{ t('npcBehavior.trade.paymentBalance') }}</dt>
+                    <dd><NumberWithTooltip :value="payment.balance" /></dd>
+                  </div>
+                  <div v-if="payment">
+                    <dt class="text-xs text-muted-foreground">{{ t('npcBehavior.trade.paymentCapacity') }}</dt>
+                    <dd><NumberWithTooltip :value="payment.capacity" /></dd>
+                  </div>
+                </dl>
+                <div v-if="payment && payment.shortfall > 0" class="space-y-1 text-destructive">
+                  <p>
+                    {{ t('npcBehavior.trade.paymentShortfall') }}:
+                    <NumberWithTooltip :value="payment.shortfall" />
+                  </p>
+                  <p v-if="payment.exceedsCapacity">{{ t('npcBehavior.trade.overStorageCapacity') }}</p>
                 </div>
               </div>
               <div class="flex gap-2 mt-2">
@@ -491,6 +538,7 @@
 <script setup lang="ts">
   import { useGameStore } from '@/stores/gameStore'
   import { useI18n } from '@/composables/useI18n'
+  import { useTimestamp } from '@vueuse/core'
   import { computed, ref } from 'vue'
   import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
   import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -506,7 +554,7 @@
   import NPCActivityDialog from '@/components/dialogs/NPCActivityDialog.vue'
   import ResourceIcon from '@/components/common/ResourceIcon.vue'
   import NumberWithTooltip from '@/components/common/NumberWithTooltip.vue'
-  import { formatDate } from '@/utils/format'
+  import { formatDate, formatTime } from '@/utils/format'
   import {
     X,
     Sword,
@@ -539,12 +587,15 @@
   import { MissionType } from '@/types/game'
   import { useNPCStore } from '@/stores/npcStore'
   import * as diplomaticLogic from '@/logic/diplomaticLogic'
+  import { calculateActiveBonuses } from '@/logic/officerLogic'
+  import { calculateResourceCapacity } from '@/logic/resourceLogic'
   import { toast } from 'vue-sonner'
 
   const gameStore = useGameStore()
   const npcStore = useNPCStore()
   const { t } = useI18n()
   const activeTab = ref<'battles' | 'spy' | 'missions' | 'npc'>('battles')
+  const tradeTime = useTimestamp({ interval: 1000 })
 
   // 清空消息功能
   const showClearPopover = ref(false)
@@ -847,7 +898,7 @@
   })
 
   const sortedTradeOffers = computed(() => {
-    return paginatedNPCTabItems.value.filter(item => item.type === 'trade')
+    return paginatedNPCTabItems.value.filter(item => item.type === 'trade').map(offer => ({ offer, payment: getTradePayment(offer) }))
   })
 
   const sortedIntelReports = computed(() => {
@@ -910,8 +961,7 @@
 
   // 待处理贸易提议数量（未过期）
   const pendingTradeOffers = computed(() => {
-    const now = Date.now()
-    return (gameStore.player.tradeOffers || []).filter(o => o.expiresAt > now).length
+    return (gameStore.player.tradeOffers || []).filter(offer => !isOfferExpired(offer)).length
   })
 
   // 未读情报报告数量
@@ -1219,10 +1269,7 @@
   }
 
   // 检查贸易提议是否过期
-  const isOfferExpired = (offer: TradeOffer): boolean => {
-    const now = Date.now()
-    return offer.expiresAt <= now
-  }
+  const isOfferExpired = (offer: TradeOffer, now = tradeTime.value): boolean => offer.expiresAt <= now
 
   // 检查联合攻击邀请是否过期
   const isInviteExpired = (invite: JointAttackInvite): boolean => {
@@ -1257,9 +1304,45 @@
   // 别名，供内部逻辑使用
   const extractResourceInfo = getResourceInfo
 
+  const tradePaymentPlanet = computed(() => gameStore.player.planets[0])
+  const tradePaymentCapacity = computed(() => {
+    const planet = tradePaymentPlanet.value
+    if (!planet) return
+
+    const { storageCapacityBonus } = calculateActiveBonuses(gameStore.player.officers, tradeTime.value)
+    return calculateResourceCapacity(planet, storageCapacityBonus)
+  })
+
+  const tradePaymentSummary = computed(() => {
+    const planet = tradePaymentPlanet.value
+    const currentPlanet = gameStore.currentPlanet
+    const capacity = tradePaymentCapacity.value
+    if (!planet || !currentPlanet || currentPlanet.id === planet.id || !capacity) return null
+
+    return { planet, capacity }
+  })
+
+  const getTradePayment = (offer: TradeOffer) => {
+    const planet = tradePaymentPlanet.value
+    const requested = extractResourceInfo(offer.requestedResources)
+    if (!planet || !requested) return null
+
+    const balance = planet.resources[requested.type]
+    const capacity = tradePaymentCapacity.value?.[requested.type]
+    if (balance === undefined || capacity === undefined) return null
+
+    return {
+      planetName: planet.name,
+      balance,
+      capacity,
+      shortfall: Math.max(0, Math.ceil(requested.amount - balance)),
+      exceedsCapacity: requested.amount > capacity
+    }
+  }
+
   // 检查是否可以接受贸易
   const canAcceptTrade = (offer: TradeOffer): boolean => {
-    const planet = gameStore.player.planets[0]
+    const planet = tradePaymentPlanet.value
     if (!planet) return false
 
     const requested = extractResourceInfo(offer.requestedResources)
@@ -1275,7 +1358,7 @@
 
   // 接受贸易提议
   const acceptTradeOffer = (offer: TradeOffer) => {
-    if (isOfferExpired(offer)) {
+    if (isOfferExpired(offer, Date.now())) {
       toast.error(t('npcBehavior.trade.expired'))
       return
     }
@@ -1284,7 +1367,7 @@
       return
     }
 
-    const planet = gameStore.player.planets[0]
+    const planet = tradePaymentPlanet.value
     if (!planet) return
 
     const requested = extractResourceInfo(offer.requestedResources)
