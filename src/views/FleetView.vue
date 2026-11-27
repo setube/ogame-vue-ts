@@ -110,16 +110,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div v-for="(count, shipType) in planet.fleet" :key="shipType" class="space-y-2">
                 <Label :for="`ship-${shipType}`" class="text-xs sm:text-sm">
-                  {{ SHIPS[shipType].name }} ({{ t('fleetView.available') }}: {{ count }})
+                  {{ SHIPS[shipType].name }}
                 </Label>
                 <div class="flex gap-2">
                   <Input
                     :id="`ship-${shipType}`"
-                    v-model.number="selectedFleet[shipType]"
+                    :model-value="selectedFleet[shipType] ?? ''"
+                    @update:model-value="value => handleFleetQuantityChange(shipType, value)"
                     type="number"
                     min="0"
                     :max="count"
-                    placeholder="0"
+                    :placeholder="`${t('fleetView.available')} ${count}`"
                     class="text-sm"
                   />
                   <Button @click="selectedFleet[shipType] = count" variant="outline" size="sm">{{ t('fleetView.all') }}</Button>
@@ -294,7 +295,7 @@
                 type="button"
                 variant="outline"
                 size="sm"
-                @click="selectedFleet[ShipType.SolarSatellite] = 0"
+                @click="handleFleetQuantityChange(ShipType.SolarSatellite, '')"
               >
                 {{ t('fleetView.removeSolarSatellites') }}
               </Button>
@@ -811,7 +812,15 @@
   })
 
   // 选择的舰队
-  const selectedFleet = ref<Partial<Fleet>>(createEmptyFleet())
+  const selectedFleet = ref<Partial<Fleet>>({})
+
+  const handleFleetQuantityChange = (shipType: ShipType, value: number | string) => {
+    if (typeof value === 'number') {
+      selectedFleet.value[shipType] = value
+    } else {
+      delete selectedFleet.value[shipType]
+    }
+  }
 
   // 目标坐标
   const targetPosition = ref({ galaxy: 1, system: 1, position: 1 })
@@ -1007,9 +1016,12 @@
   // 加载预设
   const loadPreset = (preset: FleetPreset) => {
     // 加载舰队配置
-    Object.values(ShipType).forEach(key => {
-      selectedFleet.value[key] = preset.fleet[key] || 0
-    })
+    const fleet: Partial<Fleet> = {}
+    for (const shipType of Object.values(ShipType)) {
+      const count = preset.fleet[shipType]
+      if (count) fleet[shipType] = count
+    }
+    selectedFleet.value = fleet
 
     // 不再加载坐标，保留用户当前输入的坐标
 
@@ -1379,9 +1391,7 @@
 
     if (success) {
       // 重置选择
-      Object.keys(selectedFleet.value).forEach(key => {
-        selectedFleet.value[key as ShipType] = 0
-      })
+      selectedFleet.value = {}
       cargo.value = { metal: 0, crystal: 0, deuterium: 0, darkMatter: 0, energy: 0 }
       isGiftMode.value = false
       activeTab.value = 'missions'
