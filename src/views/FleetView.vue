@@ -110,16 +110,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div v-for="(count, shipType) in planet.fleet" :key="shipType" class="space-y-2">
                 <Label :for="`ship-${shipType}`" class="text-xs sm:text-sm">
-                  {{ SHIPS[shipType].name }} ({{ t('fleetView.available') }}: {{ count }})
+                  {{ SHIPS[shipType].name }}
                 </Label>
                 <div class="flex gap-2">
                   <Input
                     :id="`ship-${shipType}`"
-                    v-model.number="selectedFleet[shipType]"
+                    :model-value="selectedFleet[shipType] ?? ''"
+                    @update:model-value="value => handleFleetQuantityChange(shipType, value)"
                     type="number"
                     min="0"
                     :max="count"
-                    placeholder="0"
+                    :placeholder="`${t('fleetView.available')} ${count}`"
                     class="text-sm"
                   />
                   <Button @click="selectedFleet[shipType] = count" variant="outline" size="sm">{{ t('fleetView.all') }}</Button>
@@ -271,9 +272,9 @@
             <CardTitle>{{ t('fleetView.missionInfo') }}</CardTitle>
           </CardHeader>
           <CardContent class="space-y-2">
-            <div class="flex justify-between text-xs sm:text-sm">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
               <span class="text-muted-foreground">{{ t('fleetView.fuelConsumption') }}:</span>
-              <span class="flex items-center gap-1.5">
+              <span class="inline-flex items-center gap-1.5 tabular-nums">
                 <ResourceIcon type="deuterium" size="sm" />
                 <span :class="getFuelConsumption() > planet.resources.deuterium ? 'text-red-600 dark:text-red-400 font-medium' : ''">
                   {{ formatNumber(getFuelConsumption()) }}
@@ -281,9 +282,23 @@
                 <span class="text-muted-foreground">/ {{ formatNumber(planet.resources.deuterium) }}</span>
               </span>
             </div>
-            <div v-if="Object.values(selectedFleet).some(c => c > 0)" class="flex justify-between text-xs sm:text-sm">
+            <div v-if="Object.values(selectedFleet).some(c => c > 0)" class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
               <span class="text-muted-foreground">{{ t('fleetView.flightTime') }}:</span>
-              <span>{{ formatTime(getFlightTime()) }}</span>
+              <span class="font-medium tabular-nums">{{ formatTime(getFlightTime()) }}</span>
+            </div>
+            <div v-if="slowestShipNames" class="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <p class="text-xs text-muted-foreground">
+                {{ t('fleetView.limitedByShips', { ships: slowestShipNames }) }}
+              </p>
+              <Button
+                v-if="(selectedFleet[ShipType.SolarSatellite] ?? 0) > 0"
+                type="button"
+                variant="outline"
+                size="sm"
+                @click="handleFleetQuantityChange(ShipType.SolarSatellite, '')"
+              >
+                {{ t('fleetView.removeSolarSatellites') }}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -797,7 +812,15 @@
   })
 
   // 选择的舰队
-  const selectedFleet = ref<Partial<Fleet>>(createEmptyFleet())
+  const selectedFleet = ref<Partial<Fleet>>({})
+
+  const handleFleetQuantityChange = (shipType: ShipType, value: number | string) => {
+    if (typeof value === 'number') {
+      selectedFleet.value[shipType] = value
+    } else {
+      delete selectedFleet.value[shipType]
+    }
+  }
 
   // 目标坐标
   const targetPosition = ref({ galaxy: 1, system: 1, position: 1 })
@@ -993,9 +1016,12 @@
   // 加载预设
   const loadPreset = (preset: FleetPreset) => {
     // 加载舰队配置
-    Object.values(ShipType).forEach(key => {
-      selectedFleet.value[key] = preset.fleet[key] || 0
-    })
+    const fleet: Partial<Fleet> = {}
+    for (const shipType of Object.values(ShipType)) {
+      const count = preset.fleet[shipType]
+      if (count) fleet[shipType] = count
+    }
+    selectedFleet.value = fleet
 
     // 不再加载坐标，保留用户当前输入的坐标
 
@@ -1182,6 +1208,14 @@
     return shipLogic.calculateFleetFuelConsumption(selectedFleet.value, bonuses.fuelConsumptionReduction, cargo.value)
   }
 
+  const slowestShipNames = computed(() => {
+    const minSpeed = shipLogic.calculateFleetMinSpeed(selectedFleet.value)
+    return Object.values(ShipType)
+      .filter(type => (selectedFleet.value[type] ?? 0) > 0 && SHIPS.value[type].speed === minSpeed)
+      .map(type => SHIPS.value[type].name)
+      .join(', ')
+  })
+
   // 计算飞行时间
   const getFlightTime = (): number => {
     if (!planet.value) return 0
@@ -1357,9 +1391,7 @@
 
     if (success) {
       // 重置选择
-      Object.keys(selectedFleet.value).forEach(key => {
-        selectedFleet.value[key as ShipType] = 0
-      })
+      selectedFleet.value = {}
       cargo.value = { metal: 0, crystal: 0, deuterium: 0, darkMatter: 0, energy: 0 }
       isGiftMode.value = false
       activeTab.value = 'missions'

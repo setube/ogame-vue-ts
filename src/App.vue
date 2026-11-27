@@ -2074,10 +2074,7 @@
 
         // 处理贸易提议
         if (neutralResult.tradeOffer) {
-          if (!gameStore.player.tradeOffers) {
-            gameStore.player.tradeOffers = []
-          }
-          gameStore.player.tradeOffers.push(neutralResult.tradeOffer)
+          npcBehaviorLogic.addTradeOffer(gameStore.player, neutralResult.tradeOffer, now)
           toast.info(t('npcBehavior.tradeOfferReceived'), {
             description: t('npcBehavior.tradeOfferDesc', { npcName: neutralResult.tradeOffer.npcName })
           })
