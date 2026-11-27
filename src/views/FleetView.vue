@@ -271,9 +271,9 @@
             <CardTitle>{{ t('fleetView.missionInfo') }}</CardTitle>
           </CardHeader>
           <CardContent class="space-y-2">
-            <div class="flex justify-between text-xs sm:text-sm">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
               <span class="text-muted-foreground">{{ t('fleetView.fuelConsumption') }}:</span>
-              <span class="flex items-center gap-1.5">
+              <span class="inline-flex items-center gap-1.5 tabular-nums">
                 <ResourceIcon type="deuterium" size="sm" />
                 <span :class="getFuelConsumption() > planet.resources.deuterium ? 'text-red-600 dark:text-red-400 font-medium' : ''">
                   {{ formatNumber(getFuelConsumption()) }}
@@ -281,9 +281,23 @@
                 <span class="text-muted-foreground">/ {{ formatNumber(planet.resources.deuterium) }}</span>
               </span>
             </div>
-            <div v-if="Object.values(selectedFleet).some(c => c > 0)" class="flex justify-between text-xs sm:text-sm">
+            <div v-if="Object.values(selectedFleet).some(c => c > 0)" class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
               <span class="text-muted-foreground">{{ t('fleetView.flightTime') }}:</span>
-              <span>{{ formatTime(getFlightTime()) }}</span>
+              <span class="font-medium tabular-nums">{{ formatTime(getFlightTime()) }}</span>
+            </div>
+            <div v-if="slowestShipNames" class="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <p class="text-xs text-muted-foreground">
+                {{ t('fleetView.limitedByShips', { ships: slowestShipNames }) }}
+              </p>
+              <Button
+                v-if="(selectedFleet[ShipType.SolarSatellite] ?? 0) > 0"
+                type="button"
+                variant="outline"
+                size="sm"
+                @click="selectedFleet[ShipType.SolarSatellite] = 0"
+              >
+                {{ t('fleetView.removeSolarSatellites') }}
+              </Button>
             </div>
           </CardContent>
         </Card>
@@ -1181,6 +1195,14 @@
     const bonuses = officerLogic.calculateActiveBonuses(gameStore.player.officers, Date.now())
     return shipLogic.calculateFleetFuelConsumption(selectedFleet.value, bonuses.fuelConsumptionReduction, cargo.value)
   }
+
+  const slowestShipNames = computed(() => {
+    const minSpeed = shipLogic.calculateFleetMinSpeed(selectedFleet.value)
+    return Object.values(ShipType)
+      .filter(type => (selectedFleet.value[type] ?? 0) > 0 && SHIPS.value[type].speed === minSpeed)
+      .map(type => SHIPS.value[type].name)
+      .join(', ')
+  })
 
   // 计算飞行时间
   const getFlightTime = (): number => {

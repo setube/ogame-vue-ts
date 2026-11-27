@@ -526,6 +526,8 @@ export default {
     missionInfo: '任务信息',
     fuelConsumption: '燃料消耗',
     flightTime: '飞行时间',
+    limitedByShips: '航程由最慢舰船决定：{ships}',
+    removeSolarSatellites: '移出太阳能卫星',
     attackMission: '攻击',
     transport: '运输',
     colonize: '殖民',

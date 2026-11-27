@@ -514,6 +514,8 @@ export default {
     missionInfo: '임무 정보',
     fuelConsumption: '연료 소비',
     flightTime: '비행 시간',
+    limitedByShips: '가장 느린 함선이 비행 시간을 결정합니다: {ships}',
+    removeSolarSatellites: '태양광 위성 빼기',
     outOfRange: '사정거리 밖',
     attackMission: '공격',
     transport: '수송',

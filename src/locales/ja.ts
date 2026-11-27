@@ -552,6 +552,8 @@ export default {
     missionInfo: 'ミッション情報',
     fuelConsumption: '燃料消費',
     flightTime: '飛行時間',
+    limitedByShips: '飛行時間は最も遅い艦船で決まります：{ships}',
+    removeSolarSatellites: '太陽光衛星を編成から外す',
     outOfRange: '射程外',
     attackMission: '攻撃',
     transport: '輸送',

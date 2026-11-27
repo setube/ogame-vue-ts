@@ -533,6 +533,8 @@ export default {
     missionInfo: 'Информация о миссии',
     fuelConsumption: 'Расход топлива',
     flightTime: 'Время полета',
+    limitedByShips: 'Время полёта определяют самые медленные корабли: {ships}',
+    removeSolarSatellites: 'Убрать солнечные спутники',
     outOfRange: 'Вне зоны досягаемости',
     attackMission: 'Атака',
     transport: 'Транспорт',

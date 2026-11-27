@@ -531,6 +531,8 @@ export default {
     missionInfo: 'Missionsinfo',
     fuelConsumption: 'Treibstoffverbrauch',
     flightTime: 'Flugzeit',
+    limitedByShips: 'Die langsamsten Schiffe bestimmen die Flugzeit: {ships}',
+    removeSolarSatellites: 'Solarsatelliten aus der Flotte nehmen',
     outOfRange: 'Außer Reichweite',
     attackMission: 'Angriff',
     transport: 'Transport',

@@ -524,6 +524,8 @@ export default {
     missionInfo: '任務資訊',
     fuelConsumption: '燃料消耗',
     flightTime: '飛行時間',
+    limitedByShips: '航程由最慢艦船決定：{ships}',
+    removeSolarSatellites: '移出太陽能衛星',
     outOfRange: '超出射程',
     attackMission: '攻擊',
     transport: '運輸',

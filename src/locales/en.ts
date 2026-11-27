@@ -532,6 +532,8 @@ export default {
     missionInfo: 'Mission Info',
     fuelConsumption: 'Fuel Consumption',
     flightTime: 'Flight Time',
+    limitedByShips: 'Flight time is limited by the slowest ships: {ships}',
+    removeSolarSatellites: 'Remove solar satellites',
     attackMission: 'Attack',
     transport: 'Transport',
     colonize: 'Colonize',
