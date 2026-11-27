@@ -1602,7 +1602,7 @@ export const DIPLOMATIC_CONFIG = {
       CHECK_INTERVAL: 1800, // 30分钟
       // 贸易概率
       PROBABILITY: 0.05,
-      // 玩家最多同时保留的贸易提议数量
+      // 玩家最多同时收到的有效贸易提议数量
       MAX_PENDING_OFFERS: 5,
       // 汇率配置：NPC出售资源的汇率
       EXCHANGE_RATES: {

@@ -2733,9 +2733,8 @@ export const shouldNPCOfferTrade = (npc: NPC, player: Player, currentTime: numbe
     return false
   }
 
-  // 检查玩家当前贸易提议数量是否已达上限
-  const maxOffers = (tradeConfig as any).MAX_PENDING_OFFERS || 30
-  if ((player.tradeOffers?.length || 0) >= maxOffers) {
+  const activeOfferCount = player.tradeOffers?.filter(offer => offer.expiresAt > currentTime).length ?? 0
+  if (activeOfferCount >= tradeConfig.MAX_PENDING_OFFERS) {
     return false
   }
 
